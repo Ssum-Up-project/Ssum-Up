@@ -1,0 +1,11 @@
+back/venv/
+.venv
+/venv
+*.pyc
+.idea
+/.vscode
+
+**/.devcontainer
+**/__pycache__
+
+db.sqlite3
