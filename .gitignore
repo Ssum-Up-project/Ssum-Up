@@ -12,3 +12,14 @@ back/venv/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+
+
+/front/node_modules
+/front/.pnp
+/front/.pnp.js
+
+# testing
+/front/coverage
+
+# production
+/front/build
