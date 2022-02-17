@@ -4,14 +4,19 @@
 *소스코드 다운로드(저장소 클론): git clone https://kdt-gitlab.elice.io/ai_track/class_03/ai_project/team4/project-template.git
 
 *프로젝트 폴더명 변경(선택) : mv project-template AiPrj(원하는 이름으로)
-* cd  AiPrj
+* 프로젝트 폴더로 이동: cd  AiPrj
+* 원하는 브랜치로 변경(보통 develop로 하시면됨): git checkout develop
+  - 뭔가 안될땐 브랜치를 바꾸고 해야 하는 경우 있음
+
 *파이썬 가상환경 생성: python -m venv venvAi  (프로젝트 루트나 루트 상위폴더 등 원하는 곳에 생성)
 *가상환경 실행/진입: source ./venvAi/bin/activate
 (각자 사용하는 IDE(VSCode, PyCharm)에 맞게 가상환경 지정)
 
 *pip 최신 버전 업그레이드: python -m pip install --upgrade pip
 
-*필요 파이썬 패키지(장고 등) 설치: pip3 install -r requirements.txt (가상환경 진입한 상태에서 해야 함.)
+*필요 파이썬 패키지(장고 등) 설치:
+  - cd back
+  - pip3 install -r requirements.txt (가상환경 진입한 상태에서 해야 함.)
 
 
 * 서버 구동 확인: 
