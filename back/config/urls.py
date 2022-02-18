@@ -14,12 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from app.views import ProductListAPI
-from app.views import UserListAPI
+from django.urls import path, include, re_path
+# from app.views import ProductListAPI
+# from app.views import UserListAPI
+# from app.views import PostList, PostDetail
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/product/', ProductListAPI.as_view()),
-    path('api/user/', UserListAPI.as_view()),
+		path('api/', include('app.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    
+		
+		# 이전 url 라아팅 설정
+		# path('api/product/', ProductListAPI.as_view()),
+    # path('api/user/', UserListAPI.as_view()),
+    # path('api/posts/', PostList.as_view(), name='post_lilst'),
+    # path('api/posts/<int:pk>/', PostDetail.as_view(), name='post_detail'),
 ]
