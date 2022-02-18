@@ -4,6 +4,7 @@ back/venv/
 *.pyc
 .idea
 /.vscode
+/venvAi
 
 **/.devcontainer
 **/__pycache__
