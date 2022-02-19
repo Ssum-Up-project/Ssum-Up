@@ -138,14 +138,3 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1 # 이거 안하면 admin 페이지 접속 불가
-
-
-# auth 유저 모델은 accounts의 User를 쓰겠다는 의미
-# AUTH_USER_MODEL = 'accounts.User'
-
-# # DRF auth settings - 이렇게 기입하면, 이제부턴 Token 인증방식만 쓰게 된다. 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',
-#     ]
-# }
