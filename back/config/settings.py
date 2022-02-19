@@ -37,8 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'app',
+
+	# DRF
     'rest_framework',
+    # DRF Authentication 이용
+    'rest_framework.authtoken',
+    'rest_auth',
+    # 회원가입  
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    # 'allauth.socialaccount',
+    'rest_auth.registration',
+
 ]
 
 MIDDLEWARE = [
@@ -123,3 +136,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SITE_ID = 1 # 이거 안하면 admin 페이지 접속 불가
