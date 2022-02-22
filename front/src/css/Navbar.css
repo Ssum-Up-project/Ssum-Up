@@ -94,11 +94,12 @@
   }
 
   .nav-menu.active {
-    background: blanchedalmond;
+    background: white;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
     z-index: 1;
+    justify-content: center;
   }
 
   .nav-links {

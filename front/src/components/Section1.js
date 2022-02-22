@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+// import React from "react";
 import "../App.css";
-import { Button } from "./Button";
-import "./Section1.css";
+// import { Button } from "./Button";
+import "../css/Section1.css";
 import WOW from "wowjs";
 
 function Section1() {
@@ -22,5 +23,4 @@ function Section1() {
     </div>
   );
 }
-
 export default Section1;

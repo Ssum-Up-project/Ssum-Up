@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
-import "./Navbar.css";
+import "../css/Navbar.css";
 
 function Navbar() {
   // const navigate = useNavigate();
@@ -38,10 +38,12 @@ function Navbar() {
             (LOGO)
             {/* <i class="fab fa-typo3" /> */}
           </Link>
+
           <div className="menu-icon" onClick={handleClick}>
-            {/* <CloseIcon className={click ? "fas fa-times" : "fas fa-bars"} /> */}
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
           </div>
+
+          {/* Nav menu */}
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <Link to="/" className="nav-links" onClick={closeMobileMenu}>
@@ -49,25 +51,23 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/services"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                About
+              <Link to="/team" className="nav-links" onClick={closeMobileMenu}>
+                About Team
               </Link>
             </li>
-            {/* <li className="nav-item">
+
+            {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
+            <li className="nav-item">
               <Link
-                to="/products"
-                className="nav-links"
+                to="/log-in"
+                className="nav-links-mobile"
                 onClick={closeMobileMenu}
               >
                 Log in
               </Link>
-            </li> */}
+            </li>
 
-            {/* <li>
+            <li>
               <Link
                 to="/sign-up"
                 className="nav-links-mobile"
@@ -75,7 +75,7 @@ function Navbar() {
               >
                 Sign Up
               </Link>
-            </li> */}
+            </li>
           </ul>
           {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
           {button && <Button buttonStyle="btn--outline">SIGN UP</Button>}

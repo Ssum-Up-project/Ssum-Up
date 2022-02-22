@@ -1,19 +1,12 @@
-// import React from "react";
-import React, { useEffect } from "react";
+import React from "react";
 import "../App.css";
 import { Button } from "./Button";
-import "../css/Section0.css";
-
+import "../css/Section2.css";
 import WOW from "wowjs";
 
-function Section0() {
-  useEffect(() => {
-    new WOW.WOW().init();
-  });
-  // const wow = new WOW.WOW().init();
-
+function Section2() {
   return (
-    <div className="Section0">
+    <div className="Section2">
       {/* <video src="" autoPlay loop muted /> */}
       <div className="intro_h1">
         <h1 className="wow fadeInUp">Section 0</h1>
@@ -42,4 +35,4 @@ function Section0() {
     </div>
   );
 }
-export default Section0;
+export default Section2;
