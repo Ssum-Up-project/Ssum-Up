@@ -5,10 +5,16 @@ import CardItem from "../CardItem.js";
 function Team() {
   return (
     <div className="cards">
-      <h1>Team Page</h1>
+      <h1>팀페이지 샘플</h1>
       <div className="cards__container">
         <div className="cards__wrapper">
           <ul className="cards__items">
+            <CardItem
+              src="images/img-9.jpg"
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,...."
+              label="pic 0"
+              path="/"
+            />
             <CardItem
               src="images/img-9.jpg"
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,...."
