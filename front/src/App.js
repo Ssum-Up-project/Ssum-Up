@@ -6,12 +6,14 @@ import Home from "./components/pages/Home";
 import Team from "./components/pages/Team";
 import LogIn from "./components/pages/LogIn";
 import SignUp from "./components/pages/SignUp";
+// import NavbarLogin from "./components/NavbarLogin";
 
 function App() {
   return (
     <>
       <Router>
         <Navbar />
+        {/* <NavbarLogin /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/team" element={<Team />} />

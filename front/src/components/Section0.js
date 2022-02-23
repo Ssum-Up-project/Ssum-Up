@@ -23,7 +23,7 @@ function Section0() {
         tempor incididunt ut labore et
       </p>
 
-      <div className="sec-btn">
+      {/* <div className="sec-btn">
         <Button
           className="btns"
           buttonStyle="btn--outline"
@@ -38,7 +38,7 @@ function Section0() {
         >
           WATCH TRAILER <i className="far fa-play-circle" />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }
