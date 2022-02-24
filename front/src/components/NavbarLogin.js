@@ -33,7 +33,7 @@ function NavbarLogin() {
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-container">
+        <div className="navbar-container-login">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             (LOGO)
             {/* <i class="fab fa-typo3" /> */}
@@ -63,8 +63,6 @@ function NavbarLogin() {
                 About Team
               </Link>
             </li>
-
-            {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
             <li className="nav-item">
               <Link
                 to="/log-in"
@@ -85,6 +83,7 @@ function NavbarLogin() {
               </Link>
             </li>
           </ul>
+
           {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
           {button && <Button buttonStyle="btn--outline">SIGN UP</Button>}
         </div>
