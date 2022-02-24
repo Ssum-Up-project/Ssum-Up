@@ -1,0 +1,23 @@
+- [Narrator] Web3 is the newest buzzword taking over the tech and venture capital world. And if you've found yourself wondering what it means, you're not alone.
+Web3 is seen as the third generation of the internet, a decentralized online ecosystem based on the blockchain.
+- Web3 represents kind of a new philosophy about how to realize these technologies in a more distributed and democratic way.
+- [Narrator] Venture capitalists have invested billions into this vision, but some tech experts are unconvinced that Web3 could scale globally.
+Skeptics like Tesla CEO, Elon Musk, have called it a marketing buzzword.
+- A lot of the skepticism about web 3.0 comes from the fact that it's early expressions are fairly primitive.
+- [Narrator] As experts debate whether or not this new version of the web can become a reality, here are some of the underlying principlesbehind the vision for Web 3.0. (keyboard clicking)
+To better understand Web 3.0 and what sets it apart from the web we use today, you have to go back to the early days of the internet,what experts now refer to as Web 1.0.
+Most of the participants were content consumers who were limited to navigating through individual static web pages.
+- Web 1.0, for those who remember, was just, you know, raw HTML and lots of very simple web pages, and it wasn't really controlled by anybody.
+- [Narrator] This was a more decentralized version of the web, meaning anyone who knew how to code could build on it from their own computers.
+But at this time only a small number of users had the technical skills to create and publish content.
+Then came Web 2.0, which is the stage of the internet we're living through now.
+Web technologies like JavaScript and HTML5 made the internet more interactive, allowing startups to build platforms like Facebook, Google, Amazon and many others.
+For the first time, anyone could publish content online even if they couldn't code.
+- Web 2.0 is this modern, centralized verse of the web. You know, we're all sharing things on social media which are owned by, you know, only two or three companies,
+and we're all using Google Search.
+- [Narrator] These companies own and manage the data collected from their users, and they frequently track and save this data and use it for targeted ads.
+- What's at the core of their business model is data.
+- [Narrator] Olga Mack is a blockchain lecturer at UC Berkeley, and is optimistic about Web3's potential
+to reshape the internet.
+- The data economy, where the user generated content, whether it's a conversation or a video,
+that is an exchange for services. And so there is a perception that this monopoly of data could be abused.
