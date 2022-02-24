@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
 import "../css/Navbar.css";
-
+import "../css/Button.css";
 function Navbar() {
   // const navigate = useNavigate();
   const [click, setClick] = useState(false);
@@ -77,8 +77,20 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
-          {button && <Button buttonStyle="btn--outline">SIGN UP</Button>}
+
+          {button && (
+            <Link to="./log-in" className="btn-mobile">
+              <Button buttonStyle="btn--outline">LOG IN</Button>
+            </Link>
+          )}
+          {button && (
+            <Link to="./sign-up" className="btn-mobile">
+              <Button buttonStyle="btn--outline">SIGN UP</Button>
+            </Link>
+          )}
+
+          {/* {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
+          {button && <Button buttonStyle="btn--outline">SIGN UP</Button>} */}
         </div>
       </nav>
     </>
