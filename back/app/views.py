@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from youtube_transcript_api import YouTubeTranscriptApi
 
 from .permission import IsOwnerOrReadOnly
-from .models import Product
 from .models import PlayList
 from .models import VideoData
 from .models import User
@@ -21,18 +20,9 @@ from .serializers import (
     VideoDataPostSerializer,
     VideoDataResponseSerializer,
 )
-from .serializers import ProductSerializer
 from .serializers import UserSerializer
 
 from pytube import YouTube
-
-
-class ProductListAPI(APIView):
-    def get(self, request):
-        queryset = Product.objects.all()
-        print(queryset)
-        serializer = ProductSerializer(queryset, many=True)
-        return Response(serializer.data)
 
 
 class UserCreate(generics.CreateAPIView):

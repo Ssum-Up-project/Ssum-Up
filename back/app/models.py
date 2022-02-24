@@ -3,15 +3,6 @@ from django.forms import DateTimeField
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
-class Product(models.Model):
-    name = models.CharField(max_length=70)
-    price = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-
-
 class UserManager(BaseUserManager):
     # 일반 user 생성
     def create_user(self, email, password=None):

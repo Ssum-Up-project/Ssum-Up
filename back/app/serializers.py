@@ -1,6 +1,5 @@
 from re import search
 from rest_framework import serializers
-from .models import Product
 from .models import PlayList
 from .models import VideoData
 from .models import User
@@ -9,10 +8,21 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from pytube import YouTube
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    playlist = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=PlayList.objects.all()
+    )
+
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(
+    #         email = validated_data['email'],
+    #         password = validated_data['password']
+    #     )
+    #     return user
+
     class Meta:
-        model = Product  # product 모델 사용
-        fields = "__all__"  # 모든 필드 포함
+        model = User
+        fields = ("email", "password")
 
 
 class PlayListSerializer(serializers.ModelSerializer):
@@ -96,20 +106,3 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
             print(e)
 
         video_data.title = yt.title
-
-
-class UserSerializer(serializers.ModelSerializer):
-    playlist = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=PlayList.objects.all()
-    )
-
-    # def create(self, validated_data):
-    #     user = User.objects.create_user(
-    #         email = validated_data['email'],
-    #         password = validated_data['password']
-    #     )
-    #     return user
-
-    class Meta:
-        model = User
-        fields = ("email", "password")
