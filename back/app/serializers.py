@@ -1,7 +1,7 @@
 from re import search
 from rest_framework import serializers
 from .models import Product
-from .models import VideoList
+from .models import PlayList
 from .models import VideoData
 from .models import User
 
@@ -12,9 +12,9 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = "__all__"  # 모든 필드 포함
 
 
-class VideoListSerializer(serializers.ModelSerializer):
+class PlayListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VideoList
+        model = PlayList
         video_data_id = serializers.ReadOnlyField(source="videodata.id")
         user_id = serializers.ReadOnlyField(source="user.id")
         fields = ("id", "list_name", "video_data_id", "user_id")
@@ -23,7 +23,7 @@ class VideoListSerializer(serializers.ModelSerializer):
 
 class VideoDataSerializer(serializers.ModelSerializer):
     # 역참조 데이터는 코드로 데이터 삽입시 생성가능한데, 포스트맨등으로 테스트시 에러남.
-    # videolist = serializers.PrimaryKeyRelatedField(many=True, queryset=VideoList.objects.all())
+    # playlist = serializers.PrimaryKeyRelatedField(many=True, queryset=PlayList.objects.all())
 
     class Meta:
         model = VideoData
@@ -32,7 +32,7 @@ class VideoDataSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    videolist = serializers.PrimaryKeyRelatedField(many=True, queryset=VideoList.objects.all())
+    playlist = serializers.PrimaryKeyRelatedField(many=True, queryset=PlayList.objects.all())
 
     # def create(self, validated_data):
     #     user = User.objects.create_user(

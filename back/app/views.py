@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 from .permission import IsOwnerOrReadOnly
 from .models import Product
-from .models import VideoList
+from .models import PlayList
 from .models import VideoData
 from .models import User
 
@@ -14,7 +14,7 @@ from rest_framework import mixins, generics, permissions, viewsets
 from django.http import Http404
 from rest_framework import status
 
-from .serializers import VideoListSerializer
+from .serializers import PlayListSerializer
 from .serializers import VideoDataSerializer
 from .serializers import ProductSerializer
 from .serializers import UserSerializer
@@ -34,44 +34,44 @@ class UserCreate(generics.CreateAPIView):
 
 
 # 클래스형 뷰 버전
-class VideoLists(APIView):
+class PlayLists(APIView):
     def get(self, request):
-        videolist = VideoList.objects.all()
-        serializer = VideoListSerializer(videolist, many=True)
+        playlist = PlayList.objects.all()
+        serializer = PlayListSerializer(playlist, many=True)
         return Response(serializer.data)
 
     # Create
     def post(self, request, format=None):
-        serializer = VideoListSerializer(data=request.data)
+        serializer = PlayListSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 
-class VideoListDetail(APIView):
+class PlayListDetail(APIView):
     def get_object(self, pk):
         try:
-            return VideoList.objects.get(pk=pk)
-        except VideoList.DoesNotExist:
+            return PlayList.objects.get(pk=pk)
+        except PlayList.DoesNotExist:
             return Http404
 
     def get(self, request, pk, format=None):
-        videolist = self.get_object(pk)
-        serializer = VideoListSerializer(videolist)
+        playlist = self.get_object(pk)
+        serializer = PlayListSerializer(playlist)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        videolist = self.get_object(pk)
-        serializer = VideoListSerializer(videolist, data=request.data)
+        playlist = self.get_object(pk)
+        serializer = PlayListSerializer(playlist, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        videolist = self.get_object(pk)
-        videolist.delete()
+        playlist = self.get_object(pk)
+        playlist.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

@@ -67,9 +67,9 @@ class User(AbstractBaseUser):
         return self.is_admin
 
 
-class VideoList(models.Model):
+class PlayList(models.Model):
     list_name = models.CharField(max_length=50)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="videolist")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="playlist")
     video_data_id = models.CharField(max_length=300)
     # create_at = models.DateTimeField(auto_now_add=True)
 
@@ -83,6 +83,5 @@ class VideoData(models.Model):
     subtitles = models.TextField()
     summarized_subtitles = models.CharField(max_length=1000)
 
-
-def __str__(self):
-    return self.title
+    def __str__(self):
+        return self.title

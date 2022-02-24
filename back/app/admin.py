@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserChangeForm, UserCreationForm
 from .models import User
 
-from .models import VideoList
+from .models import PlayList
 from .models import VideoData
 from .models import Product
 
@@ -31,6 +31,6 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
 
-admin.site.register(VideoList)
+admin.site.register(PlayList)
 admin.site.register(VideoData)
 admin.site.register(Product)
