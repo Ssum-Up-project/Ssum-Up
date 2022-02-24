@@ -1,5 +1,6 @@
 # Create your views here.
 from rest_framework.response import Response
+from youtube_transcript_api import YouTubeTranscriptApi
 
 from .permission import IsOwnerOrReadOnly
 from .models import Product
@@ -85,6 +86,19 @@ class VideoDataList(APIView):
     def post(self, request, format=None):
         serializer = VideoDataSerializer(data=request.data)
         # 유튜브링크(url) 받으면 자동생성자막을 api로 긁어와서 DB에 넣게 하는 부분 적용 할것
+
+        short_link = request.data['url'].split('/')[-1]
+        print(short_link)
+        try:
+            srt = YouTubeTranscriptApi.get_transcript(short_link)
+        except:
+            result = '링크 에러'
+        else:
+            subtitles = ''
+            for line in srt:
+                subtitles += line['text']+" "
+        # case1 Str
+        request.data['subtitles'] = subtitles
 
         if serializer.is_valid():
             serializer.save()
