@@ -1,12 +1,29 @@
 // 링크 입력 및 시작하기
 
-import React from "react";
+import Reac, { useState, useRef } from "react";
 import "../App.css";
 import { Button } from "./Button";
 import "../css/Section2.css";
 import WOW from "wowjs";
+import { useNavigate } from "react-router";
 
-function Section2() {
+function Section2({ onCreate }) {
+  const navigate = useNavigate();
+
+  const linkInput = useRef();
+  const [link, setLink] = useState("");
+
+  const handleSubmit = () => {
+    console.log(`링크 전송 : ${link}`);
+    if (link.length < 8) {
+      // 8 글자 미만 작성 시 input focus
+      linkInput.current.focus();
+      return;
+    }
+    onCreate(link);
+    navigate("/main");
+  };
+
   return (
     <div className="Section2">
       {/* <video src="" autoPlay loop muted /> */}
@@ -21,6 +38,13 @@ function Section2() {
       {/* !! 링크 인풋이랑 버튼은 에니메이션 효과가 없음  */}
       <form>
         <input
+          ref={linkInput}
+          value={link}
+          onChange={(e) => {
+            console.log(e.target.value);
+            console.log(e.target.name);
+            setLink(e.target.value);
+          }}
           type="text"
           name="link"
           placeholder="링크 입력"
@@ -33,6 +57,7 @@ function Section2() {
           className="btns"
           buttonStyle="btn--outline"
           buttonSize="btn--large"
+          onClick={handleSubmit}
         >
           GET STARTED
         </Button>
