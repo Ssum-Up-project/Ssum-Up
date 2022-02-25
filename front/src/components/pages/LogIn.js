@@ -61,17 +61,17 @@ const LogIn = () => {
           fullWidth
           autoComplete="current-password"
         ></TextField>
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
           label="로그인 상태 유지"
-        />
+        /> */}
 
         <Button
           onClick={goMain}
           type="submit" // 클릭 시 서버로 전송 submit
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }} // sx = css 효과 주는 프롭 / mt = margin top, mb = margin bottom
+          sx={{ mt: 3, mb: 2, height: 50 }} // sx = css 효과 주는 프롭 / mt = margin top, mb = margin bottom
         >
           로그인
         </Button>

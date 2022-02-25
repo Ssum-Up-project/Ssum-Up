@@ -10,6 +10,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 
+const checkPassword = (e) => {};
+
 const SignUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,6 +21,7 @@ const SignUp = () => {
       password: data.get("password"),
     });
   };
+
   return (
     <div>
       <Container component="main" maxWidth="xs">
