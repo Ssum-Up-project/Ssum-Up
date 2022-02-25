@@ -6,6 +6,7 @@ from .models import User
 
 from youtube_transcript_api import YouTubeTranscriptApi
 from pytube import YouTube, extract
+from .summarize import summarize
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,9 +59,6 @@ class VideoDataResponseSerializer(serializers.ModelSerializer):
 class VideoDataPostSerializer(serializers.ModelSerializer):
     """비디오 데이터 생성"""
 
-    # 역참조 데이터는 코드로 데이터 삽입시 생성가능한데, 포스트맨등으로 테스트시 에러남.
-    # playlist = serializers.PrimaryKeyRelatedField(many=True, queryset=PlayList.objects.all())
-
     class Meta:
         model = VideoData
         fields = ["id", "url"]
@@ -80,7 +78,6 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
     def saveVideoSubtitles(self, video_data, url):
         """유튜브링크(url) 받으면 자동생성자막을 api로 긁어와서 DB에 저장"""
 
-        # @todo : 단축 공유 url과 일반 url 둘다 처리 가능하게 수정
         video_id = extract.video_id(url)
         try:
             srt = YouTubeTranscriptApi.get_transcript(video_id)
@@ -93,8 +90,8 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
             # request.data["subtitles"] = subtitles
             video_data.subtitles = subtitles
 
-            # 임시로 요약 자막 처리 => ai summary function call로 변경
-            video_data.summarized_subtitles = subtitles[:100]
+            # 자막 요약하기
+            video_data.summarized_subtitles = summarize(subtitles)
 
     def saveVideoTitle(self, video_data, url):
         try:
