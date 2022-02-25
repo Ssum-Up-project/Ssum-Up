@@ -6,6 +6,7 @@ import { Button } from "./Button";
 import "../css/Section2.css";
 import WOW from "wowjs";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 function Section2({ onCreate }) {
   const navigate = useNavigate();
@@ -23,6 +24,20 @@ function Section2({ onCreate }) {
     onCreate(link);
     navigate("/main");
   };
+
+  const test = async () => {
+    await axios
+      .post("http://127.0.0.1:8000/api/videodata/", { url: `${link}` })
+      .then((res) => {
+        console.log(JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        console.err(err.message);
+        throw new Error("에러발생..");
+      });
+  };
+  // res객체에는 (http request랑 response을 받을 때) response에 담겨있는 정보들이 들어있음
+  // catch 에러났을 때 처리해 줄 콜백함수 / 에러 발생 시 백엔드에서 에러객체를? 넘겨줄 수 있다.
 
   return (
     <div className="Section2">
