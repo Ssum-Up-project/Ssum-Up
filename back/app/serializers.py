@@ -5,7 +5,7 @@ from .models import VideoData
 from .models import User
 
 from youtube_transcript_api import YouTubeTranscriptApi
-from pytube import YouTube
+from pytube import YouTube, extract
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -81,12 +81,10 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         """유튜브링크(url) 받으면 자동생성자막을 api로 긁어와서 DB에 저장"""
 
         # @todo : 단축 공유 url과 일반 url 둘다 처리 가능하게 수정
-        short_link = url.split("/")[-1]
-        print(short_link)
+        video_id = extract.video_id(url)
         try:
-            srt = YouTubeTranscriptApi.get_transcript(short_link)
+            srt = YouTubeTranscriptApi.get_transcript(video_id)
         except Exception as e:
-            result = "링크 에러"
             print(e)
         else:
             subtitles = ""
@@ -101,7 +99,6 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
     def saveVideoTitle(self, video_data, url):
         try:
             yt = YouTube(url)
-            print(yt.title)
         except Exception as e:
             print(e)
 
