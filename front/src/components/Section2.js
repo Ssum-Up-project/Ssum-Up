@@ -22,7 +22,7 @@ function Section2({ onCreate }) {
       return;
     }
     onCreate(link);
-    navigate("/main");
+    navigate("/ssum-up");
   };
 
   const test = async () => {
