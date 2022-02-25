@@ -5,8 +5,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserChangeForm, UserCreationForm
 from .models import User
 
-from .models import Category
-from .models import Product
+from .models import PlayList
+from .models import VideoData
 
 
 # /admin 페이지에 Custom User 모델 생성/수정 등 가능하게 함.
@@ -14,26 +14,23 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'is_admin')
-    list_filter = ('is_admin',)
+    list_display = ("email", "is_admin")
+    list_filter = ("is_admin",)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Permissions', {'fields': ('is_admin',)}),
+        (None, {"fields": ("email", "password")}),
+        ("Permissions", {"fields": ("is_admin",)}),
     )
 
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')}
-         ),
+        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ("email",)
+    ordering = ("email",)
     filter_horizontal = ()
 
 
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
 
-admin.site.register(Category)
-admin.site.register(Product)
+admin.site.register(PlayList)
+admin.site.register(VideoData)
