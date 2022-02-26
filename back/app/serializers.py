@@ -69,15 +69,16 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         video_data = VideoData()
         url = validated_data["url"]
         video_data.url = url
-        video_data.title = self.getVideoTitle(video_data, url)
-        video_data.subtitles = self.getVideoSubtitles(video_data, url)
+        video_data.title = self.getVideoTitle(url)
+        video_data.subtitles = self.getVideoSubtitles(url)
         # 자막 요약하기
         video_data.summarized_subtitles = summarize(video_data.subtitles)
+        # video_data.summarized_subtitles = video_data.subtitles[:100]
         video_data.save()
 
         return video_data
 
-    def getVideoTitle(self, video_data, url):
+    def getVideoTitle(self, url):
         try:
             yt = YouTube(url)
         except Exception as e:
@@ -85,7 +86,7 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
 
         return yt.title
 
-    def getVideoSubtitles(self, video_data, url):
+    def getVideoSubtitles(self, url):
         """유튜브링크(url) 받으면 자막을 api로 불러와서 DB에 저장"""
 
         video_id = extract.video_id(url)
