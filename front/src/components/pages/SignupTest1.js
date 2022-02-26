@@ -14,6 +14,7 @@ import axios from "axios";
 // const checkPassword = (e) => {};
 //
 const SignUp = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
@@ -35,7 +36,8 @@ const SignUp = () => {
   const test = async () => {
     await axios
       .post("http://127.0.0.1:8000/api/rest-auth/registration/", {
-        username: `${email}`,
+        username: `${username}`,
+        email: `${email}`,
         password1: `${password1}`,
         password2: `${password2}`,
       })
