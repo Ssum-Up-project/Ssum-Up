@@ -1,12 +1,13 @@
-// 링크 입력 및 시작하기
+// 링크 입력 및 시작하기import React, { useState, useRef } from "react";
 
-import Reac, { useState, useRef } from "react";
 import "../App.css";
+import React, { useState, useRef } from "react";
 import { Button } from "./Button";
 import "../css/Section2.css";
 import WOW from "wowjs";
 import { useNavigate } from "react-router";
 import axios from "axios";
+// import validator from "validator";
 
 function Section2({ onCreate }) {
   const navigate = useNavigate();
@@ -14,28 +15,41 @@ function Section2({ onCreate }) {
   const linkInput = useRef();
   const [link, setLink] = useState("");
 
-  const handleSubmit = () => {
-    console.log(`링크 전송 : ${link}`);
-    if (link.length < 8) {
-      // 8 글자 미만 작성 시 input focus
-      linkInput.current.focus();
+  // const handleSubmit = () => {
+  //   console.log(`링크 전송 : ${link}`);
+  //   onCreate(link);
+  //   navigate("/ssum-up");
+  // };
+
+  const handleSubmit = (e) => {
+    // e.target.value();
+    // e.preventDefault;
+    // validation
+    let regex =
+      /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    if (regex.test(e)) {
+      console.log(`링크 전송 : ${link}`);
+      // onCreate(link);
+      // navigate("/ssum-up");
+      test();
+    } else {
+      alert("URL을 확인해주세요.");
       return;
     }
-    onCreate(link);
-    navigate("/ssum-up");
   };
 
   const test = async () => {
     await axios
       .post("http://127.0.0.1:8000/api/videodata/", { url: `${link}` })
+      // http://127.0.0.1:8000/api/videodata/
       .then((res) => {
         console.log(JSON.stringify(res.data));
       })
       .catch((err) => {
-        console.err(err.message);
-        throw new Error("에러발생..");
+        console.err("ERROR💥");
       });
   };
+
   // res객체에는 (http request랑 response을 받을 때) response에 담겨있는 정보들이 들어있음
   // catch 에러났을 때 처리해 줄 콜백함수 / 에러 발생 시 백엔드에서 에러객체를? 넘겨줄 수 있다.
 
@@ -72,7 +86,7 @@ function Section2({ onCreate }) {
           className="btns"
           buttonStyle="btn--outline"
           buttonSize="btn--large"
-          onClick={handleSubmit}
+          onClick={handleSubmit(link)}
         >
           GET STARTED
         </Button>
@@ -80,4 +94,5 @@ function Section2({ onCreate }) {
     </div>
   );
 }
+
 export default Section2;
