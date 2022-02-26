@@ -17,19 +17,21 @@ import {
   FormHelperText,
 } from "@mui/material/";
 import axios from "axios";
+
 const FormHelperTexts = styled(FormHelperText)`
-  width: 100%;
-  padding-left: 16px;
-  font-weight: 700;
-  color: #d32f2f;
-`;
+width: 100%; padding-left:16px; front-weight:700, color: #d32f2f;`;
+
+// Boxs
+
 const SignUp = () => {
   const navigate = useNavigate();
 
   const [emailError, setEmailError] = useState("");
   const [passwordState, setPasswordState] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  // const [registerError, setRegisterError] = useState("");
 
+  // handleAgree
   const onHandlePost = async (data) => {
     const { email, password1, password2 } = data;
     const postData = { email, password1, password2 };
@@ -51,42 +53,34 @@ const SignUp = () => {
 
     const data = new FormData(e.currentTarget);
     const joinData = {
-      email: data.get("email"),
-      name: data.get("name"),
-      password: data.get("password"),
-      rePassword: data.get("rePassword"),
+      email: data.get('email'),
+      name: data.get('name'),
+      password: data.get('password'),
+      rePassword: data.get('rePassword'),
     };
-    const { email, password1, Password2 } = joinData;
+    const { age, city, email, name, password, rePassword } = joinData;
 
     // 이메일 유효성 체크
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    if (!emailRegex.test(email))
-      setEmailError("올바른 이메일 형식이 아닙니다.");
-    else setEmailError("");
+    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (!emailRegex.test(email)) setEmailError('올바른 이메일 형식이 아닙니다.');
+    else setEmailError('');
 
     // 비밀번호 유효성 체크
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    if (!passwordRegex.test(password1))
-      setPasswordState(
-        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-      );
-    else setPasswordState("");
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    if (!passwordRegex.test(password))
+      setPasswordState('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!');
+    else setPasswordState('');
 
     // 비밀번호 같은지 체크
-    if (password1 !== Password2) {
-      setPasswordError("비밀번호가 일치하지 않습니다.");
-    } else {
-      setPasswordError("");
-    }
+    if (password !== rePassword) setPasswordError('비밀번호가 일치하지 않습니다.');
+    else setPasswordError('');
 
     if (
       emailRegex.test(email) &&
       passwordRegex.test(password1) &&
-      password1 === Password2
+      password1 === Password2 &&
     ) {
-      onHandlePost(joinData);
+      onhandlePost(joinData);
     }
   };
   return (
@@ -94,9 +88,6 @@ const SignUp = () => {
       <Container component="main" maxWidth="xs">
         <CssBaseline>
           <Box
-            // component="form"
-            // noValidate
-            // onSubmit={handleSubmit}
             sx={{
               marginTop: 8,
               display: "flex",
@@ -113,7 +104,7 @@ const SignUp = () => {
             <Box
               component="form"
               noValidate
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               sx={{ mt: 3 }}
             >
               {/* Grid spacing ???  */}
@@ -159,7 +150,7 @@ const SignUp = () => {
                     fullWidth
                     name="password1"
                     label="비밀번호 (숫자+영문자+특수문자 포함 8자리 이상)"
-                    type="password"
+                    type="password1"
                     id="password1"
                     autoComplete="new-password"
                     error={passwordState !== "" || false}
@@ -173,8 +164,8 @@ const SignUp = () => {
                     fullWidth
                     name="password2"
                     label="비밀번호 재입력"
-                    type="password"
-                    id="password2"
+                    type="password2"
+                    id="password1"
                     autoComplete="new-password"
                     error={passwordState !== "" || false}
                   />{" "}
@@ -186,7 +177,6 @@ const SignUp = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, height: 50 }}
-                onClick={handleSubmit}
               >
                 회원가입
               </Button>

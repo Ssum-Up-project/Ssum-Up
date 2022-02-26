@@ -6,24 +6,23 @@ import ReactPlayer from "react-player";
 import {
   Paper,
   Grid,
-  Typography,
-  Box,
+  // Box,
   Card,
   CardHeader,
-  CardActions,
+  // CardActions,
   CardContent,
   Button,
 } from "@mui/material";
 
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  ></Box>
-);
+// const bull = (
+//   <Box
+//     component="span"
+//     sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
+//   ></Box>
+// );
 
 export default function Player({ link }) {
   console.log({ link });

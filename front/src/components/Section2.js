@@ -4,34 +4,23 @@ import "../App.css";
 import React, { useState, useRef } from "react";
 import { Button } from "./Button";
 import "../css/Section2.css";
-import WOW from "wowjs";
 import { useNavigate } from "react-router";
 import axios from "axios";
-// import validator from "validator";
 
 function Section2({ onCreate }) {
   const navigate = useNavigate();
 
-  const linkInput = useRef();
+  const linkInput = useRef(); // <- 이걸 왜 넣었더라...???
   const [link, setLink] = useState("");
 
-  // const handleSubmit = () => {
-  //   console.log(`링크 전송 : ${link}`);
-  //   onCreate(link);
-  //   navigate("/ssum-up");
-  // };
-
-  const handleSubmit = (e) => {
-    // e.target.value();
-    // e.preventDefault;
-    // validation
-    let regex =
-      /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    if (regex.test(e)) {
+  const handleSubmit = () => {
+    const regex =
+      /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
+    if (regex.test(link)) {
       console.log(`링크 전송 : ${link}`);
-      // onCreate(link);
-      // navigate("/ssum-up");
       test();
+      onCreate(link);
+      navigate("/ssum-up");
     } else {
       alert("URL을 확인해주세요.");
       return;
@@ -41,7 +30,6 @@ function Section2({ onCreate }) {
   const test = async () => {
     await axios
       .post("http://127.0.0.1:8000/api/videodata/", { url: `${link}` })
-      // http://127.0.0.1:8000/api/videodata/
       .then((res) => {
         console.log(JSON.stringify(res.data));
       })
@@ -64,7 +52,7 @@ function Section2({ onCreate }) {
         영상 링크를 입력해 주세요
       </p>
 
-      {/* !! 링크 인풋이랑 버튼은 에니메이션 효과가 없음  */}
+      {/* !! 링크 인풋이랑 버튼은 아직 에니메이션 효과가 없음  */}
       <form>
         <input
           ref={linkInput}
@@ -86,7 +74,7 @@ function Section2({ onCreate }) {
           className="btns"
           buttonStyle="btn--outline"
           buttonSize="btn--large"
-          onClick={handleSubmit(link)}
+          onClick={handleSubmit}
         >
           GET STARTED
         </Button>

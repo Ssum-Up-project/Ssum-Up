@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
+// import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
+// import FormControlLabel from "@mui/material/FormControlLabel";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -11,13 +11,78 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // const theme = createTheme(); ()안에 값 세팅 해야함
 
 const LogIn = () => {
   const navigate = useNavigate();
-  const goMain = () => {
+
+  // const goMain = () => {
+  //   navigate(`/`);
+  // };
+
+  // const [link, setLink] = useState(""); // ? ?
+
+  // const handleSubmit = () => {
+  //   // 유효성 검사
+  //   const regex =
+  //     /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+  //   if (regex.test(link)) {
+  //     console.log(`링크 전송 : ${link}`);
+  //     // axios
+  //     test();
+  //     // navigate("/"); // 로그인 후 갈 페이지
+  //   } else {
+  //     alert("URL을 확인해주세요.");
+  //     return;
+  //   }
+  // };
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.vlaue);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.vlaue);
+  };
+
+  const validateEmail = () => {
+    const regexEmail =
+      /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+    return regexEmail.test(email);
+  };
+
+  const validatePasswrod = () => {
+    // 영어 소문자 1개 이상, 숫자 1개 이상, 특수문자 1개 이상 그리고 8자리 이상
+    const regexPassword =
+      /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+    return regexPassword.test(password);
+  };
+
+  const test = async () => {
+    await axios
+      .post("http://127.0.0.1:8000/api/rest-auth/login/", {
+        email: `${email}`,
+        password: `${password}`,
+      })
+
+      .then((res) => {
+        console.log(JSON.stringify(res.data));
+      })
+      .catch((err) => {
+        console.err("ERROR💥");
+      });
+  };
+
+  const onClick = () => {
+    validateEmail();
+    validatePasswrod();
+    test();
     navigate(`/`);
   };
 
@@ -43,18 +108,34 @@ const LogIn = () => {
           {/* Typography - 텍스트의 폰트를 지정할 수 있도록 함 / html상에서는 h1태그인데 보이는건 mui의 h5를 적용 component="h1" variant="h5" */}
           LOG IN
         </Typography>
+
         <TextField
-          margin="normal"
           name="email"
+          vlaue={email}
+          onChange={onChangeEmail}
+          // error={() => console.log(this.state.data.email)}
+          error={validateEmail()}
+          helperText={validatePasswrod() ? "이메일을 확인해주세요" : ""}
+          margin="normal"
           label="Email adress"
+          s
           required // 필수 입력 값
           fullWidth // 화면 전체 너비
           autoComplete="email"
           autoFocus
         ></TextField>
+
         <TextField
-          margin="normal"
           name="password"
+          vlaue={password}
+          onChange={onChangePassword}
+          error={validatePasswrod()}
+          helperText={
+            validatePasswrod()
+              ? "영어 소문자와 숫자 및 특수기호만 입력 가능합니다."
+              : ""
+          }
+          margin="normal"
           label="Password"
           type="password" // 비밀번호 안보이게
           required
@@ -67,7 +148,7 @@ const LogIn = () => {
         /> */}
 
         <Button
-          onClick={goMain}
+          onClick={onClick} // 여기서 validate해야함
           type="submit" // 클릭 시 서버로 전송 submit
           fullWidth
           variant="contained"

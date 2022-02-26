@@ -1,17 +1,9 @@
-// import React from "react";
-import React, { useEffect } from "react";
+import React from "react";
 import "../App.css";
-import { Button } from "./Button";
+// import { Button } from "./Button";
 import "../css/Section0.css";
 
-import WOW from "wowjs";
-
 function Section0() {
-  useEffect(() => {
-    new WOW.WOW().init();
-  });
-  // const wow = new WOW.WOW().init();
-
   return (
     <div className="Section0">
       {/* <video src="" autoPlay loop muted /> */}
