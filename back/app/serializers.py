@@ -73,12 +73,12 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         video_data.subtitles = self.getVideoSubtitles(url)
         # 자막 요약하기
         video_data.summarized_subtitles = summarize(video_data.subtitles)
-        # video_data.summarized_subtitles = video_data.subtitles[:100]
         video_data.save()
 
         return video_data
 
     def getVideoTitle(self, url):
+        """ 유튜브 제목 얻기 """
         try:
             yt = YouTube(url)
         except Exception as e:
