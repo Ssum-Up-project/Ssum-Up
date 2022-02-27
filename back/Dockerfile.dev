@@ -1,0 +1,23 @@
+FROM python:3.8.12-slim-buster
+
+# .pyc 생성 방지
+ENV PYTHONDONTWRITEBYTECODE 1
+# 로그 즉시 출력
+ENV PYTHONUNBUFFERED 1
+
+
+WORKDIR /app
+
+COPY ./requirements.txt .
+
+# RUN apk update \
+#   && apk add --virtual build-deps gcc python3-dev musl-dev \
+#   && apk add --no-cache mariadb-dev zlib-dev jpeg-dev libffi-dev
+
+
+RUN pip3 install --upgrade pip setuptools \
+  && pip install -r requirements.txt
+
+COPY . .
+
+# CMD ["python", "app.py"]
