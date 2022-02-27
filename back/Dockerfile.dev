@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.8.12-slim-buster
 
 # .pyc 생성 방지
 ENV PYTHONDONTWRITEBYTECODE 1
