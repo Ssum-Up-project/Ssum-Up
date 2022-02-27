@@ -1,37 +1,32 @@
 // 링크 입력 및 시작하기import React, { useState, useRef } from "react";
-
 import "../App.css";
 import React, { useState, useRef } from "react";
 import { Button } from "./Button";
 import "../css/Section2.css";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import axios from "axios";
 
 function Section2({ onCreate }) {
-  const navigate = useNavigate();
-
-  const linkInput = useRef(); // <- 이걸 왜 넣었더라...???
+  // const navigate = useNavigate();
   const [link, setLink] = useState("");
-
-  const handleSubmit = () => {
-    const regex =
-      /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
-    if (regex.test(link)) {
-      console.log(`링크 전송 : ${link}`);
-      test();
-      onCreate(link);
-      navigate("/ssum-up");
-    } else {
-      alert("URL을 확인해주세요.");
-      return;
-    }
-  };
+  const linkInput = useRef;
+  const [videoData, setVideoData] = useState([
+    { id: videoData.id },
+    { url: videoData.url },
+    { title: videoData.title },
+    { subtitles: videoData.subtitles },
+  ]);
 
   const test = async () => {
     await axios
-      .post("http://127.0.0.1:8000/api/videodata/", { url: `${link}` })
+      // .post("http://127.0.0.1:8000/api/videodata/", { url: `${link}` })
+      .post(
+        "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videodata/",
+        { url: `${link}` }
+      )
       .then((res) => {
-        console.log(JSON.stringify(res.data));
+        let response = JSON.stringify(res.data);
+        console.log("Response : ", response);
       })
       .catch((err) => {
         console.err("ERROR💥");
@@ -40,6 +35,20 @@ function Section2({ onCreate }) {
 
   // res객체에는 (http request랑 response을 받을 때) response에 담겨있는 정보들이 들어있음
   // catch 에러났을 때 처리해 줄 콜백함수 / 에러 발생 시 백엔드에서 에러객체를? 넘겨줄 수 있다.
+  const handleSubmit = () => {
+    const regex =
+      /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
+    if (regex.test(link)) {
+      test();
+      onCreate(link);
+      localStorage.setItem("link", JSON.stringify(link));
+      // navigate("/video");
+    } else {
+      alert("URL을 확인해주세요.");
+
+      return;
+    }
+  };
 
   return (
     <div className="Section2">
@@ -58,8 +67,6 @@ function Section2({ onCreate }) {
           ref={linkInput}
           value={link}
           onChange={(e) => {
-            console.log(e.target.value);
-            console.log(e.target.name);
             setLink(e.target.value);
           }}
           type="text"
