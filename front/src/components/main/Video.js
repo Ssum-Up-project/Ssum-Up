@@ -36,15 +36,15 @@ const videodata = {
     "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
 };
 
-function Player({ link, videoData }) {
+function Video({ link, videoData, handleData }) {
   // const [Data, setData] = useState(); // localStorage에 저장된 video객체 가져올 State
   const [newLink, setNewLink] = useState(link);
 
   const [showSubtitle, SetShowSubtitle] = useState(false);
   const [switchSubtitle, setSwitchSubtitle] = useState(false);
 
-  // 가져온 Section2에서 받아온 Prop - response객체
   let data = videoData;
+  handleData(data);
   console.log(data);
 
   useEffect(() => {
@@ -170,6 +170,6 @@ function Player({ link, videoData }) {
 }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<Player />, rootElement);
+ReactDOM.render(<Video />, rootElement);
 
-export default Player;
+export default Video;

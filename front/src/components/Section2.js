@@ -6,7 +6,7 @@ import "../css/Section2.css";
 // import { useNavigate } from "react-router";
 import axios from "axios";
 
-function Section2({ onCreate, handleData }) {
+function Section2({ onCreate }) {
   // const navigate = useNavigate();
   const [link, setLink] = useState("");
   const linkInput = useRef;
@@ -27,7 +27,8 @@ function Section2({ onCreate, handleData }) {
       )
       .then((res) => {
         console.log(JSON.stringify(res.data.title));
-        setVideoData(JSON.stringify(res.data));
+        const response = JSON.stringify(res.data);
+        setVideoData(response);
         handleSubmit(videoData);
       })
       .catch((err) => {

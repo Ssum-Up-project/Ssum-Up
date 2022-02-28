@@ -33,12 +33,7 @@ function App() {
         <Navbar />
         {/* <NavbarLogin /> */}
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home onCreate={onCreate} handleVideoData={handleVideoData} />
-            }
-          />
+          <Route path="/" element={<Home onCreate={onCreate} />} />
           <Route path="/team" element={<Team />} />
           {/* 로그인 회원가입 - 페이지 아니고 모달 띄울 것.. */}
           <Route path="/log-in" element={<LogIn />} />
@@ -46,7 +41,13 @@ function App() {
           {/* <Route path="/main" element={<Main link={link} />} /> */}
           <Route
             path="/video"
-            element={<Video link={link} videoData={videoData} />}
+            element={
+              <Video
+                link={link}
+                videoData={videoData}
+                handleData={handleVideoData}
+              />
+            }
             // {videoData.map((it) => (<Video key={it.id} {...it} />))}
           />
         </Routes>
