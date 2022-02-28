@@ -3,30 +3,27 @@ import ReactDOM from "react-dom";
 import ReactPlayer from "react-player";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
-
 import {
   Paper,
   Grid,
   Box,
-  createTheme,
-  ThemeProvider,
+  // createTheme,
+  // ThemeProvider,
   Button,
   Typography,
-  // Checkbox,
   FormControlLabel,
-  // linkClasses,
   Switch,
   // Container,
 } from "@mui/material";
 
-const theme = createTheme({
-  palette: {
-    neutral: {
-      main: "#151515",
-      contrastText: "#fff",
-    },
-  },
-});
+// const theme = createTheme({
+//   palette: {
+//     neutral: {
+//       main: "#151515",
+//       contrastText: "#fff",
+//     },
+//   },
+// });
 
 const videodata = {
   title: "TEST",
@@ -36,35 +33,36 @@ const videodata = {
     "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
 };
 
-function Video({ link, videoData, handleData }) {
+// function Video({ link, videoData, handleData })
+function Video() {
   // const [Data, setData] = useState(); // localStorage에 저장된 video객체 가져올 State
-  const [newLink, setNewLink] = useState(link);
+  // const [newLink, setNewLink] = useState(link);
 
-  const [showSubtitle, SetShowSubtitle] = useState(false);
-  const [switchSubtitle, setSwitchSubtitle] = useState(false);
+  // const [showSubtitle, SetShowSubtitle] = useState(false);
+  // const [switchSubtitle, setSwitchSubtitle] = useState(false);
 
-  let data = videoData;
-  handleData(data);
-  console.log(data);
+  // let data = videoData;
+  // handleData(data);
+  // console.log(data);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("link");
-    if (link !== null) {
-      let new_link = saved;
-      setNewLink(new_link);
-      console.log(new_link);
-    }
-  }, [link]);
+  // useEffect(() => {
+  //   const saved = localStorage.getItem("link");
+  //   if (link !== null) {
+  //     let new_link = saved;
+  //     setNewLink(new_link);
+  //     console.log(new_link);
+  //   }
+  // }, [link]);
 
-  const handleChange = (event) => {
-    if (switchSubtitle === false) {
-      SetShowSubtitle(!showSubtitle);
-      setSwitchSubtitle(([event.target.name] = event.target.checked));
-    } else {
-      SetShowSubtitle(showSubtitle);
-      setSwitchSubtitle(([event.target.name] = event.target.checked));
-    }
-  };
+  // const handleChange = (event) => {
+  //   if (switchSubtitle === false) {
+  //     SetShowSubtitle(!showSubtitle);
+  //     setSwitchSubtitle(([event.target.name] = event.target.checked));
+  //   } else {
+  //     SetShowSubtitle(showSubtitle);
+  //     setSwitchSubtitle(([event.target.name] = event.target.checked));
+  //   }
+  // };
 
   return (
     <Paper
@@ -83,7 +81,7 @@ function Video({ link, videoData, handleData }) {
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <div style={{ height: "80vh", Width: "100vh" }}>
             <ReactPlayer
-              url={newLink}
+              url={"link"}
               playing={true}
               loop={true}
               className="react-player"
@@ -92,6 +90,7 @@ function Video({ link, videoData, handleData }) {
             />
           </div>
         </Grid>
+
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Box
             sx={{
@@ -119,11 +118,10 @@ function Video({ link, videoData, handleData }) {
               }}
             >
               <Typography variant="h5" component="div" gutterBottom>
-                {/* {data.map((it) => ({ ...it }))} */}
-                {/* {data.title} */}
+                TEXT
               </Typography>
               <Typography variant="subtitle1" component="div" gutterBottom>
-                {link}
+                LINK
               </Typography>
             </Box>
             <Box
@@ -139,12 +137,13 @@ function Video({ link, videoData, handleData }) {
                 }}
               >
                 <FormControlLabel
-                  control={<Switch onChange={handleChange} name="gilad" />}
+                  // control={<Switch onChange={handleChange} name="gilad" />}
+                  ontrol={<Switch name="gilad" />}
                   label="전체 자막"
                 />
               </Box>
               <Summary videodata={videodata.summary} />
-              {showSubtitle && <Subtitle videodata={videodata.subtitles} />}
+              <Subtitle videodata={videodata.subtitles} />
             </Box>
             <Box
               sx={{
@@ -152,15 +151,15 @@ function Video({ link, videoData, handleData }) {
                 gridArea: "footer",
               }}
             >
-              <ThemeProvider theme={theme}>
-                <Button
-                  color="neutral"
-                  variant="contained"
-                  style={{ maxWidth: "60vh", minWidth: "30vh" }}
-                >
-                  Save
-                </Button>
-              </ThemeProvider>
+              {/* <ThemeProvider theme={theme}> */}
+              <Button
+                color="neutral"
+                variant="contained"
+                style={{ maxWidth: "60vh", minWidth: "30vh" }}
+              >
+                Save
+              </Button>
+              {/* </ThemeProvider> */}
             </Box>
           </Box>
         </Grid>
@@ -168,8 +167,5 @@ function Video({ link, videoData, handleData }) {
     </Paper>
   );
 }
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<Video />, rootElement);
 
 export default Video;
