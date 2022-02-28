@@ -11,7 +11,7 @@ import Video from "./components/main/Video";
 
 function App() {
   const [link, setLink] = useState([]);
-  const [data, setData] = useState();
+  const [videoData, setVideoData] = useState([]);
   // const linkId = useRef(0);
 
   const onCreate = (link) => {
@@ -20,9 +20,11 @@ function App() {
     setLink(newLink);
   };
 
-  const handleVideoData = () => {
-    const newData = data;
-    setLink(newData);
+  const handleVideoData = (videoData) => {
+    setVideoData(videoData.id);
+    setVideoData(videoData.url);
+    setVideoData(videoData.title);
+    setVideoData(videoData.subtitles);
   };
 
   return (
@@ -42,7 +44,11 @@ function App() {
           <Route path="/log-in" element={<LogIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           {/* <Route path="/main" element={<Main link={link} />} /> */}
-          <Route path="/video" element={<Video link={link} />} />
+          <Route
+            path="/video"
+            element={<Video link={link} videoData={videoData} />}
+            // {videoData.map((it) => (<Video key={it.id} {...it} />))}
+          />
         </Routes>
       </Router>
     </>

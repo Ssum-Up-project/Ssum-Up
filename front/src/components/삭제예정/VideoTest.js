@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import ReactPlayer from "react-player";
-import Summary from "./Summary";
-import Subtitle from "./Subtitle";
+import SumOutput from "./SumOutput";
 
 import {
   Paper,
@@ -12,11 +11,8 @@ import {
   ThemeProvider,
   Button,
   Typography,
-  // Checkbox,
+  Checkbox,
   FormControlLabel,
-  // linkClasses,
-  Switch,
-  // Container,
 } from "@mui/material";
 
 const theme = createTheme({
@@ -28,42 +24,24 @@ const theme = createTheme({
   },
 });
 
+//테스트 데이터
 const videodata = {
+  id: 3,
+  url: "https://youtu.be/KEqpwpfFfhE",
   title: "TEST",
-  subtitle:
-    "SUBTITLE SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, porttitor vel vehicula non, faucibus dignissim arcu. Aenean fringilla felis vitae pellentesque mollis. Morbi sodales non arcu id placerat. Integer eget arcu nisl. Donec dapibus leo sed urna pharetra, eu elementum diam eleifend. Ut pellentesque, enim non scelerisque feugiat, erat est pharetra elit, eu volutpat nisl nibh a ipsum. Proin gravida elit eu sapien vulputate semper. Phasellus metus metus, scelerisque sed nisi vitae, pulvinar dictum ante. In odio lectus, pharetra sed eros sit amet, maximus faucibus nibh.",
-  summary:
-    "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
+  subtitles:
+    "요리법(料理法) 혹은 레시피(영어: recipe)는 요리, 음식 등을 만드는 방법이나 기술을 뜻한다. 요리법에 관한 책에는 일반적으로 요리의 이름, 조리 시간, 준비 재료, 생산 단계, 칼로리, 제품 사진 등이 담겨있다.알려져 있는 최초의 요리법은 기원전 약 1600년으로 거슬러 올라가며 남바빌로니아의 아카드어로 이루어진 평판이 기원이다.[1] 한국사에서도 조선시대 양반댁 부인이 쓴 음식디미방(현대국어로는 음식지미방)이라는 한글로 쓴 요리법 책이 있어서 한국의 전통 음식과 술을 이해하는 중요한 사료 노릇을 한다.(효형출판에서 펴낸 역사스페셜 3권 참조)참고로, 레시피란 용어는 조제약(medicine)이나 베타 테스트(user acceptance testing)와 관련된 IT분야에서도 쓰인다.",
+  summarized_subtitles: "요리법(料理法) 혹은 레시피(영어: recipe)는 요리",
 };
 
-function Player({ link, videoData }) {
-  // const [Data, setData] = useState(); // localStorage에 저장된 video객체 가져올 State
-  const [newLink, setNewLink] = useState(link);
+//영상 출력/ 텍스트 출력
+export default function Player({ link }) {
+  const [output, setOutput] = useState({
+    text: videodata.summarized_subtitles,
+  });
 
-  const [showSubtitle, SetShowSubtitle] = useState(false);
-  const [switchSubtitle, setSwitchSubtitle] = useState(false);
-
-  // 가져온 Section2에서 받아온 Prop - response객체
-  let data = videoData;
-  console.log(data);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("link");
-    if (link !== null) {
-      let new_link = saved;
-      setNewLink(new_link);
-      console.log(new_link);
-    }
-  }, [link]);
-
-  const handleChange = (event) => {
-    if (switchSubtitle === false) {
-      SetShowSubtitle(!showSubtitle);
-      setSwitchSubtitle(([event.target.name] = event.target.checked));
-    } else {
-      SetShowSubtitle(showSubtitle);
-      setSwitchSubtitle(([event.target.name] = event.target.checked));
-    }
+  const handleChange = () => {
+    setOutput({ text: videodata.subtitles });
   };
 
   return (
@@ -83,9 +61,9 @@ function Player({ link, videoData }) {
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <div style={{ height: "80vh", Width: "100vh" }}>
             <ReactPlayer
-              url={newLink}
+              url={link}
               playing={true}
-              loop={true}
+              controls={true}
               className="react-player"
               width="100%"
               height="100%"
@@ -119,8 +97,7 @@ function Player({ link, videoData }) {
               }}
             >
               <Typography variant="h5" component="div" gutterBottom>
-                {/* {data.map((it) => ({ ...it }))} */}
-                {/* {data.title} */}
+                {videodata.title}
               </Typography>
               <Typography variant="subtitle1" component="div" gutterBottom>
                 {link}
@@ -139,12 +116,18 @@ function Player({ link, videoData }) {
                 }}
               >
                 <FormControlLabel
-                  control={<Switch onChange={handleChange} name="gilad" />}
-                  label="전체 자막"
+                  control={
+                    <Checkbox
+                      size="small"
+                      output={output}
+                      onChange={handleChange}
+                      color="default"
+                    />
+                  }
+                  label="See all subtitles"
                 />
               </Box>
-              <Summary videodata={videodata.summary} />
-              {showSubtitle && <Subtitle videodata={videodata.subtitles} />}
+              <SumOutput output={output} />
             </Box>
             <Box
               sx={{
@@ -168,8 +151,5 @@ function Player({ link, videoData }) {
     </Paper>
   );
 }
-
 const rootElement = document.getElementById("root");
 ReactDOM.render(<Player />, rootElement);
-
-export default Player;

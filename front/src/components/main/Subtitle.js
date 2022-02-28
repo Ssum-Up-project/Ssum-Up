@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 
-function Summary(props) {
+function Summary(videodata) {
   return (
     <Box
       sx={{
@@ -19,7 +19,7 @@ function Summary(props) {
         borderRadius: 5,
       }}
     >
-      {props.videodata.subtitle}
+      {videodata.subtitle}
     </Box>
   );
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import ReactPlayer from "react-player";
-import Summary from "./Summary";
-import Subtitle from "./Subtitle";
+import SumOutput from "./SumOutput";
+import axios from "axios";
 
 import {
   Paper,
@@ -12,11 +12,8 @@ import {
   ThemeProvider,
   Button,
   Typography,
-  // Checkbox,
+  Checkbox,
   FormControlLabel,
-  // linkClasses,
-  Switch,
-  // Container,
 } from "@mui/material";
 
 const theme = createTheme({
@@ -28,42 +25,27 @@ const theme = createTheme({
   },
 });
 
-const videodata = {
-  title: "TEST",
-  subtitle:
-    "SUBTITLE SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, porttitor vel vehicula non, faucibus dignissim arcu. Aenean fringilla felis vitae pellentesque mollis. Morbi sodales non arcu id placerat. Integer eget arcu nisl. Donec dapibus leo sed urna pharetra, eu elementum diam eleifend. Ut pellentesque, enim non scelerisque feugiat, erat est pharetra elit, eu volutpat nisl nibh a ipsum. Proin gravida elit eu sapien vulputate semper. Phasellus metus metus, scelerisque sed nisi vitae, pulvinar dictum ante. In odio lectus, pharetra sed eros sit amet, maximus faucibus nibh.",
-  summary:
-    "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
-};
-
-function Player({ link, videoData }) {
-  // const [Data, setData] = useState(); // localStorage에 저장된 video객체 가져올 State
-  const [newLink, setNewLink] = useState(link);
-
-  const [showSubtitle, SetShowSubtitle] = useState(false);
-  const [switchSubtitle, setSwitchSubtitle] = useState(false);
-
-  // 가져온 Section2에서 받아온 Prop - response객체
-  let data = videoData;
-  console.log(data);
-
+//영상 출력/ 텍스트 출력
+export default function Player({ link }) {
+  const [videodata, setVideoData] = useState([]);
   useEffect(() => {
-    const saved = localStorage.getItem("link");
-    if (link !== null) {
-      let new_link = saved;
-      setNewLink(new_link);
-      console.log(new_link);
-    }
-  }, [link]);
+    const temp = async () => {
+      await axios
+        .get("http://127.0.0.1:8000/api/videodata/")
+        .then((response) => {
+          setVideoData(response.data.filter((i) => i.url === { link })[0]);
+        })
+        .catch((err) => console.log("error"));
+    };
+    temp();
+  }, []);
 
-  const handleChange = (event) => {
-    if (switchSubtitle === false) {
-      SetShowSubtitle(!showSubtitle);
-      setSwitchSubtitle(([event.target.name] = event.target.checked));
-    } else {
-      SetShowSubtitle(showSubtitle);
-      setSwitchSubtitle(([event.target.name] = event.target.checked));
-    }
+  const [output, setOutput] = useState({
+    text: videodata.summarized_subtitles,
+  });
+
+  const handleChange = () => {
+    setOutput({ text: videodata.summarized_subtitles });
   };
 
   return (
@@ -83,9 +65,9 @@ function Player({ link, videoData }) {
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <div style={{ height: "80vh", Width: "100vh" }}>
             <ReactPlayer
-              url={newLink}
+              url={link}
               playing={true}
-              loop={true}
+              controls={true}
               className="react-player"
               width="100%"
               height="100%"
@@ -109,6 +91,7 @@ function Player({ link, videoData }) {
               boxShadow: 1,
             }}
           >
+            {" "}
             <Box
               sx={{
                 padding: 2,
@@ -118,12 +101,11 @@ function Player({ link, videoData }) {
                 borderColor: "grey.400",
               }}
             >
-              <Typography variant="h5" component="div" gutterBottom>
-                {/* {data.map((it) => ({ ...it }))} */}
-                {/* {data.title} */}
+              <Typography variant="h4" component="div" gutterBottom>
+                {videodata.title}
               </Typography>
-              <Typography variant="subtitle1" component="div" gutterBottom>
-                {link}
+              <Typography variant="subtitles" component="div" gutterBottom>
+                {videodata.url}
               </Typography>
             </Box>
             <Box
@@ -139,12 +121,18 @@ function Player({ link, videoData }) {
                 }}
               >
                 <FormControlLabel
-                  control={<Switch onChange={handleChange} name="gilad" />}
-                  label="전체 자막"
+                  control={
+                    <Checkbox
+                      size="small"
+                      output={output}
+                      onChange={handleChange}
+                      color="default"
+                    />
+                  }
+                  label="See all subtitles"
                 />
               </Box>
-              <Summary videodata={videodata.summary} />
-              {showSubtitle && <Subtitle videodata={videodata.subtitles} />}
+              <SumOutput output={output} />
             </Box>
             <Box
               sx={{
@@ -171,5 +159,3 @@ function Player({ link, videoData }) {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<Player />, rootElement);
-
-export default Player;

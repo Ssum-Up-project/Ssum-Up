@@ -6,15 +6,16 @@ import "../css/Section2.css";
 // import { useNavigate } from "react-router";
 import axios from "axios";
 
-function Section2({ onCreate }) {
+function Section2({ onCreate, handleData }) {
   // const navigate = useNavigate();
   const [link, setLink] = useState("");
   const linkInput = useRef;
+
   const [videoData, setVideoData] = useState([
-    { id: videoData.id },
-    { url: videoData.url },
-    { title: videoData.title },
-    { subtitles: videoData.subtitles },
+    { id: "" },
+    { url: "" },
+    { title: "" },
+    { subtitles: "" },
   ]);
 
   const test = async () => {
@@ -25,8 +26,9 @@ function Section2({ onCreate }) {
         { url: `${link}` }
       )
       .then((res) => {
-        let response = JSON.stringify(res.data);
-        console.log("Response : ", response);
+        console.log(JSON.stringify(res.data.title));
+        setVideoData(JSON.stringify(res.data));
+        handleSubmit(videoData);
       })
       .catch((err) => {
         console.err("ERROR💥");
@@ -35,6 +37,14 @@ function Section2({ onCreate }) {
 
   // res객체에는 (http request랑 response을 받을 때) response에 담겨있는 정보들이 들어있음
   // catch 에러났을 때 처리해 줄 콜백함수 / 에러 발생 시 백엔드에서 에러객체를? 넘겨줄 수 있다.
+
+  // 1. url을 입력하면 반환되는 response객체를 변수에 할당한다,
+  // 2. 변수는 State로 관리한다. - 이 때 State는 객체 형태
+  // 3. 상태변화 함수를 -> Home -> App으로 넘겨준다.
+  // 4. App에서 데이터를 관리한다.
+  // 5. 어떻게?
+  // 6. App에서 관리되는 데이터를 Video.js로 보낸다.
+
   const handleSubmit = () => {
     const regex =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
