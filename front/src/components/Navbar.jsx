@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
-import "../css/Navbar.css";
-
-function NavbarLogin() {
+import "./Navbar.css";
+import "./Button.css";
+function Navbar() {
   // const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
@@ -33,26 +33,18 @@ function NavbarLogin() {
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-container-login">
+        <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             (LOGO)
             {/* <i class="fab fa-typo3" /> */}
           </Link>
-          <form>
-            <input
-              type="text"
-              name="link"
-              placeholder="링크 입력"
-              className="input_afterLogin"
-            />
-          </form>
 
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
           </div>
 
           {/* Nav menu */}
-          <ul className={click ? "nav-menu active" : "nav-menu-login"}>
+          <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <Link to="/" className="nav-links" onClick={closeMobileMenu}>
                 Home
@@ -63,6 +55,8 @@ function NavbarLogin() {
                 About Team
               </Link>
             </li>
+
+            {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
             <li className="nav-item">
               <Link
                 to="/log-in"
@@ -84,11 +78,22 @@ function NavbarLogin() {
             </li>
           </ul>
 
-          {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
-          {button && <Button buttonStyle="btn--outline">SIGN UP</Button>}
+          {button && (
+            <Link to="./log-in" className="btn-mobile">
+              <Button buttonStyle="btn--outline">LOG IN</Button>
+            </Link>
+          )}
+          {button && (
+            <Link to="./sign-up" className="btn-mobile">
+              <Button buttonStyle="btn--outline">SIGN UP</Button>
+            </Link>
+          )}
+
+          {/* {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
+          {button && <Button buttonStyle="btn--outline">SIGN UP</Button>} */}
         </div>
       </nav>
     </>
   );
 }
-export default NavbarLogin;
+export default Navbar;

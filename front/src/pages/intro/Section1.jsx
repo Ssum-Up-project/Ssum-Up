@@ -1,7 +1,7 @@
 // import React, { useEffect } from "react";
 import React from "react";
-import "../App.css";
-import "../css/Section1.css";
+import "../../App.css";
+import "./Section1.css";
 
 function Section1() {
   return (

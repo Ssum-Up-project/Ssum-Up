@@ -1,6 +1,6 @@
 import React from "react";
-import "../../css/Team.css";
-import CardItem from "../CardItem.js";
+import "./Team.css";
+import CardItem from "./CardItem";
 
 function Team() {
   return (

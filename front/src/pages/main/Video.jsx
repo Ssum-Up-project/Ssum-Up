@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { VideoStateContext } from "./App";
+
 import ReactDOM from "react-dom";
 import ReactPlayer from "react-player";
 import Summary from "./Summary";
@@ -7,23 +9,12 @@ import {
   Paper,
   Grid,
   Box,
-  // createTheme,
-  // ThemeProvider,
   Button,
   Typography,
   FormControlLabel,
   Switch,
-  // Container,
 } from "@mui/material";
-
-// const theme = createTheme({
-//   palette: {
-//     neutral: {
-//       main: "#151515",
-//       contrastText: "#fff",
-//     },
-//   },
-// });
+import { VideoInfoDispatchContext } from "../../App";
 
 const videodata = {
   title: "TEST",
@@ -35,8 +26,10 @@ const videodata = {
 
 // function Video({ link, videoData, handleData })
 function Video() {
+  const { link } = useContext(VideoInfoDispatchContext);
+
   // const [Data, setData] = useState(); // localStorage에 저장된 video객체 가져올 State
-  // const [newLink, setNewLink] = useState(link);
+  const [newLink, setNewLink] = useState(link);
 
   // const [showSubtitle, SetShowSubtitle] = useState(false);
   // const [switchSubtitle, setSwitchSubtitle] = useState(false);
@@ -45,14 +38,15 @@ function Video() {
   // handleData(data);
   // console.log(data);
 
-  // useEffect(() => {
-  //   const saved = localStorage.getItem("link");
-  //   if (link !== null) {
-  //     let new_link = saved;
-  //     setNewLink(new_link);
-  //     console.log(new_link);
-  //   }
-  // }, [link]);
+  // (새로고침) : localStorage에 저장된 link값을 가져옴 -> localStorage link에 값이 있으면 -> storedLink를 newLink의 상태값으로 변경함
+  useEffect(() => {
+    const storedLink = localStorage.getItem("link");
+    if (link !== null) {
+      // let new_link = storedLink;
+      // setNewLink(new_link);
+      setNewLink(storedLink);
+    }
+  }, [link]);
 
   // const handleChange = (event) => {
   //   if (switchSubtitle === false) {
@@ -121,7 +115,7 @@ function Video() {
                 TEXT
               </Typography>
               <Typography variant="subtitle1" component="div" gutterBottom>
-                LINK
+                {link}
               </Typography>
             </Box>
             <Box
