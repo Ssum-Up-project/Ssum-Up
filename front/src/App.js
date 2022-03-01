@@ -6,7 +6,8 @@ import Home from "./pages/intro/Home.jsx";
 import Team from "./pages/team/Team.jsx";
 import LogIn from "./pages/login/LogIn.jsx";
 import SignUp from "./pages/login/SignUp.jsx";
-import Video from "front/src/pages/main/Video.jsx";
+import Video from "./pages/main/Video";
+
 // import NavbarLogin from "./components/NavbarLogin";
 
 export const VideoInfoDispatchContext = createContext(null); // 왜 null ??
