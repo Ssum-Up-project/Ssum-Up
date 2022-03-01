@@ -8,7 +8,8 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./back
-    command: sh -c "python3 manage.py migrate --run-syncdb --noinput && python manage.py createsuperuser --noinput --email $DJANGO_SUPERUSER_EMAIL && python3 manage.py runserver 0.0.0.0:8000"
+    # command: sh -c "python3 manage.py migrate --run-syncdb --noinput && python manage.py createsuperuser --noinput --email $DJANGO_SUPERUSER_EMAIL && python3 manage.py runserver 0.0.0.0:8000"
+    command: sh -c "chmod +x docker-entrypoint.sh && ./docker-entrypoint.sh"
     ports:
       - 5000:8000
     container_name: Django_backend
