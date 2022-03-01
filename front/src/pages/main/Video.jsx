@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { VideoStateContext } from "./App";
-
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import ReactPlayer from "react-player";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
@@ -24,7 +22,6 @@ const videodata = {
     "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
 };
 
-// function Video({ link, videoData, handleData })
 function Video() {
   const { link } = useContext(VideoInfoDispatchContext);
 
@@ -41,7 +38,7 @@ function Video() {
   // (새로고침) : localStorage에 저장된 link값을 가져옴 -> localStorage link에 값이 있으면 -> storedLink를 newLink의 상태값으로 변경함
   useEffect(() => {
     const storedLink = localStorage.getItem("link");
-    if (link !== null) {
+    if (newLink !== null) {
       // let new_link = storedLink;
       // setNewLink(new_link);
       setNewLink(storedLink);

@@ -6,7 +6,7 @@ import Home from "./pages/intro/Home.jsx";
 import Team from "./pages/team/Team.jsx";
 import LogIn from "./pages/login/LogIn.jsx";
 import SignUp from "./pages/login/SignUp.jsx";
-import Video from "./pages/main/Video.jsx";
+import Video from "front/src/pages/main/Video.jsx";
 // import NavbarLogin from "./components/NavbarLogin";
 
 export const VideoInfoDispatchContext = createContext(null); // 왜 null ??
@@ -41,7 +41,6 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/log-in" element={<LogIn />} />
             <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/video" element={<Video link={link} />} />
             <Route
               path="/video"
               element={
