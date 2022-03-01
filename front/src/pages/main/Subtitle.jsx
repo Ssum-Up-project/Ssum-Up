@@ -4,7 +4,7 @@ import { VideoInfoStateContext } from "../../App.js";
 import Box from "@mui/material/Box";
 
 function Summary() {
-  const { fetcedVideoInfo } = useContext(VideoInfoStateContext);
+  const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
 
   return (
     <Box
@@ -23,7 +23,7 @@ function Summary() {
         borderRadius: 5,
       }}
     >
-      {fetcedVideoInfo.subtitles}
+      {fetchedVideoInfo.subtitles}
     </Box>
   );
 }

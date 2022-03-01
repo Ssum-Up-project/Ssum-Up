@@ -22,7 +22,7 @@ import {
 // };
 
 const Video = () => {
-  const { fetcedVideoInfo } = useContext(VideoInfoStateContext);
+  const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
 
   const [playerURL, setPlayerURL] = useState();
 
@@ -87,10 +87,10 @@ const Video = () => {
               }}
             >
               <Typography variant="h5" component="div" gutterBottom>
-                TITLE : {fetcedVideoInfo.title}
+                TITLE : {fetchedVideoInfo.title}
               </Typography>
               <Typography variant="subtitle1" component="div" gutterBottom>
-                URL : {fetcedVideoInfo.url}
+                URL : {fetchedVideoInfo.url}
               </Typography>
             </Box>
             <Box

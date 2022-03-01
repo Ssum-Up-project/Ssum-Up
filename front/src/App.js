@@ -14,7 +14,7 @@ export const VideoInfoDispatchContext = createContext(null);
 // import NavbarLogin from "./components/NavbarLogin";
 
 function App() {
-  const [fetcedVideoInfo, setFetchedVideoInfo] = useState();
+  const [fetchedVideoInfo, setFetchedVideoInfo] = useState();
 
   // Response 받은거 state로 넣는 함수
   const handleResponse = (
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-      <VideoInfoStateContext.Provider value={fetcedVideoInfo}>
+      <VideoInfoStateContext.Provider value={fetchedVideoInfo}>
         <VideoInfoDispatchContext.Provider value={handleResponse}>
           <Router>
             <Navbar />

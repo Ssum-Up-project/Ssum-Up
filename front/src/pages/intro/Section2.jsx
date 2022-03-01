@@ -14,9 +14,9 @@ const Section2 = () => {
 
   const [currentURL, setCurrentURL] = useState(); // link = currentURL
 
-  // axios - post -> response = fetcedVideoInfo
+  // axios - post -> response = fetchedVideoInfo
   const RequestURL = async () => {
-    const fetcedVideoInfo = await axios
+    const fetchedVideoInfo = await axios
       .post(
         "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
         { url: currentURL }
@@ -42,7 +42,7 @@ const Section2 = () => {
       // validation true면, post보내고 localStorage에 저장한 후 video 페이지로 넘어감
       RequestURL();
       localStorage.setItem("currentURL", JSON.stringify(currentURL));
-      handleResponse(fetcedVideoInfo);
+      handleResponse(fetchedVideoInfo);
       navigate("/video");
     } else {
       alert("URL을 확인해주세요.");
