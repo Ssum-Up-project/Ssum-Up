@@ -1,3 +1,4 @@
+image: docker
 variables:
   WORK_DIR: .
 cache:
