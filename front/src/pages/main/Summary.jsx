@@ -1,8 +1,11 @@
-import * as React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import { VideoInfoStateContext } from "../../App.js";
+
 import Box from "@mui/material/Box";
 
-function Summary(videodata) {
+function Summary() {
+  const { fetcedVideoInfo } = useContext(VideoInfoStateContext);
+
   return (
     <Box
       sx={{
@@ -21,8 +24,12 @@ function Summary(videodata) {
         borderRadius: 5,
       }}
     >
-      {videodata.summary}
+      {fetcedVideoInfo.summary}
     </Box>
   );
 }
+
+Summary.difaultProps = {
+  summary: "요약글 자리 입니다아",
+};
 export default Summary;

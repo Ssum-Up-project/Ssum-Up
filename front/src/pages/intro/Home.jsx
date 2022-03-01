@@ -6,7 +6,7 @@ import Section2 from "./Section2";
 import Footer from "../../components/Footer";
 import WOW from "wowjs";
 
-function Home({ handleCreate, handleVideoInfo }) {
+function Home() {
   useEffect(() => {
     new WOW.WOW().init();
   }, []);
@@ -15,7 +15,7 @@ function Home({ handleCreate, handleVideoInfo }) {
     <>
       <Section0 />
       <Section1 />
-      <Section2 handleCreate={handleCreate} handleVideoInfo={handleVideoInfo} />
+      <Section2 />
       <Footer />
     </>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-// import ReactDOM from "react-dom";
+import { VideoInfoStateContext } from "../../App.js";
 import ReactPlayer from "react-player";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
@@ -9,51 +9,29 @@ import {
   Box,
   Button,
   Typography,
-  FormControlLabel,
-  Switch,
+  // FormControlLabel,
+  // Switch,
 } from "@mui/material";
-import { VideoInfoDispatchContext } from "../../App";
 
-const videodata = {
-  title: "TEST",
-  subtitle:
-    "SUBTITLE SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, porttitor vel vehicula non, faucibus dignissim arcu. Aenean fringilla felis vitae pellentesque mollis. Morbi sodales non arcu id placerat. Integer eget arcu nisl. Donec dapibus leo sed urna pharetra, eu elementum diam eleifend. Ut pellentesque, enim non scelerisque feugiat, erat est pharetra elit, eu volutpat nisl nibh a ipsum. Proin gravida elit eu sapien vulputate semper. Phasellus metus metus, scelerisque sed nisi vitae, pulvinar dictum ante. In odio lectus, pharetra sed eros sit amet, maximus faucibus nibh.",
-  summary:
-    "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
-};
+// const dummyList = {
+//   title: "TEST",
+//   subtitle:
+//     "SUBTITLE SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, porttitor vel vehicula non, faucibus dignissim arcu. Aenean fringilla felis vitae pellentesque mollis. Morbi sodales non arcu id placerat. Integer eget arcu nisl. Donec dapibus leo sed urna pharetra, eu elementum diam eleifend. Ut pellentesque, enim non scelerisque feugiat, erat est pharetra elit, eu volutpat nisl nibh a ipsum. Proin gravida elit eu sapien vulputate semper. Phasellus metus metus, scelerisque sed nisi vitae, pulvinar dictum ante. In odio lectus, pharetra sed eros sit amet, maximus faucibus nibh.",
+//   summary:
+//     "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
+// };
 
-function Video() {
-  const { link } = useContext(VideoInfoDispatchContext);
+const Video = () => {
+  const { fetcedVideoInfo } = useContext(VideoInfoStateContext);
 
-  // const [Data, setData] = useState(); // localStorage에 저장된 video객체 가져올 State
-  const [newLink, setNewLink] = useState(link);
+  const [playerURL, setPlayerURL] = useState();
 
-  // const [showSubtitle, SetShowSubtitle] = useState(false);
-  // const [switchSubtitle, setSwitchSubtitle] = useState(false);
-
-  // let data = videoData;
-  // handleData(data);
-  // console.log(data);
-
-  // (새로고침) : localStorage에 저장된 link값을 가져옴 -> localStorage link에 값이 있으면 -> storedLink를 newLink의 상태값으로 변경함
   useEffect(() => {
-    const storedLink = localStorage.getItem("link");
-    if (newLink !== null) {
-      // let new_link = storedLink;
-      // setNewLink(new_link);
-      setNewLink(storedLink);
+    const getCurrentURL = localStorage.getItem("currentURL");
+    if (playerURL !== null) {
+      setPlayerURL(getCurrentURL);
     }
-  }, [link]);
-
-  // const handleChange = (event) => {
-  //   if (switchSubtitle === false) {
-  //     SetShowSubtitle(!showSubtitle);
-  //     setSwitchSubtitle(([event.target.name] = event.target.checked));
-  //   } else {
-  //     SetShowSubtitle(showSubtitle);
-  //     setSwitchSubtitle(([event.target.name] = event.target.checked));
-  //   }
-  // };
+  }, [playerURL]);
 
   return (
     <Paper
@@ -72,7 +50,7 @@ function Video() {
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <div style={{ height: "80vh", Width: "100vh" }}>
             <ReactPlayer
-              url={"link"}
+              url={"CurrentURL"}
               playing={true}
               loop={true}
               className="react-player"
@@ -109,10 +87,10 @@ function Video() {
               }}
             >
               <Typography variant="h5" component="div" gutterBottom>
-                TEXT
+                TITLE : {fetcedVideoInfo.title}
               </Typography>
               <Typography variant="subtitle1" component="div" gutterBottom>
-                {link}
+                URL : {fetcedVideoInfo.url}
               </Typography>
             </Box>
             <Box
@@ -127,14 +105,16 @@ function Video() {
                   textAlign: "right",
                 }}
               >
-                <FormControlLabel
+                {/* <FormControlLabel
                   // control={<Switch onChange={handleChange} name="gilad" />}
-                  ontrol={<Switch name="gilad" />}
+                  control={<Switch name="gilad" />}
                   label="전체 자막"
-                />
+                /> */}
               </Box>
-              <Summary videodata={videodata.summary} />
-              <Subtitle videodata={videodata.subtitles} />
+              {/* <Summary fetchedVideoInfo={dummyList} /> */}
+              {/* <Subtitle fetchedVideoInfo={dummyList} /> */}
+              <Summary />
+              <Subtitle />
             </Box>
             <Box
               sx={{
@@ -142,21 +122,15 @@ function Video() {
                 gridArea: "footer",
               }}
             >
-              {/* <ThemeProvider theme={theme}> */}
-              <Button
-                color="neutral"
-                variant="contained"
-                style={{ maxWidth: "60vh", minWidth: "30vh" }}
-              >
-                Save
+              <Button style={{ maxWidth: "60vh", minWidth: "30vh" }}>
+                저장하기
               </Button>
-              {/* </ThemeProvider> */}
             </Box>
           </Box>
         </Grid>
       </Grid>
     </Paper>
   );
-}
+};
 
 export default Video;

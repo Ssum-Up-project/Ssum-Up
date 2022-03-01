@@ -8,54 +8,50 @@ import LogIn from "./pages/login/LogIn.jsx";
 import SignUp from "./pages/login/SignUp.jsx";
 import Video from "./pages/main/Video";
 
+export const VideoInfoStateContext = createContext(null);
+export const VideoInfoDispatchContext = createContext(null);
+
 // import NavbarLogin from "./components/NavbarLogin";
 
-export const VideoInfoDispatchContext = createContext(null); // 왜 null ??
-
 function App() {
-  const [link, setLink] = useState([]);
-  const [videoInfo, setVideoInfo] = useState([]);
+  const [fetcedVideoInfo, setFetchedVideoInfo] = useState();
 
-  const handleCreate = (link) => {
-    const newLink = link;
-    setLink(newLink);
+  // Response 받은거 state로 넣는 함수
+  const handleResponse = (
+    idParam,
+    urlParam,
+    titleParam,
+    subtitleParam
+    // summaryParam,
+  ) => {
+    const fetchedInfo = {
+      id: idParam,
+      url: urlParam,
+      title: titleParam,
+      subtitles: subtitleParam,
+      // summaryParam,
+    };
+    setFetchedVideoInfo([fetchedInfo]);
   };
-
-  // video response객체 받아와서 -> handleVideoInfo의 인자로 넣으면 -> videoInfo State의 값으로 반영되는 것 ->
-  const handleVideoInfo = (videoInfoParam) => {
-    setVideoInfo(videoInfoParam);
-  };
-
-  const VideoInfoDispatch = { link, handleCreate, handleVideoInfo };
 
   return (
     <>
-      <Router>
-        <Navbar />
-        {/* <NavbarLogin /> */}
+      <VideoInfoStateContext.Provider value={fetcedVideoInfo}>
+        <VideoInfoDispatchContext.Provider value={handleResponse}>
+          <Router>
+            <Navbar />
+            {/* <NavbarLogin /> */}
 
-        <VideoInfoDispatchContext.Provider
-          value={(link, VideoInfoDispatch, handleVideoInfo)}
-        >
-          <Routes>
-            <Route path="/" element={<Home handleCreate={handleCreate} />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/log-in" element={<LogIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route
-              path="/video"
-              element={
-                <Video
-                  link={link}
-                  videoInfo={videoInfo}
-                  handleVideoInfo={handleVideoInfo}
-                />
-              }
-              // {videoInfo.map((it) => (<Video key={it.id} {...it} />))}
-            />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/log-in" element={<LogIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/video" element={<Video />} />
+            </Routes>
+          </Router>
         </VideoInfoDispatchContext.Provider>
-      </Router>
+      </VideoInfoStateContext.Provider>
     </>
   );
 }
