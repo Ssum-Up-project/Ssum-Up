@@ -7,11 +7,11 @@ stages:
 Deploy:
   stage: deploy
   only:
-    - chore_auto_deploy  #deploy브랜치에 푸시가 될때마다 ci를 돌릴꺼임 master를원하면 master ...
+    - chore_auto_deploy
   tags:
-    - team4-AiPrj-runner #앞서 생성한 tag이름과 동일하게 작성
+    - team4-AiPrj-runner
   script:
     - echo "team4 AiPrj auto deploy gitlab runner"
-    - docker-compose down #기존 실행된 도커 멈추기
-    - docker system prune -af --volumes #필요 없는 이미지, 컨테이너 제거
+    - docker-compose down
+    - docker system prune -af --volumes
 		- docker-compose -f docker-compose.EliseMSAzure.yml up
