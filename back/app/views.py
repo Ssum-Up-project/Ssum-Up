@@ -23,6 +23,7 @@ from .serializers import (
 from .serializers import UserSerializer
 
 from pytube import YouTube
+from drf_yasg.utils import swagger_auto_schema
 
 
 class UserCreate(generics.CreateAPIView):
@@ -73,12 +74,26 @@ class PlayListDetail(APIView):
 
 
 class VideoDataList(APIView):
+
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: VideoDataListSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        }
+    )
     def get(self, request):
         videodata = VideoData.objects.all()
         serializer = VideoDataListSerializer(videodata, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data) # , status.HTTP_200_OK
 
-    # Create
+    
+    @swagger_auto_schema(
+        request_body=VideoDataPostSerializer,
+        responses={
+            status.HTTP_200_OK: VideoDataResponseSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        },
+    )
     def post(self, request, format=None):
         """
         유튜브 동영상 데이터 DB에 추가
