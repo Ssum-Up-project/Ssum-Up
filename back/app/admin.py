@@ -7,7 +7,6 @@ from .models import User
 
 from .models import PlayList
 from .models import VideoData
-from .models import Product
 
 
 # /admin 페이지에 Custom User 모델 생성/수정 등 가능하게 함.
@@ -22,7 +21,9 @@ class UserAdmin(BaseUserAdmin):
         ("Permissions", {"fields": ("is_admin",)}),
     )
 
-    add_fieldsets = ((None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),)
+    add_fieldsets = (
+        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
+    )
     search_fields = ("email",)
     ordering = ("email",)
     filter_horizontal = ()
@@ -33,4 +34,3 @@ admin.site.unregister(Group)
 
 admin.site.register(PlayList)
 admin.site.register(VideoData)
-admin.site.register(Product)
