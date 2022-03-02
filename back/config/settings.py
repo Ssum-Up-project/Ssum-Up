@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "app",
     # DRF
     "rest_framework",
+    'drf_yasg', # Swagger API Doc
     # DRF Authentication 이용
     "rest_framework.authtoken",
     "rest_auth",
