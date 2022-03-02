@@ -1,8 +1,8 @@
 # Create your views here.
 from rest_framework.response import Response
+from youtube_transcript_api import YouTubeTranscriptApi
 
 from .permission import IsOwnerOrReadOnly
-from .models import Product
 from .models import PlayList
 from .models import VideoData
 from .models import User
@@ -15,17 +15,14 @@ from django.http import Http404
 from rest_framework import status
 
 from .serializers import PlayListSerializer
-from .serializers import VideoDataSerializer
-from .serializers import ProductSerializer
+from .serializers import (
+    VideoDataListSerializer,
+    VideoDataPostSerializer,
+    VideoDataResponseSerializer,
+)
 from .serializers import UserSerializer
 
-
-class ProductListAPI(APIView):
-    def get(self, request):
-        queryset = Product.objects.all()
-        print(queryset)
-        serializer = ProductSerializer(queryset, many=True)
-        return Response(serializer.data)
+from pytube import YouTube
 
 
 class UserCreate(generics.CreateAPIView):
@@ -78,17 +75,36 @@ class PlayListDetail(APIView):
 class VideoDataList(APIView):
     def get(self, request):
         videodata = VideoData.objects.all()
-        serializer = VideoDataSerializer(videodata, many=True)
+        serializer = VideoDataListSerializer(videodata, many=True)
         return Response(serializer.data)
 
     # Create
     def post(self, request, format=None):
-        serializer = VideoDataSerializer(data=request.data)
-        # 유튜브링크(url) 받으면 자동생성자막을 api로 긁어와서 DB에 넣게 하는 부분 적용 할것
+        """
+        유튜브 동영상 데이터 DB에 추가
+        """
+        # checkExistVideoData
+        print('요청url : ', request.data["url"])
+        video = VideoData.objects.filter(url=request.data["url"])
+        if len(video) > 0:
+            print(video[0].url)
+            return Response(
+                VideoDataResponseSerializer(video[0]).data,
+                status=status.HTTP_201_CREATED,
+            )
+        
 
-        if serializer.is_valid():
+        serializer = VideoDataPostSerializer(
+            data=request.data, context={"request": request}
+        )
+
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            video_data = serializer.instance
+            return Response(
+                VideoDataResponseSerializer(video_data).data,
+                status=status.HTTP_201_CREATED,
+            )
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 
@@ -101,12 +117,12 @@ class VideoDataDetail(APIView):
 
     def get(self, request, pk, format=None):
         videodata = self.get_object(pk)
-        serializer = VideoDataSerializer(videodata)
+        serializer = VideoDataResponseSerializer(videodata)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         videodata = self.get_object(pk)
-        serializer = VideoDataSerializer(videodata, data=request.data)
+        serializer = VideoDataListSerializer(videodata, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
