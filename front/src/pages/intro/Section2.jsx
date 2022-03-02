@@ -9,9 +9,7 @@ import axios from "axios";
 
 const Section2 = () => {
   const { handleResponse } = useContext(VideoInfoDispatchContext);
-
   const navigate = useNavigate();
-
   const [currentURL, setCurrentURL] = useState(); // link = currentURL
 
   // axios - post -> response = fetchedVideoInfo
