@@ -8,7 +8,7 @@ stages:
 Deploy:
   stage: deploy
   only:
-    - chore_auto_deploy
+    - deploy # deploy 브랜치에 푸시시 자동배포되게 설정.
   tags:
     - team4-AiPrj-runner
   script:
