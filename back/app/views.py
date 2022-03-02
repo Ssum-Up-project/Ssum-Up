@@ -83,6 +83,17 @@ class VideoDataList(APIView):
         """
         유튜브 동영상 데이터 DB에 추가
         """
+        # checkExistVideoData
+        print('요청url : ', request.data["url"])
+        video = VideoData.objects.filter(url=request.data["url"])
+        if len(video) > 0:
+            print(video[0].url)
+            return Response(
+                VideoDataResponseSerializer(video[0]).data,
+                status=status.HTTP_201_CREATED,
+            )
+        
+
         serializer = VideoDataPostSerializer(
             data=request.data, context={"request": request}
         )
