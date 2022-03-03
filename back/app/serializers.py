@@ -5,6 +5,7 @@ from .models import VideoData
 from .models import User
 
 from youtube_transcript_api import YouTubeTranscriptApi
+from googletrans import Translator
 from pytube import YouTube, extract
 from .summarize import summarize
 
@@ -73,6 +74,8 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         video_data.subtitles = self.getVideoSubtitles(url)
         # 자막 요약하기
         video_data.summarized_subtitles = summarize(video_data.subtitles)
+        # 요약 자막 번역하기
+        video_data.translated_subtitles = Translator().translate(video_data.summarized_subtitles, src='en', dest='ko').text
         video_data.save()
 
         return video_data

@@ -82,6 +82,6 @@ class VideoData(models.Model):
     title = models.CharField(max_length=200)
     subtitles = models.TextField()
     summarized_subtitles = models.CharField(max_length=1000)
-
+    translated_subtitles = models.CharField(max_length=1000)
     def __str__(self):
         return self.title
