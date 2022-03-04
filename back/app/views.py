@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from youtube_transcript_api import YouTubeTranscriptApi
 
 from .permission import IsOwnerOrReadOnly
-from .models import *
+from .models import PlayList, VideoData, User, SearchLog
 
 
 from rest_framework.views import APIView
@@ -12,7 +12,14 @@ from rest_framework import mixins, generics, permissions, viewsets
 from django.http import Http404
 from rest_framework import status
 
-from .serializers import *
+from .serializers import PlayListSerializer
+from .serializers import (
+    VideoDataListSerializer, 
+    VideoDataPostSerializer, 
+    VideoDataResponseSerializer,
+)
+from .serializers import SearchLogSerializer
+from .serializers import UserSerializer
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -91,7 +98,7 @@ class VideoDataList(APIView):
         try:
             request_url = request.data['url']
         except KeyError as e:
-            return Response({'KeyError': f'keyerror about {e}'})
+            return Response({'KeyError': f'잘못된{e}요청'}, status=status.HTTP_400_BAD_REQUEST)
             
         # checkExistVideoData
         print('요청url : ', request_url)
@@ -116,7 +123,7 @@ class VideoDataList(APIView):
                 print(f'current_user : {request.user.id}')
                 # save searchlog
                 searchlog_input = {"user_id": request.user.id, "video_id": video_data.id}
-                serializer_searchlog = SearchLogPostSerializer(data=searchlog_input)
+                serializer_searchlog = SearchLogSerializer(data=searchlog_input)
                 if serializer_searchlog.is_valid(raise_exception=True):
                     serializer_searchlog.save()
                     print("save searchlog")
@@ -159,20 +166,32 @@ class VideoDataDetail(APIView):
 
 
 class SearchLogList(APIView):
+
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: VideoDataListSerializer
+        }
+    )
     def get(self, request, format=None):
         try:
             searchlog = SearchLog.objects.all()[:10]
         except SearchLog.DoesNotExist:
             searchlog = None
         serializer = SearchLogSerializer(searchlog, many=True)
-        return Response(serializer.data) # , status.HTTP_200_OK
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class SearchLogUserList(APIView):
+
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: VideoDataListSerializer
+        }
+    )
     def get(self, request, format=None):
         try:
             searchlog = SearchLog.objects.filter(user_id=request.user.id)
         except SearchLog.DoesNotExist:
             searchlog = None
         serializer = SearchLogSerializer(searchlog, many=True)
-        return Response(serializer.data) # , status.HTTP_200_OK
+        return Response(serializer.data, status=status.HTTP_200_OK)

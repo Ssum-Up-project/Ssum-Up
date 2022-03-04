@@ -101,5 +101,5 @@ class SearchLog(models.Model):
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return self.created_at
+    def __int__(self):
+        return self.id

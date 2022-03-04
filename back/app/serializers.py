@@ -1,11 +1,12 @@
 from re import search
 from rest_framework import serializers
-from .models import *
+from .models import PlayList, VideoData, User, SearchLog
+
 
 from youtube_transcript_api import YouTubeTranscriptApi
-# from googletrans import Translator
+from googletrans import Translator
 from pytube import YouTube, extract
-# from .summarize import summarize
+from .summarize import summarize
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -72,9 +73,9 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         video_data.title = self.getVideoTitle(url)
         video_data.subtitles = self.getVideoSubtitles(url)
         # 자막 요약하기
-        # video_data.summarized_subtitles = summarize(video_data.subtitles)
+        video_data.summarized_subtitles = summarize(video_data.subtitles)
         # 요약 자막 번역하기
-        # video_data.translated_subtitles = Translator().translate(video_data.summarized_subtitles, src='en', dest='ko').text
+        video_data.translated_subtitles = Translator().translate(video_data.summarized_subtitles, src='en', dest='ko').text
         video_data.save()
 
         return video_data
@@ -110,14 +111,6 @@ class SearchLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = SearchLog
         fields = "__all__"
-
-
-class SearchLogPostSerializer(serializers.ModelSerializer):
-    """검색로그"""
-
-    class Meta:
-        model = SearchLog
-        fields = ["id", "user_id", "video_id"]
     
     def create(self, validated_data):
         searchlog = SearchLog()
