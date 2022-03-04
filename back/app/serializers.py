@@ -1,13 +1,11 @@
 from re import search
 from rest_framework import serializers
-from .models import PlayList
-from .models import VideoData
-from .models import User
+from .models import *
 
 from youtube_transcript_api import YouTubeTranscriptApi
-from googletrans import Translator
+# from googletrans import Translator
 from pytube import YouTube, extract
-from .summarize import summarize
+# from .summarize import summarize
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -68,14 +66,15 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         # request = self.context.get("request")
 
         video_data = VideoData()
+
         url = validated_data["url"]
         video_data.url = url
         video_data.title = self.getVideoTitle(url)
         video_data.subtitles = self.getVideoSubtitles(url)
         # 자막 요약하기
-        video_data.summarized_subtitles = summarize(video_data.subtitles)
+        # video_data.summarized_subtitles = summarize(video_data.subtitles)
         # 요약 자막 번역하기
-        video_data.translated_subtitles = Translator().translate(video_data.summarized_subtitles, src='en', dest='ko').text
+        # video_data.translated_subtitles = Translator().translate(video_data.summarized_subtitles, src='en', dest='ko').text
         video_data.save()
 
         return video_data
@@ -103,3 +102,26 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
                 subtitles += line["text"] + " "
 
             return subtitles
+
+
+class SearchLogSerializer(serializers.ModelSerializer):
+    """검색로그"""
+
+    class Meta:
+        model = SearchLog
+        fields = "__all__"
+
+
+class SearchLogPostSerializer(serializers.ModelSerializer):
+    """검색로그"""
+
+    class Meta:
+        model = SearchLog
+        fields = ["id", "user_id", "video_id"]
+    
+    def create(self, validated_data):
+        searchlog = SearchLog()
+        searchlog.user_id = validated_data["user_id"]
+        searchlog.video_id = validated_data["video_id"]
+        searchlog.save()
+        return searchlog

@@ -85,3 +85,21 @@ class VideoData(models.Model):
     translated_subtitles = models.CharField(max_length=1000)
     def __str__(self):
         return self.title
+
+
+class SearchLog(models.Model):
+    user_id = models.ForeignKey(
+        User, 
+        related_name='searchlog', 
+        db_column="user_id", 
+        on_delete=models.CASCADE
+    )
+    video_id = models.ForeignKey(
+        VideoData, 
+        related_name='searchlog', 
+        db_column="video_id", 
+        on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.created_at

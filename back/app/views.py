@@ -3,9 +3,7 @@ from rest_framework.response import Response
 from youtube_transcript_api import YouTubeTranscriptApi
 
 from .permission import IsOwnerOrReadOnly
-from .models import PlayList
-from .models import VideoData
-from .models import User
+from .models import *
 
 
 from rest_framework.views import APIView
@@ -14,15 +12,7 @@ from rest_framework import mixins, generics, permissions, viewsets
 from django.http import Http404
 from rest_framework import status
 
-from .serializers import PlayListSerializer
-from .serializers import (
-    VideoDataListSerializer,
-    VideoDataPostSerializer,
-    VideoDataResponseSerializer,
-)
-from .serializers import UserSerializer
-
-from pytube import YouTube
+from .serializers import *
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -98,29 +88,48 @@ class VideoDataList(APIView):
         """
         유튜브 동영상 데이터 DB에 추가
         """
+        try:
+            request_url = request.data['url']
+        except KeyError as e:
+            return Response({'KeyError': f'keyerror about {e}'})
+            
         # checkExistVideoData
-        print('요청url : ', request.data["url"])
-        video = VideoData.objects.filter(url=request.data["url"])
-        if len(video) > 0:
-            print(video[0].url)
-            return Response(
-                VideoDataResponseSerializer(video[0]).data,
-                status=status.HTTP_201_CREATED,
-            )
-        
+        print('요청url : ', request_url)
+        # video = VideoData.objects.filter(url=request_url)
+        # if len(video) > 0:
+        #     print(video[0].url)
+        #     return Response(
+        #         VideoDataResponseSerializer(video[0]).data,
+        #         status=status.HTTP_201_CREATED,
+        #     )
 
-        serializer = VideoDataPostSerializer(
+        serializer_videodata = VideoDataPostSerializer(
             data=request.data, context={"request": request}
         )
 
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            video_data = serializer.instance
+        if serializer_videodata.is_valid(raise_exception=True):
+            serializer_videodata.save()
+            video_data = serializer_videodata.instance
+
+
+            if request.user.is_authenticated:
+                print(f'current_user : {request.user.id}')
+                # save searchlog
+                searchlog_input = {"user_id": request.user.id, "video_id": video_data.id}
+                serializer_searchlog = SearchLogPostSerializer(data=searchlog_input)
+                if serializer_searchlog.is_valid(raise_exception=True):
+                    serializer_searchlog.save()
+                    print("save searchlog")
+            else:
+                print('user is not exist')
+
             return Response(
                 VideoDataResponseSerializer(video_data).data,
                 status=status.HTTP_201_CREATED,
             )
-        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+        
+
+        return Response(serializer_videodata.errors, status=status.HTTP_404_NOT_FOUND)
 
 
 class VideoDataDetail(APIView):
@@ -147,3 +156,23 @@ class VideoDataDetail(APIView):
         videodata = self.get_object(pk)
         videodata.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SearchLogList(APIView):
+    def get(self, request, format=None):
+        try:
+            searchlog = SearchLog.objects.all()[:10]
+        except SearchLog.DoesNotExist:
+            searchlog = None
+        serializer = SearchLogSerializer(searchlog, many=True)
+        return Response(serializer.data) # , status.HTTP_200_OK
+
+
+class SearchLogUserList(APIView):
+    def get(self, request, format=None):
+        try:
+            searchlog = SearchLog.objects.filter(user_id=request.user.id)
+        except SearchLog.DoesNotExist:
+            searchlog = None
+        serializer = SearchLogSerializer(searchlog, many=True)
+        return Response(serializer.data) # , status.HTTP_200_OK
