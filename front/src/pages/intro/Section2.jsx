@@ -1,48 +1,39 @@
 // 링크 입력 및 시작하기import React, { useState, useRef } from "react";
 import "../../App.css";
-import React, { useState, useContext } from "react";
-import { VideoInfoDispatchContext } from "../../App.js";
+import React, { useState } from "react";
 import { Button } from "../../components/Button";
 import "./Section2.css";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useVideoDispatcher } from '../../context/AppWrapper';
+
 
 const Section2 = () => {
-  const { handleResponse } = useContext(VideoInfoDispatchContext);
-
   const navigate = useNavigate();
-
   const [currentURL, setCurrentURL] = useState(); // link = currentURL
-
-  // axios - post -> response = fetcedVideoInfo
-  const RequestURL = async () => {
-    const fetcedVideoInfo = await axios
-      .post(
-        "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
+  const videoDispatch = useVideoDispatcher()
+  
+  const requestURL = async () => {
+     return await axios
+       .post(
+     "http://localhost:8000/api/videoInfo",
+      "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
         { url: currentURL }
-      )
-      .then((Response) => {
-        console.log(Response.data);
-        return Response.data;
-      })
-      .catch((ERR) => {
-        console.ERR("ERRRORRR");
-      });
+       ).then((res) => {
+          console.log(res.data);
+          return res.data;})
+        .catch((err) => {
+            console.ERR("ERRRORRR");
+        });
   };
 
-  // input - onChange
-  const onChange = (e) => {
-    setCurrentURL(e.target.value); // 입력받은 url -> state에 저장
-  };
-  // button - onClick
-  const onClick = () => {
+  const handleClick = async () => {
     const regeX =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
     if (regeX.test(currentURL)) {
-      // validation true면, post보내고 localStorage에 저장한 후 video 페이지로 넘어감
-      RequestURL();
+      const fetchedVideoInfo = await requestURL();
       localStorage.setItem("currentURL", JSON.stringify(currentURL));
-      //handleResponse(fetcedVideoInfo);
+      videoDispatch(fetchedVideoInfo);
       navigate("/video");
     } else {
       alert("URL을 확인해주세요.");
@@ -63,7 +54,7 @@ const Section2 = () => {
       <form>
         <input
           value={currentURL}
-          onChange={onChange}
+          onChange={(e) => setCurrentURL(e.target.value)}
           type="text"
           name="currentURL"
           placeholder="링크 입력"
@@ -76,7 +67,7 @@ const Section2 = () => {
           className="btns"
           buttonStyle="btn--outline"
           buttonSize="btn--large"
-          onClick={onClick}
+          onClick={handleClick}
         >
           GET STARTED
         </Button>
@@ -85,3 +76,4 @@ const Section2 = () => {
   );
 };
 export default Section2;
+

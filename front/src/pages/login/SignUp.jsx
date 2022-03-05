@@ -40,6 +40,7 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState('');
   const [registerError, setRegisterError] = useState('');
 
+
   const onhandlePost = async (data) => {
     const { email, password,rePassword  } = data;
     const postData = { email, password1,password2 };
