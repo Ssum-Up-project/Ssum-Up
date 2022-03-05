@@ -1,5 +1,7 @@
 from re import search
+from urllib import request
 from rest_framework import serializers
+
 from .models import PlayList
 from .models import VideoData
 from .models import User
@@ -7,6 +9,9 @@ from .models import User
 from youtube_transcript_api import YouTubeTranscriptApi
 from pytube import YouTube, extract
 from .summarize import summarize
+from youtube_transcript_api._errors import NoTranscriptFound
+from pytube.exceptions import VideoUnavailable
+from .exceptions import NoTranscriptException, NoVideoTitleException, VideoUnavailableException, UnableUtubeTranscriptException
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,8 +36,31 @@ class PlayListSerializer(serializers.ModelSerializer):
         model = PlayList
         video_data_id = serializers.ReadOnlyField(source="videodata.id")
         user_id = serializers.ReadOnlyField(source="user.id")
-        fields = ("id", "list_name", "video_data_id", "user_id")
-        # fields = '__all__'
+        # fields = ("id", "list_name", "video_data_id", "user_id")
+        fields = '__all__'
+
+class PlayListPostSerializer(serializers.ModelSerializer):
+    """
+    플레이리스트(카테고리) 생성, 삭제
+    """
+    class Meta:
+        model = PlayList
+        fields = ["id", "list_name", "video_data_id", "create_at"]
+        extra_kwargs = {"video_data_id": {"write_only": True}}
+        read_only_fields = ("created_at",)
+    
+    def create(self, validated_data):
+        request = self.context.get("request")
+
+        playlist = PlayList()
+        playlist.list_name = validated_data["list_name"]
+        playlist.video_data_id = validated_data["video_data_id"]
+        playlist.user_id = request.user
+
+        playlist.save()
+
+        return playlist
+
 
 
 class VideoDataListSerializer(serializers.ModelSerializer):
@@ -81,8 +109,12 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         """ 유튜브 제목 얻기 """
         try:
             yt = YouTube(url)
+        except VideoUnavailable as e:
+            print(e)
+            raise VideoUnavailableException
         except Exception as e:
             print(e)
+            raise NoVideoTitleException
 
         return yt.title
 
@@ -92,8 +124,13 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         video_id = extract.video_id(url)
         try:
             srt = YouTubeTranscriptApi.get_transcript(video_id)
+        except NoTranscriptFound as e:
+            print(e)
+            raise NoTranscriptException
         except Exception as e:
             print(e)
+            raise UnableUtubeTranscriptException
+            
         else:
             subtitles = ""
             for line in srt:
