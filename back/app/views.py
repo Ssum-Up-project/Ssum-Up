@@ -14,10 +14,10 @@ from rest_framework import status
 
 from .serializers import PlayListSerializer
 from .serializers import (
-    VideoDataListSerializer, 
-    VideoDataPostSerializer, 
+    VideoDataListSerializer,
+    VideoDataPostSerializer,
     VideoDataResponseSerializer,
-)
+    )
 from .serializers import SearchLogSerializer
 from .serializers import UserSerializer
 from drf_yasg.utils import swagger_auto_schema
@@ -30,13 +30,27 @@ class UserCreate(generics.CreateAPIView):
 
 # 클래스형 뷰 버전
 class PlayLists(APIView):
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: PlayListSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        }
+    )
     def get(self, request):
+        '''playlist내 모든 video_id들을 가져옵니다.'''
         playlist = PlayList.objects.all()
         serializer = PlayListSerializer(playlist, many=True)
         return Response(serializer.data)
 
     # Create
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: PlayListSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        }
+    )
     def post(self, request, format=None):
+        '''playlist에 원하는 video_id를 저장합니다.'''
         serializer = PlayListSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -51,12 +65,26 @@ class PlayListDetail(APIView):
         except PlayList.DoesNotExist:
             return Http404
 
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: PlayListSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        }
+    )
     def get(self, request, pk, format=None):
+        '''특정 playlist의 video_id들을 가져옵니다.'''
         playlist = self.get_object(pk)
         serializer = PlayListSerializer(playlist)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: PlayListSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        }
+    )
     def put(self, request, pk, format=None):
+        '''playlist의 이름을 수정'''
         playlist = self.get_object(pk)
         serializer = PlayListSerializer(playlist, data=request.data)
         if serializer.is_valid():
@@ -64,7 +92,14 @@ class PlayListDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: PlayListSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        }
+    )
     def delete(self, request, pk, format=None):
+        '''playlist내의 비디오 삭제, '''
         playlist = self.get_object(pk)
         playlist.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -72,16 +107,16 @@ class PlayListDetail(APIView):
 
 class VideoDataList(APIView):
 
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: VideoDataListSerializer,
-            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
-        }
-    )
-    def get(self, request):
-        videodata = VideoData.objects.all()
-        serializer = VideoDataListSerializer(videodata, many=True)
-        return Response(serializer.data) # , status.HTTP_200_OK
+    # @swagger_auto_schema(
+    #     responses={
+    #         status.HTTP_200_OK: VideoDataListSerializer,
+    #         status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+    #     }
+    # )
+    # def get(self, request):
+    #     videodata = VideoData.objects.all()
+    #     serializer = VideoDataListSerializer(videodata, many=True)
+    #     return Response(serializer.data) # , status.HTTP_200_OK
 
     
     @swagger_auto_schema(
@@ -92,9 +127,7 @@ class VideoDataList(APIView):
         },
     )
     def post(self, request, format=None):
-        """
-        유튜브 동영상 데이터 DB에 추가
-        """
+        """유튜브 동영상 데이터 DB에 추가"""
         try:
             request_url = request.data['url']
         except KeyError as e:
@@ -102,13 +135,13 @@ class VideoDataList(APIView):
             
         # checkExistVideoData
         print('요청url : ', request_url)
-        # video = VideoData.objects.filter(url=request_url)
-        # if len(video) > 0:
-        #     print(video[0].url)
-        #     return Response(
-        #         VideoDataResponseSerializer(video[0]).data,
-        #         status=status.HTTP_201_CREATED,
-        #     )
+        video = VideoData.objects.filter(url=request_url)
+        if len(video) > 0:
+            print(video[0].url)
+            return Response(
+                VideoDataResponseSerializer(video[0]).data,
+                status=status.HTTP_201_CREATED,
+            )
 
         serializer_videodata = VideoDataPostSerializer(
             data=request.data, context={"request": request}
@@ -146,33 +179,41 @@ class VideoDataDetail(APIView):
         except VideoData.DoesNotExist:
             return Http404
 
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: VideoDataResponseSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        },
+    )
     def get(self, request, pk, format=None):
+        '''특정 video_id의 video정보 가져오기'''
         videodata = self.get_object(pk)
         serializer = VideoDataResponseSerializer(videodata)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        videodata = self.get_object(pk)
-        serializer = VideoDataListSerializer(videodata, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # def put(self, request, pk, format=None):
+    #     videodata = self.get_object(pk)
+    #     serializer = VideoDataListSerializer(videodata, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        videodata = self.get_object(pk)
-        videodata.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    # def delete(self, request, pk, format=None):
+    #     videodata = self.get_object(pk)
+    #     videodata.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class SearchLogList(APIView):
 
     @swagger_auto_schema(
         responses={
-            status.HTTP_200_OK: VideoDataListSerializer
+            status.HTTP_200_OK: SearchLogSerializer
         }
     )
     def get(self, request, format=None):
+        '''모든 사용자의 최근 검색기록 10개'''
         try:
             searchlog = SearchLog.objects.all()[:10]
         except SearchLog.DoesNotExist:
@@ -185,10 +226,11 @@ class SearchLogUserList(APIView):
 
     @swagger_auto_schema(
         responses={
-            status.HTTP_200_OK: VideoDataListSerializer
+            status.HTTP_200_OK: SearchLogSerializer
         }
     )
     def get(self, request, format=None):
+        '''나의 최근 검색기록 가져오기'''
         try:
             searchlog = SearchLog.objects.filter(user_id=request.user.id)
         except SearchLog.DoesNotExist:

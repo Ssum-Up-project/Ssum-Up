@@ -13,14 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     playlist = serializers.PrimaryKeyRelatedField(
         many=True, queryset=PlayList.objects.all()
     )
-
-    # def create(self, validated_data):
-    #     user = User.objects.create_user(
-    #         email = validated_data['email'],
-    #         password = validated_data['password']
-    #     )
-    #     return user
-
+    
     class Meta:
         model = User
         fields = ("email", "password")
@@ -64,10 +57,7 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         fields = ["id", "url"]
 
     def create(self, validated_data):
-        # request = self.context.get("request")
-
         video_data = VideoData()
-
         url = validated_data["url"]
         video_data.url = url
         video_data.title = self.getVideoTitle(url)
