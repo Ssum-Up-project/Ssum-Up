@@ -96,7 +96,12 @@ class PlayList(models.Model):
 
 
 class SearchLog(models.Model):
-    user_id = models.IntegerField()
+    user_id = models.ForeignKey(
+        User, 
+        related_name='searchlog', 
+        db_column="user_id", 
+        on_delete=models.CASCADE
+    )
     video_id = models.ForeignKey(
         VideoData, 
         related_name='searchlog', 

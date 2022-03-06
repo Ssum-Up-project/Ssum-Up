@@ -171,3 +171,9 @@ SWAGGER_SETTINGS = {
     'LOGIN_URL' : '/api/rest-auth/login',
     'LOGOUT_URL' : '/api/rest-auth/logout',
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}

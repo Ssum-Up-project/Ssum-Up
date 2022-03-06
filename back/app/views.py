@@ -7,10 +7,10 @@ from .models import User
 from .models import SearchLog
 
 from rest_framework.views import APIView
-from rest_framework import generics, permissions
-
 from django.http import Http404
-from rest_framework import status, permissions
+from rest_framework import generics
+from rest_framework import status
+from rest_framework import permissions
 
 from .serializers import PlayListSerializer
 from .serializers import (
@@ -46,9 +46,9 @@ class PlayLists(APIView):
     )
     def get(self, request):
         """
-        플레이리스트(카테고리) 목록
+        플레이리스트(카테고리) 목록 *token 필요
 
-        사용자가 저장한 동영상의 목록을 반환.
+        사용자가 저장한 동영상의 목록을 반환. 
         """
         self.user = self.get_user()
         playlist = PlayList.objects.filter(user_id=self.user.id)
@@ -64,7 +64,7 @@ class PlayLists(APIView):
     )
     def post(self, request, format=None):
         """
-        플레이리스트(카테고리) 추가
+        플레이리스트(카테고리) 추가 *token 필요
 
         플레이리스트(카테고리)에 동영상 추가.
         """
@@ -166,7 +166,7 @@ class VideoDataList(APIView):
     )
     def post(self, request, format=None):
         """
-        동영상 검색(데이터 추가)
+        동영상 검색(데이터 추가) *token 필요(로그인한 사용자의 경우)
 
         유튜브 동영상 데이터 DB에 추가
         """
@@ -288,7 +288,7 @@ class SearchLogUserList(APIView):
     )
     def get(self, request, format=None):
         '''
-        최근 검색기록(사용자 본인)
+        최근 검색기록(사용자 본인) *token 필요
 
         나의 최근 검색기록 가져오기
         '''

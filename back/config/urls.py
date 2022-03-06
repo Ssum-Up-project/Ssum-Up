@@ -27,7 +27,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="팀4 NaturalFish API 문서(Swagger)", # 타이틀
         default_version='v1', # 버전
-        description="프로젝트 API 문서", # 설명
+        description="프로젝트 API 문서입니다.\n기본적으로 /api 이후 아래의 주소로 그에 맞는 요청을 보내시면 값이 반환됩니다.\n입력예시와 출력예시가 간략히 적혀있으니 참고해 주시길 바랍니다.\n현재 rest-auth 에서 username은 특별히 입력하지 않으셔도 됩니다.\n현재 토큰방식으로 인증을 진행하고있으며, 일부 기능들은 받은 토큰을 header에 담아서 요청을 보내셔야 합니다.\nex) `Authorization: Token [받으신 token_key]`", # 설명
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="서버 관리자 이메일"),
         license=openapi.License(name="Elice AI 3rd - AI Team4 License"),
