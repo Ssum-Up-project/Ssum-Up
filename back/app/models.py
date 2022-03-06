@@ -64,6 +64,7 @@ class VideoData(models.Model):
     title = models.CharField(max_length=200)
     subtitles = models.TextField()
     summarized_subtitles = models.CharField(max_length=1000)
+    translated_subtitles = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.title
@@ -92,3 +93,16 @@ class PlayList(models.Model):
 
     def __str__(self):
         return f"User:{self.user_id} => PlayList:{self.list_name}"
+
+
+class SearchLog(models.Model):
+    user_id = models.IntegerField()
+    video_id = models.ForeignKey(
+        VideoData, 
+        related_name='searchlog', 
+        db_column="video_id", 
+        on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __int__(self):
+        return self.id
