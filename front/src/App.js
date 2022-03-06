@@ -9,6 +9,7 @@ import MyPage from "./pages/mypage/MyPage";
 import SignUp from "./pages/login/SignUp.jsx";
 import Video from "./pages/main/Video";
 import { AppWrapper } from './context/AppWrapper';
+
 export const VideoInfoStateContext = createContext(null);
 export const VideoInfoDispatchContext = createContext(null);
 
@@ -48,7 +49,7 @@ function App() {
               <Route path="/log-in" element={<LogIn />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/video" element={<Video />} />
-              <Route path="/myPage" element={<MyPage />} />
+              <Route path="/my-page" element={<MyPage />} />
             </Routes>
           </Router>
         {/* </VideoInfoDispatchContext.Provider>

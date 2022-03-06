@@ -6,6 +6,7 @@ const MyPageContent=()=>{
     useEffect(()=>{
         UserService.getPlayList().then(
             (response) => {
+                console.log(response.data)
                 setContent(response.data);
             },(error) => {
                 console.log("error")
@@ -22,3 +23,4 @@ const MyPageContent=()=>{
         );
 }
 export default MyPageContent;
+

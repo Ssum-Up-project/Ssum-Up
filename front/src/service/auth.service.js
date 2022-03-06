@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://127.0.0.1:8000/api/rest-auth/";
+const API_URL = "http://localhost:8000/api/rest-auth/";
 
 const login = async (email, password) => {
     const response = await axios
@@ -10,11 +10,15 @@ const login = async (email, password) => {
     if (response.data.key) {
         localStorage.setItem("user", JSON.stringify(response.data));
     }
-    return response.data;
   };  
 
-const logout = () => {
-  localStorage.removeItem("user");
+const logout = async () => {
+  await axios
+  .post(API_URL +'logout/', {})
+  .then(function(){
+    localStorage.removeItem("user");//로컬 스토리지에서 제거
+    window.location.replace("/")//페이지 리로드
+  })
 };
 
 const getCurrentUser = () => {

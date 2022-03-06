@@ -68,7 +68,7 @@ return (
             {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
             {currentUser?(
                 <><li className="nav-item">
-                <Link to="/myPage" className="nav-links">
+                <Link to="/my-page" className="nav-links">
                   My Page
                 </Link>
               </li>

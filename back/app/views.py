@@ -43,7 +43,6 @@ class PlayLists(APIView):
     def get(self, request):
         """
         플레이리스트(카테고리) 목록
-
         사용자가 저장한 동영상의 목록을 반환.
         """
         self.user = self.get_user()
@@ -55,7 +54,6 @@ class PlayLists(APIView):
     def post(self, request, format=None):
         """
         플레이리스트(카테고리) 추가
-
         플레이리스트(카테고리)에 동영상 추가.
         """
         self.user = self.get_user()
