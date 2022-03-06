@@ -1,3 +1,4 @@
+// 링크 입력 및 시작하기import React, { useState, useRef } from "react";
 import "../../App.css";
 import React, { useState } from "react";
 import { Button } from "../../components/Button";
@@ -42,7 +43,7 @@ const Section2 = () => {
       const fetchedVideoInfo = await requestURL();
       localStorage.setItem("currentURL", JSON.stringify(currentURL));
       videoDispatch(fetchedVideoInfo);
-      navigate("/video");
+      // navigate("/video");
     } else {
       alert("URL을 확인해주세요.");
     }

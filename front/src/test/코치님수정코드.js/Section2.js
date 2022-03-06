@@ -1,8 +1,8 @@
-import "../../App.css";
 import React, { useState } from "react";
-import { Button } from "../../components/Button";
-import "./Section2.css";
 import { useNavigate } from "react-router";
+import { Button } from "../../components/Button";
+import "../../App.css";
+import "./Section2.css";
 import axios from "axios";
 import { useVideoDispatcher } from "../../context/AppWrapper";
 
@@ -16,33 +16,17 @@ const fetchedVideoInfo = {
 
 const Section2 = () => {
   const navigate = useNavigate();
-  const [currentURL, setCurrentURL] = useState(); // link = currentURL
   const videoDispatch = useVideoDispatcher();
-
+  const [currentURL, setCurrentURL] = useState();
   const requestURL = async () => {
-    // return await axios
-    //   .post(
-    //     "http://localhost:8000/api/videoInfo",
-    //     // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-    //     { url: currentURL }
-    //   ).then((res) => {
-    //     console.log(res.data);
-    //     return res.data;
-    //   })
-    //   .catch((err) => {
-    //     console.ERR("ERRRORRR");
-    //   });
     return fetchedVideoInfo;
   };
-
-  const handleClick = async () => {
+  const handleClick = () => {
     const regeX =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
     if (regeX.test(currentURL)) {
-      const fetchedVideoInfo = await requestURL();
-      localStorage.setItem("currentURL", JSON.stringify(currentURL));
+      const fetchedInfo = await requestURL();
       videoDispatch(fetchedVideoInfo);
-      navigate("/video");
     } else {
       alert("URL을 확인해주세요.");
     }
@@ -83,4 +67,5 @@ const Section2 = () => {
     </div>
   );
 };
+
 export default Section2;

@@ -83,11 +83,6 @@ function Navbar() {
               <Button buttonStyle="btn--outline">LOG IN</Button>
             </Link>
           )}
-          {button && (
-            <Link to="./sign-up" className="btn-mobile">
-              <Button buttonStyle="btn--outline">SIGN UP</Button>
-            </Link>
-          )}
 
           {/* {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
           {button && <Button buttonStyle="btn--outline">SIGN UP</Button>} */}

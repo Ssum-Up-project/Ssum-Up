@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 
-const DiaryEditor = ({ onCreate }) => {
+const DiaryEditor = () => {
   // App 에서 Context로 가져오는 거!! 밑에 handleAddButtonClick에서 쓰임!!
   const { onCreate } = useContext(DiaryDispatchContext);
 
