@@ -3,32 +3,24 @@ import { VideoInfoStateContext } from "../../App.js";
 
 import Box from "@mui/material/Box";
 
-function Summary() {
-  // const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
-
+const Subtitle = () => {
   return (
     <Box
       sx={{
-        flexDirection: "column",
-        display: "flex",
-        overflow: "hidden",
-        overflowY: "scroll", // added scroll
-        margin: "auto",
-        mr: 2,
-        ml: 2,
-        padding: 1,
-        maxWidth: "95vh",
-        height: "32vh",
-        backgroundColor: "#F2F2F2",
-        borderRadius: 5,
+        height: 400,
+        backgroundColor: "blue",
+
+        // "&:hover": {
+        //   backgroundColor: "primary.main",
+        //   opacity: [0.9, 0.8, 0.7],
+        // },
       }}
+      sm={{ xs: 12, md: 10 }}
     >
-      {/* {fetchedVideoInfo.subtitles} */}
+      {" "}
+      저어어어ㅓ어어언체에에에에 자막
     </Box>
   );
-}
-
-Summary.difaultProps = {
-  subtitle: "자막 자리 입니다아",
 };
-export default Summary;
+
+export default Subtitle;

@@ -6,56 +6,33 @@ import Home from "./pages/intro/Home.jsx";
 import Team from "./pages/team/Team.jsx";
 import LogIn from "./pages/login/LogIn.jsx";
 import SignUp from "./pages/login/SignUp.jsx";
-import Video from "./pages/main/Video";
-import Main from "./pages/main/Main";
+import MainOutput from "./pages/main/MainOutput";
 
 import { AppWrapper } from "./context/AppWrapper";
 
-// export const VideoInfoStateContext = createContext(null);
-// export const VideoInfoDispatchContext = createContext(null);
+export const VideoInfoStateContext = createContext(null);
+export const VideoInfoDispatchContext = createContext(null);
 
-// import NavbarLogin from "./components/NavbarLogin";
+// const dummyList = [
+//   {
+//     summary: "요약 텍스트으으으으으으으으으으",
+//     subtitle: "저어어어어어어어언체에에에 자아아아아막",
+//   },
+// ];
 
 function App() {
-  // const [fetchedVideoInfo, setFetchedVideoInfo] = useState();
-
-  // Response 받은거 state로 넣는 함수
-  // const handleResponse = (
-  //   idParam,
-  //   urlParam,
-  //   titleParam,
-  //   subtitleParam
-  //   // summaryParam,
-  // ) => {
-  //   const fetchedInfo = {
-  //     id: idParam,
-  //     url: urlParam,
-  //     title: titleParam,
-  //     subtitles: subtitleParam,
-  //     // summaryParam,
-  //   };
-  //   setFetchedVideoInfo([fetchedInfo]);
-  // };
-
   return (
     <AppWrapper>
-      {/* <VideoInfoStateContext.Provider value={fetchedVideoInfo}>
-        <VideoInfoDispatchContext.Provider value={handleResponse}> */}
       <Router>
         <Navbar />
-        {/* <NavbarLogin /> */}
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/team" element={<Team />} />
           <Route path="/log-in" element={<LogIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/video" element={<Video />} />
-          <Route path="/main" element={<Main />} />
+          <Route path="/main-output" element={<MainOutput />} />
         </Routes>
       </Router>
-      {/* </VideoInfoDispatchContext.Provider>
-      </VideoInfoStateContext.Provider> */}
     </AppWrapper>
   );
 }
