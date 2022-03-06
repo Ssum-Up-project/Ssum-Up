@@ -1,0 +1,18 @@
+image: docker
+variables:
+  WORK_DIR: .
+cache:
+  key: '$CI_COMMIT_REF_SLUG'
+stages:
+  - deploy
+Deploy:
+  stage: deploy
+  only:
+    - deploy # deploy 브랜치에 푸시시 자동배포되게 설정
+  tags:
+    - team4-AiPrj-runner
+  script:
+    - echo "team4 AiPrj auto deploy gitlab runner"
+    - docker-compose down
+    - docker system prune -af --volumes
+    - docker-compose -f docker-compose.EliseMSAzure.yml up -d

@@ -23,7 +23,7 @@ function Navbar() {
   const logOut = () => {
     AuthService.logout();
   };
-  // const goLogin = () => {
+ // const goLogin = () => {
   //   navigate("/login");
   // };
   // display the button on mobile or removes it depending on the screen size
@@ -40,9 +40,7 @@ function Navbar() {
   }, []);
 
   window.addEventListener("resize", showButton);
-  // invoke function underneath this [38:10]
-  // window.addEventListener("resize", showButton); // whenever i resize the screen, get show button  
-  return (
+return (
     <>
       <nav className="navbar">
         <div className="navbar-container">
@@ -85,7 +83,7 @@ function Navbar() {
               <Link
                 to="/log-in"
                 className="nav-links"
-                onClick={closeMobileMenu}
+               onClick={closeMobileMenu}
               >
                 Log in
               </Link>

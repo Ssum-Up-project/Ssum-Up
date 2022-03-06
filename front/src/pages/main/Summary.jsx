@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 
 function Summary() {
   const { fetcedVideoInfo } = useContext(VideoInfoStateContext);
-
   return (
     <Box
       sx={{

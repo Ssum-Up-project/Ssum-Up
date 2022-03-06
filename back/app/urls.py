@@ -3,7 +3,6 @@ from .views import PlayLists, PlayListDetail, VideoDataList, VideoDataDetail
 from rest_framework.urlpatterns import format_suffix_patterns
 
 
-# 라우팅 버전1 - 라우팅 버전마다 장단점이 있음
 urlpatterns = [
     path("playlist/", PlayLists.as_view(), name="playlist_list"),
     path("playlist/<int:pk>/", PlayListDetail.as_view(), name="playlist_detail"),

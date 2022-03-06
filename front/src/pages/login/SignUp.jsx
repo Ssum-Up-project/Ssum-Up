@@ -23,7 +23,6 @@ const FormHelperTexts = styled(FormHelperText)`
   font-weight: 700;
   color: #d32f2f;
 `;
-
 const Boxs = styled(Box)`
   padding-bottom: 40px;
 `;
@@ -185,3 +184,4 @@ const Register = () => {
 };
 
 export default Register;
+

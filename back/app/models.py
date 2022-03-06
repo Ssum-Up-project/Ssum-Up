@@ -59,24 +59,6 @@ class User(AbstractBaseUser):
         return self.is_admin
 
 
-class PlayList(models.Model):
-    list_name = models.CharField(max_length=50)
-    user_id = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="playlist_user",
-        db_column="user_id",
-        verbose_name="유저 ID",
-        # blank=True,
-        # null=True,
-    )
-    video_data_id = models.CharField(max_length=300)
-    # create_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.list_name
-
-
 class VideoData(models.Model):
     url = models.URLField(max_length=200)
     title = models.CharField(max_length=200)
@@ -85,3 +67,28 @@ class VideoData(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class PlayList(models.Model):
+    list_name = models.CharField(max_length=50)
+    user_id = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="playlist_user",
+        db_column="user_id",
+        verbose_name="유저 ID",
+    )
+    video_data_id = models.ForeignKey(
+        VideoData,
+        on_delete=models.CASCADE,
+        related_name='playlist_video_data',
+        db_column="video_id",
+        verbose_name='유튜브 동영상 데이터',
+    )
+    create_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return f"User:{self.user_id} => PlayList:{self.list_name}"

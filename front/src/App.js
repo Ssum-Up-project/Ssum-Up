@@ -9,14 +9,13 @@ import MyPage from "./pages/mypage/MyPage";
 import SignUp from "./pages/login/SignUp.jsx";
 import Video from "./pages/main/Video";
 import { AppWrapper } from './context/AppWrapper';
-
 export const VideoInfoStateContext = createContext(null);
 export const VideoInfoDispatchContext = createContext(null);
 
 // import NavbarLogin from "./components/NavbarLogin";
 
 function App() {
-  // const [fetchedVideoInfo, setFetchedVideoInfo] = useState();
+// const [fetchedVideoInfo, setFetchedVideoInfo] = useState();
 
   // Response 받은거 state로 넣는 함수
   // const handleResponse = (

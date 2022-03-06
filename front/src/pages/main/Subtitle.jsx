@@ -24,6 +24,7 @@ function Summary() {
       }}
     >
       {fetcedVideoInfo.subtitles}
+
     </Box>
   );
 }

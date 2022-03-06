@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# 변경사항
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 파일 구조 변경 (아래 설명)
+- 💥 `.js` -> `.jsx` 로 확장자 변경
+- 💥 같은 컴포넌트인 `jsx`과 `css`는 같은 디렉토리로 통합
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+# Directory Structure
 
-### `npm start`
+```
+src/component
+src/pages/intro
+src/pages/login
+src/pages/main
+src/pages/team
+src/test
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+# src
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- App.js, css
+- index.js, css
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### component
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Button.jsx, css
+- Footer.jsx, css
+- Navbar.jsx, css
+- NavbarLogin.jsx
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+### pages
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**pages/intro**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Home.jsx, css
+- Section0.jsx, css
+- Section1.jsx, css
+- Section2.jsx, css
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**pages/login**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- LogIn.jsx, css
+- SignUp.jsx
 
-## Learn More
+**pages/main**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Subtitle.jsx
+- Summary.jsx
+- Video.jsx
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**pages/team**
 
-### Code Splitting
+- CardItem.jsx
+- Team.jsx, css
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+### test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 기타 테스트용 파일들

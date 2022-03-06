@@ -12,7 +12,6 @@ function Home() {
   }, []);
   
   const videoState = useVideoState()
-
   return (
     <>
       <Section0 />
@@ -25,4 +24,3 @@ function Home() {
 }
 
 export default Home;
-
