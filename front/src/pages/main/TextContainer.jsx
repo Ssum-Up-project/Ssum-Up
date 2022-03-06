@@ -56,6 +56,28 @@ const TextContainer = () => {
       sm={{ xs: 12, md: 10 }}
     >
       <ToggleButtonGroup size="m" {...control} fullWidth>
+        {/* <ToggleButton
+          value="right"
+          key="right"
+          onClick={(e) => {
+            setShowingSummary(true);
+          }}
+        >
+          요약
+          {showText}
+        </ToggleButton>
+        ,
+        <ToggleButton
+          value="justify"
+          key="justify"
+          onClick={(e) => {
+            setShowingSummary(false);
+            setShowingSubtitle(true);
+          }}
+        >
+          전체자막
+          {showText}
+        </ToggleButton> */}
         {children}
       </ToggleButtonGroup>
       <Summary></Summary>
