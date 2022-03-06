@@ -10,7 +10,7 @@ function videoReducer(state, action) {
 }
 
 export function AppWrapper({ children }) {
-  const [videoInfos, dispatchVideoInfos] = useReducer(videoReducer, {
+  const [videoInfo, dispatchVideoInfo] = useReducer(videoReducer, {
     id: 0,
     url: "url",
     title: "title",
@@ -19,8 +19,8 @@ export function AppWrapper({ children }) {
   });
 
   return (
-    <VideoStateContext.Provider value={videoInfos}>
-      <VideoDispatchContext.Provider value={dispatchVideoInfos}>
+    <VideoStateContext.Provider value={videoInfo}>
+      <VideoDispatchContext.Provider value={dispatchVideoInfo}>
         {children}
       </VideoDispatchContext.Provider>
     </VideoStateContext.Provider>

@@ -20,11 +20,12 @@ function Summary() {
         padding: 2,
         maxWidth: "95vh",
         height: "14vh",
-        backgroundColor: "#F2F2F2",
-        borderRadius: 5,
+        // backgroundColor: "#F2F2F2",
+        backgroundColor: "yellow",
       }}
     >
       {/* {fetchedVideoInfo.summary} */}
+      요약 내용ㅇㅇㅇㅇ
     </Box>
   );
 }

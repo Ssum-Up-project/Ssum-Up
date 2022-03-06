@@ -16,16 +16,17 @@ const fetchedVideoInfo = {
 
 const Section2 = () => {
   const navigate = useNavigate();
-  const [currentURL, setCurrentURL] = useState(); // link = currentURL
+  const [inputURL, setinputURL] = useState(); // link = inputURL
   const videoDispatch = useVideoDispatcher();
 
   const requestURL = async () => {
-    // return await axios
+    // const fetchedVideoInfo = await axios
     //   .post(
-    //     "http://localhost:8000/api/videoInfo",
+    //     "http://127.0.0.1:8000/swagger/",
     //     // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-    //     { url: currentURL }
-    //   ).then((res) => {
+    //     { url: inputURL }
+    //   )
+    //   .then((res) => {
     //     console.log(res.data);
     //     return res.data;
     //   })
@@ -38,11 +39,11 @@ const Section2 = () => {
   const handleClick = async () => {
     const regeX =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
-    if (regeX.test(currentURL)) {
+    if (regeX.test(inputURL)) {
       const fetchedVideoInfo = await requestURL();
-      localStorage.setItem("currentURL", JSON.stringify(currentURL));
+      localStorage.setItem("storedURL", JSON.stringify(inputURL));
       videoDispatch(fetchedVideoInfo);
-      navigate("/video");
+      navigate("/main-output");
     } else {
       alert("URL을 확인해주세요.");
     }
@@ -61,12 +62,12 @@ const Section2 = () => {
       {/* !! 링크 인풋이랑 버튼은 아직 에니메이션 효과가 없음  */}
       <form>
         <input
-          value={currentURL}
-          onChange={(e) => setCurrentURL(e.target.value)}
+          value={inputURL}
+          onChange={(e) => setinputURL(e.target.value)}
           type="text"
-          name="currentURL"
+          name="inputURL"
           placeholder="링크 입력"
-          className="input_currentURL"
+          className="input_inputURL"
         />
       </form>
 
