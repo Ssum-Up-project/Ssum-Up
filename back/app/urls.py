@@ -13,5 +13,5 @@ urlpatterns = [
     path("videodata/", VideoDataList.as_view(), name="videodata_list"),
     path("videodata/<str:pk>/", VideoDataDetail.as_view(), name="videodata_detail"),
     path("searchlog/", SearchLogList.as_view(), name="searchlog"),
-    path("searchlog/user", SearchLogUserList.as_view(), name="searchlog_user"),
+    path("searchlog/user/", SearchLogUserList.as_view(), name="searchlog_user"),
 ]

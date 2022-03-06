@@ -56,6 +56,7 @@ class PlayLists(APIView):
         return Response(serializer.data)
 
     @swagger_auto_schema(
+        request_body=PlayListPostSerializer,
         responses={
             status.HTTP_200_OK: PlayListSerializer,
             status.HTTP_400_BAD_REQUEST: "잘못된 요청",
