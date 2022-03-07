@@ -2,9 +2,10 @@ from django.contrib import admin
 
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .forms import UserChangeForm, UserCreationForm
+from .forms import UserChangeForm
+from .forms import UserCreationForm
+from .models import SearchLog
 from .models import User
-
 from .models import PlayList
 from .models import VideoData
 
@@ -34,3 +35,4 @@ admin.site.unregister(Group)
 
 admin.site.register(PlayList)
 admin.site.register(VideoData)
+admin.site.register(SearchLog)

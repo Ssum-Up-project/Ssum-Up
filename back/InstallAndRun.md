@@ -24,10 +24,11 @@
   python manage.py runserver
 * http://localhost:8000 로 접속 확인 후 서버 종료 : Ctrl + C
 
-* db migration 관련:
+* model 수정시 관련:
   python manage.py makemigrations
   python manage.py migrate --run-syncdb
-
+  python manage.py createsuperuser
+  
 * 초기 db 생성: python manage.py (db.sqlite3 파일 생성 - 장고 기본 초기 DB)
 * 초기 관리자 생성: python manage.py createsuperuser
  - id / pw : admin / 1q..
