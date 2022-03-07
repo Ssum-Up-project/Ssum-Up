@@ -25,3 +25,5 @@ db.sqlite3-journal
 /front/build
 /node_modules
 
+.static
+static
