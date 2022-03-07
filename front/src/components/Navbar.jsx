@@ -68,12 +68,12 @@ return (
             {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
             {currentUser?(
                 <><li className="nav-item">
-                <Link to="/my-page" className="nav-links">
+                <Link to="/my-page" className="nav-links" onClick={closeMobileMenu}>
                   My Page
                 </Link>
               </li>
               <li className="nav-item">
-                  <Link to="/" className="nav-links"  onClick={logOut}>
+                  <Link to="/" className="nav-links"  onClick={logOut} >
                     LogOut
                   </Link>
                 </li></>
