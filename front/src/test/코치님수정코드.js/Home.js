@@ -4,13 +4,12 @@ import Section1 from "./Section1";
 import Section2 from "./Section2";
 import Footer from "../../components/Footer";
 import WOW from "wowjs";
-import { useVideoState } from '../../context/AppWrapper';
+import { useVideoState } from "../../context/AppWrapper";
 
 function Home() {
   useEffect(() => {
     new WOW.WOW().init();
   }, []);
-
 
   const videoState = useVideoState();
 

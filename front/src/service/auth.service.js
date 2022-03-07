@@ -17,7 +17,7 @@ const logout = async () => {
   .post(API_URL +'logout/', {})
   .then(function(){
     localStorage.removeItem("user");//로컬 스토리지에서 제거
-    window.location.replace("/")//페이지 리로드
+    window.location.reload();//페이지 리로드
   })
 };
 

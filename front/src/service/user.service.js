@@ -6,11 +6,11 @@ const API_URL = 'http://localhost:8000/api/';
 const getPlayList = () => {
     return axios.get(API_URL + "playlist/",{ headers: authHeader()});
   };
-  const getRecentVideo = () => {
+const getRecentVideo = () => {
     return axios.get(API_URL + "videodata/", { headers: authHeader()});
   };
 
 export default {
     getRecentVideo,
-    getPlayList
+    getPlayList,
 };

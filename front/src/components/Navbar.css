@@ -15,8 +15,9 @@
   align-items: center;
   height: 80px;
   display: flex;
-  /* justify-content: center; */
-  justify-content: space-evenly;
+  justify-content: center;
+  /* justify-content: space-evenly; */
+  /* width: 1500px; */
   max-width: 2000px;
 }
 

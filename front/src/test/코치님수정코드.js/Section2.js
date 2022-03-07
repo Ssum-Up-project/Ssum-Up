@@ -1,8 +1,8 @@
-import "../../App.css";
 import React, { useState } from "react";
-import { Button } from "../../components/Button";
-import "./Section2.css";
 import { useNavigate } from "react-router";
+import { Button } from "../../components/Button";
+import "../../App.css";
+import "./Section2.css";
 import axios from "axios";
 import { useVideoDispatcher } from "../../context/AppWrapper";
 
@@ -16,36 +16,17 @@ const fetchedVideoInfo = {
 
 const Section2 = () => {
   const navigate = useNavigate();
-  const [inputURL, setinputURL] = useState(); // link = inputURL
   const videoDispatch = useVideoDispatcher();
-
+  const [currentURL, setCurrentURL] = useState();
   const requestURL = async () => {
-    // const fetchedVideoInfo = await axios
-    //   .post(
-    //     "http://127.0.0.1:8000/swagger/",
-    //     // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-    //     { url: inputURL }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     return res.data;
-    //   })
-    //   .catch((err) => {
-    //     console.ERR("ERRRORRR");
-    //   });
     return fetchedVideoInfo;
   };
-
-  const handleClick = async () => {
+  const handleClick = () => {
     const regeX =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
-
-    if (regeX.test(inputURL)) {
-      const fetchedVideoInfo = await requestURL();
-      localStorage.setItem("storedURL", JSON.stringify(inputURL));
+    if (regeX.test(currentURL)) {
+      const fetchedInfo = await requestURL();
       videoDispatch(fetchedVideoInfo);
-      navigate("/main-output");
-
     } else {
       alert("URL을 확인해주세요.");
     }
@@ -64,12 +45,12 @@ const Section2 = () => {
       {/* !! 링크 인풋이랑 버튼은 아직 에니메이션 효과가 없음  */}
       <form>
         <input
-          value={inputURL}
-          onChange={(e) => setinputURL(e.target.value)}
+          value={currentURL}
+          onChange={(e) => setCurrentURL(e.target.value)}
           type="text"
-          name="inputURL"
+          name="currentURL"
           placeholder="링크 입력"
-          className="input_inputURL"
+          className="input_currentURL"
         />
       </form>
 
@@ -86,4 +67,5 @@ const Section2 = () => {
     </div>
   );
 };
+
 export default Section2;

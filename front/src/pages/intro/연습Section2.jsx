@@ -1,3 +1,4 @@
+// 링크 입력 및 시작하기import React, { useState, useRef } from "react";
 import "../../App.css";
 import React, { useState } from "react";
 import { Button } from "../../components/Button";
@@ -16,17 +17,16 @@ const fetchedVideoInfo = {
 
 const Section2 = () => {
   const navigate = useNavigate();
-  const [inputURL, setinputURL] = useState(); // link = inputURL
+  const [currentURL, setCurrentURL] = useState(); // link = currentURL
   const videoDispatch = useVideoDispatcher();
 
   const requestURL = async () => {
-    // const fetchedVideoInfo = await axios
+    // return await axios
     //   .post(
-    //     "http://127.0.0.1:8000/swagger/",
+    //     "http://localhost:8000/api/videoInfo",
     //     // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-    //     { url: inputURL }
-    //   )
-    //   .then((res) => {
+    //     { url: currentURL }
+    //   ).then((res) => {
     //     console.log(res.data);
     //     return res.data;
     //   })
@@ -39,13 +39,11 @@ const Section2 = () => {
   const handleClick = async () => {
     const regeX =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
-
-    if (regeX.test(inputURL)) {
+    if (regeX.test(currentURL)) {
       const fetchedVideoInfo = await requestURL();
-      localStorage.setItem("storedURL", JSON.stringify(inputURL));
+      localStorage.setItem("currentURL", JSON.stringify(currentURL));
       videoDispatch(fetchedVideoInfo);
-      navigate("/main-output");
-
+      // navigate("/video");
     } else {
       alert("URL을 확인해주세요.");
     }
@@ -64,12 +62,12 @@ const Section2 = () => {
       {/* !! 링크 인풋이랑 버튼은 아직 에니메이션 효과가 없음  */}
       <form>
         <input
-          value={inputURL}
-          onChange={(e) => setinputURL(e.target.value)}
+          value={currentURL}
+          onChange={(e) => setCurrentURL(e.target.value)}
           type="text"
-          name="inputURL"
+          name="currentURL"
           placeholder="링크 입력"
-          className="input_inputURL"
+          className="input_currentURL"
         />
       </form>
 

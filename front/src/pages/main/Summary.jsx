@@ -4,7 +4,7 @@ import { VideoInfoStateContext } from "../../App.js";
 import Box from "@mui/material/Box";
 
 function Summary() {
-  const { fetcedVideoInfo } = useContext(VideoInfoStateContext);
+  // const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
   return (
     <Box
       sx={{
@@ -19,11 +19,12 @@ function Summary() {
         padding: 2,
         maxWidth: "95vh",
         height: "14vh",
-        backgroundColor: "#F2F2F2",
-        borderRadius: 5,
+        // backgroundColor: "#F2F2F2",
+        backgroundColor: "yellow",
       }}
     >
-      {fetcedVideoInfo.summary}
+      {/* {fetchedVideoInfo.summary} */}
+      요약 내용ㅇㅇㅇㅇ
     </Box>
   );
 }
