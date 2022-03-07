@@ -7,6 +7,8 @@ import Team from "./pages/team/Team.jsx";
 import LogIn from "./pages/login/LogIn.jsx";
 import SignUp from "./pages/login/SignUp.jsx";
 import MainOutput from "./pages/main/MainOutput";
+import LogInModal from "./pages/login/LogInModal";
+import SignUpModal from "./pages/login/SignUpModal";
 
 import { AppWrapper } from "./context/AppWrapper";
 
@@ -31,6 +33,8 @@ function App() {
           <Route path="/log-in" element={<LogIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/main-output" element={<MainOutput />} />
+          <Route path="test-modal" element={<LogInModal />} />
+          <Route path="test-modal2" element={<SignUpModal />} />
         </Routes>
       </Router>
     </AppWrapper>
