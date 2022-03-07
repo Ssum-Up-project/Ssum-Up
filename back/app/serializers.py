@@ -1,29 +1,29 @@
 from re import search
+from urllib import request
 from rest_framework import serializers
 from .models import PlayList
 from .models import VideoData
 from .models import User
-
+from .models import SearchLog
 from youtube_transcript_api import YouTubeTranscriptApi
+from googletrans import Translator
 from pytube import YouTube, extract
 from .summarize import summarize
+from youtube_transcript_api._errors import NoTranscriptFound
+from pytube.exceptions import VideoUnavailable
+from .exceptions import NoTranscriptException, NoVideoTitleException, VideoUnavailableException, UnableUtubeTranscriptException
 
 
 class UserSerializer(serializers.ModelSerializer):
     playlist = serializers.PrimaryKeyRelatedField(
         many=True, queryset=PlayList.objects.all()
     )
-
-    # def create(self, validated_data):
-    #     user = User.objects.create_user(
-    #         email = validated_data['email'],
-    #         password = validated_data['password']
-    #     )
-    #     return user
-
+    # 문제가 생길수 있는 부분 남겨둠
+    
     class Meta:
         model = User
-        fields = ("email", "password")
+        fields = ("email", "password", "playlist")
+    # playlist를 필드에 추가해줌으로서 문제 해결
 
 
 class PlayListSerializer(serializers.ModelSerializer):
@@ -31,8 +31,31 @@ class PlayListSerializer(serializers.ModelSerializer):
         model = PlayList
         video_data_id = serializers.ReadOnlyField(source="videodata.id")
         user_id = serializers.ReadOnlyField(source="user.id")
-        fields = ("id", "list_name", "video_data_id", "user_id")
-        # fields = '__all__'
+        # fields = ("id", "list_name", "video_data_id", "user_id")
+        fields = '__all__'
+
+class PlayListPostSerializer(serializers.ModelSerializer):
+    """
+    플레이리스트(카테고리) 생성, 삭제
+    """
+    class Meta:
+        model = PlayList
+        fields = ["id", "list_name", "video_data_id", "create_at"]
+        extra_kwargs = {"video_data_id": {"write_only": True}}
+        read_only_fields = ("created_at",)
+    
+    def create(self, validated_data):
+        request = self.context.get("request")
+
+        playlist = PlayList()
+        playlist.list_name = validated_data["list_name"]
+        playlist.video_data_id = validated_data["video_data_id"]
+        playlist.user_id = request.user
+
+        playlist.save()
+
+        return playlist
+
 
 
 class VideoDataListSerializer(serializers.ModelSerializer):
@@ -64,8 +87,6 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         fields = ["id", "url"]
 
     def create(self, validated_data):
-        # request = self.context.get("request")
-
         video_data = VideoData()
         url = validated_data["url"]
         video_data.url = url
@@ -73,6 +94,8 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         video_data.subtitles = self.getVideoSubtitles(url)
         # 자막 요약하기
         video_data.summarized_subtitles = summarize(video_data.subtitles)
+        # 요약 자막 번역하기
+        video_data.translated_subtitles = Translator().translate(video_data.summarized_subtitles, src='en', dest='ko').text
         video_data.save()
 
         return video_data
@@ -81,8 +104,12 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         """ 유튜브 제목 얻기 """
         try:
             yt = YouTube(url)
+        except VideoUnavailable as e:
+            print(e)
+            raise VideoUnavailableException
         except Exception as e:
             print(e)
+            raise NoVideoTitleException
 
         return yt.title
 
@@ -92,11 +119,31 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         video_id = extract.video_id(url)
         try:
             srt = YouTubeTranscriptApi.get_transcript(video_id)
+        except NoTranscriptFound as e:
+            print(e)
+            raise NoTranscriptException
         except Exception as e:
             print(e)
+            raise UnableUtubeTranscriptException
+            
         else:
             subtitles = ""
             for line in srt:
                 subtitles += line["text"] + " "
 
             return subtitles
+
+
+class SearchLogSerializer(serializers.ModelSerializer):
+    """검색로그"""
+
+    class Meta:
+        model = SearchLog
+        fields = "__all__"
+    
+    def create(self, validated_data):
+        searchlog = SearchLog()
+        searchlog.user_id = validated_data["user_id"]
+        searchlog.video_id = validated_data["video_id"]
+        searchlog.save()
+        return searchlog

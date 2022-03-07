@@ -1,6 +1,6 @@
 import React from "react";
-import "/Users/sangji/Desktop/TeamProject/project-template/front/src/css/Team.css";
-import CardItem from "../CardItem.js";
+import "./Team.css";
+import CardItem from "./CardItem";
 
 function Team() {
   return (

@@ -1,17 +1,9 @@
-// import React from "react";
-import React, { useEffect } from "react";
-import "../App.css";
-import { Button } from "./Button";
-import "../css/Section0.css";
-
-import WOW from "wowjs";
+import React from "react";
+import "../../App.css";
+// import { Button } from "./Button";
+import "./Section0.css";
 
 function Section0() {
-  useEffect(() => {
-    new WOW.WOW().init();
-  });
-  // const wow = new WOW.WOW().init();
-
   return (
     <div className="Section0">
       {/* <video src="" autoPlay loop muted /> */}
@@ -23,7 +15,7 @@ function Section0() {
         tempor incididunt ut labore et
       </p>
 
-      <div className="sec-btn">
+      {/* <div className="sec-btn">
         <Button
           className="btns"
           buttonStyle="btn--outline"
@@ -38,7 +30,7 @@ function Section0() {
         >
           WATCH TRAILER <i className="far fa-play-circle" />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

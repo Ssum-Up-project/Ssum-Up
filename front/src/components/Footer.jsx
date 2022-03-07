@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../Button";
-import "/Users/sangji/Desktop/TeamProject/project-template/front/src/css/Footer.css";
+// import { Button } from "../Button";
+import "./Footer.css";
 
 function Footer() {
   return (
@@ -15,17 +15,7 @@ function Footer() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod
         </p>
-        <div className="input-areas">
-          <form>
-            <input
-              type="text"
-              name="search"
-              placeholder="Search for..."
-              className="footer-input"
-            />
-            <Button buttonStyle="btn-outline ">Search</Button>
-          </form>
-        </div>
+        <div className="input-areas"></div>
       </section>
       <div className="footer-links">
         <div className="footer-link-wrapper">
