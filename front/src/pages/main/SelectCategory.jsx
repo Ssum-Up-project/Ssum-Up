@@ -113,6 +113,7 @@ function Category(props) {
       setOpen(true);
     };
     const cancelSave= () => {
+      setSaverError(false);
       setOpen(false);
     };
   //플레이리스트 데이터 전송
