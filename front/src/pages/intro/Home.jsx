@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
 import { useVideoDispatcher } from "../../context/AppWrapper";
 import LoadingModal from "../../components/LoadingModal";
+import { Typography, Input, Box } from "@mui/material";
 import axios from "axios";
 
 const fetchedVideoInfo = {
@@ -67,24 +68,63 @@ const Home = () => {
 
   return (
     <div className="Home">
-      <div className="description_short">
+      {/* <div className="description_short">
         <h2 className="wow fadeInUp">
           영어 영상, 요약하고 핵심만 빠르게 파악해
         </h2>
         <h2 className="wow fadeInUp">당신의 소중한 시간을 아껴보세요</h2>
-      </div>
+      </div> */}
+      <Typography
+        className="wow fadeInUp"
+        variant="h3"
+        gutterBottom
+        component="h3"
+        color="#e8e1c2"
+      >
+        영어 영상, 요약하고 핵심만 빠르게 파악해
+      </Typography>
+      <Typography
+        className="wow fadeInUp"
+        variant="h3"
+        gutterBottom
+        component="h3"
+        color="#e8e1c2"
+      >
+        당신의 소중한 시간을 아껴보세요.
+      </Typography>
 
       {/* TODO: 링크 인풋이랑 버튼 에니메이션 효과*/}
-      <form>
-        <input
-          className="input_url"
+      <div>
+        <form>
+          <input
+            className="input_url"
+            value={inputURL}
+            onChange={(e) => setinputURL(e.target.value)}
+            type="text"
+            name="inputURL"
+            placeholder="url"
+          />
+        </form>
+      </div>
+      {/* <Box
+        sx={{
+          width: 500,
+          maxWidth: "100%",
+        }}
+      >
+        <Input
+          fullWidth
+          multiline
           value={inputURL}
           onChange={(e) => setinputURL(e.target.value)}
+          id="outlined-textarea"
           type="text"
           name="inputURL"
-          placeholder="링크 입력"
+          label="Multiline Placeholder"
+          // variant="filled"
+          color="#fff"
         />
-      </form>
+      </Box> */}
 
       <div className="sumup_btn">
         <Button

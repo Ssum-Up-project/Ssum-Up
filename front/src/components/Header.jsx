@@ -3,9 +3,15 @@ import { Link } from "react-router-dom";
 import { Button } from "./Button";
 import "./Header.css";
 import "./Button.css";
+import MySummaryModal from "../pages/mysummary/MySummaryModal";
 function Header() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [isMySummary, setIsMySummary] = useState(false); // 로그인 상태면 true, 그러면 MySummary페이지로 이동
+  // const [isLogIn, setIsLogIn] = useState(false);
+  // const changeLoadingState = () => {
+  //   setIsLoading((current) => !current);
+  // };
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -48,10 +54,16 @@ function Header() {
                 About Team
               </Link>
             </li>
+            {/* TODO: 여기서 로그인 전: 모달 띄우기, 로그인 후: MySummary페이지로 이동  */}
             <li className="nav-item">
-              <Link to="/team" className="nav-links" onClick={closeMobileMenu}>
+              <Link
+                to="/my-summary"
+                className="nav-links"
+                onClick={closeMobileMenu}
+              >
                 My Summary
               </Link>
+              {isMySummary && <MySummaryModal />}
             </li>
 
             {/* TODO: 페이지 아니고 모달 */}
