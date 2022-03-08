@@ -1,3 +1,4 @@
+// [#28]
 import "../../App.css";
 import "./Home.css";
 import React, { useState, useEffect } from "react";
@@ -55,7 +56,7 @@ const Home = () => {
       setTimeout(() => {
         changeLoadingState();
         navigate("/main");
-      }, [4000]);
+      }, [10000]);
       console.log(localStorage);
       // changeLoadingState();
       // navigate("/main");

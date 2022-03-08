@@ -1,3 +1,4 @@
+// [#28]
 import React, { useState, useEffect, useContext } from "react";
 import { Paper, Grid, Box, Button, Typography } from "@mui/material";
 import TextContainer from "./TextContainer";
@@ -38,7 +39,7 @@ const Main = ({ TextList }) => {
         border: "3px solid",
         // textAlign: "center",
         // position: "relative",
-        width: "100%",
+        // width: "100%",
         // textAlign: "center",
       }}
       elevation={3}
