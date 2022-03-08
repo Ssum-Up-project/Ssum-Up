@@ -3,7 +3,6 @@
 python3 manage.py migrate --run-syncdb --noinput
 
 python3 manage.py collectstatic --noinput
-
 sudo chmod -R 777 static
 
 # python3 manage.py createcachetable
