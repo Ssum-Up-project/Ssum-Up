@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
-import "./Navbar.css";
+import "./Header.css";
 import "./Button.css";
-function Navbar() {
-  // const navigate = useNavigate();
+function Header() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  // const goLogin = () => {
-  //   navigate("/login");
-  // };
-  // display the button on mobile or removes it depending on the screen size
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -26,15 +21,13 @@ function Navbar() {
   useEffect(() => {
     showButton();
   }, []);
-
   window.addEventListener("resize", showButton);
-  // invoke function underneath this [38:10]
-  // window.addEventListener("resize", showButton); // whenever i resize the screen, get show button
+
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-container">
-          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+      <nav className="Header">
+        <div className="Header-container">
+          <Link to="/" className="Header-logo" onClick={closeMobileMenu}>
             (LOGO)
             {/* <i class="fab fa-typo3" /> */}
           </Link>
@@ -55,8 +48,13 @@ function Navbar() {
                 About Team
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/team" className="nav-links" onClick={closeMobileMenu}>
+                My Summary
+              </Link>
+            </li>
 
-            {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
+            {/* TODO: 페이지 아니고 모달 */}
             <li className="nav-item">
               <Link
                 to="/log-in"
@@ -79,9 +77,9 @@ function Navbar() {
           </ul>
 
           {button && (
-            <Link to="./log-in" className="btn-mobile">
-              <Button buttonStyle="btn--outline">LOG IN</Button>
-            </Link>
+            // <Link to="./log-in" className="btn-mobile">
+            <Button buttonStyle="btn--outline">LOG IN</Button>
+            // </Link>
           )}
 
           {/* {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
@@ -91,4 +89,4 @@ function Navbar() {
     </>
   );
 }
-export default Navbar;
+export default Header;

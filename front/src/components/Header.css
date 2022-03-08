@@ -1,6 +1,7 @@
-.navbar {
+.Header {
   /* background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%); */
-  background-color: #fff;
+  background-color: #191718;
+  color: #e05448;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -11,7 +12,9 @@
   z-index: 999;
 }
 
-.navbar-container {
+.Header-container {
+  border-bottom: 1.5px solid #e8e1c2;
+  background-color: #191718;
   align-items: center;
   height: 80px;
   display: flex;
@@ -21,8 +24,8 @@
   max-width: 2000px;
 }
 
-.navbar-logo {
-  color: #000;
+.Header-logo {
+  color: #e05448;
   justify-self: start;
   margin-left: 20px;
   cursor: pointer;
@@ -38,6 +41,7 @@
 }
 
 .nav-menu {
+  background-color: transparent;
   display: grid;
   grid-template-columns: repeat(4, auto);
   grid-gap: 10px;
@@ -53,21 +57,23 @@
 }
 
 .nav-links {
-  color: #000;
+  color: #e05448;
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0.5rem 1rem;
-  height: 100%;
+  margin-top: 14px;
+  bottom: 0;
+  height: 70%;
 }
 
 .nav-links:hover {
-  border-bottom: 4px solid #fff;
+  border-bottom: 4px solid #e8e1c2;
   transition: all 0.2s ease-out;
 }
 
 .fa-bars {
-  color: #000;
+  color: #e8e1c2;
 }
 
 .nav-links-mobile {
@@ -79,7 +85,7 @@
 }
 
 @media screen and (max-width: 960px) {
-  .NavbarItems {
+  .HeaderItems {
     position: relative;
   }
 
@@ -97,10 +103,11 @@
 
   .nav-menu.active {
     background: white;
+    color: #fff;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
-    z-index: 1;
+    z-index: 10;
     justify-content: center;
   }
 
@@ -114,11 +121,11 @@
   .nav-links:hover {
     background-color: antiquewhite;
     color: #000;
-    border-radius: 0;
+    /* border-radius: 0; */
     height: 25px;
   }
 
-  .navbar-logo {
+  .Header-logo {
     position: absolute;
     top: 0;
     left: 0;
@@ -147,7 +154,7 @@
     display: block;
     text-align: center;
     margin: 2rem auto;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     width: 50%;
     text-decoration: none;
     font-size: 1.5rem;
@@ -166,34 +173,8 @@
 }
 
 @media screen and (max-width: 960px) {
-  .NavbarItems {
+  .HeaderItems {
     position: relative;
-  }
-
-  /* 모바일 화면 시 input */
-  .input_afterLogin {
-    flex-direction: column;
-    width: 100%;
-    height: 30px;
-    position: absolute;
-    top: 80px;
-    left: -100%;
-    opacity: 1;
-    transition: all 0.5s ease;
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  .nav-menu-login {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 90vh;
-    position: absolute;
-    top: 80px;
-    left: -100%;
-    opacity: 1;
-    transition: all 0.5s ease;
   }
 
   .nav-menu-login.active {
@@ -215,11 +196,10 @@
   .nav-links:hover {
     background-color: antiquewhite;
     color: #000;
-    border-radius: 0;
     height: 25px;
   }
 
-  .navbar-logo {
+  .Header-logo {
     position: absolute;
     top: 0;
     left: 0;
@@ -248,7 +228,7 @@
     display: block;
     text-align: center;
     margin: 2rem auto;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     width: 50%;
     text-decoration: none;
     font-size: 1.5rem;
@@ -266,24 +246,6 @@
   }
 }
 
-/* Navbar after log in */
-.input_afterLogin {
-  display: flex;
-  justify-content: space-evenly;
-  width: 400px;
-  height: 30px;
-  padding: 8px 20px;
-  border-radius: 10px;
-  margin-top: 20px;
-  margin-right: 10px;
-  margin-left: 20px;
-  /* outline: black; */
-  border: 2px solid #aeaeae;
-  background-color: #eeeeee;
-  font-size: 15px;
-  margin-bottom: 16px;
-}
-
 .nav-menu-login {
   grid-template-columns: repeat(4, auto);
   grid-gap: 3px;
@@ -295,14 +257,4 @@
   margin-right: 0;
   display: flex;
   /* justify-content: space-evenly; */
-}
-
-.navbar-container-login {
-  align-items: center;
-  height: 80px;
-  display: flex;
-  /* justify-content: center; */
-  justify-content: space-evenly;
-  max-width: 1900px;
-  width: 1500px;
 }
