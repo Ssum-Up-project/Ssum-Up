@@ -14,7 +14,8 @@ Deploy:
     - aiteam4-runner
   script:
     - echo "team4 AiPrj auto deploy gitlab runner"
+    - pwd
+    - ls -al
     - docker-compose down
     - docker system prune -af --volumes
     - docker-compose -f docker-compose.EliseMSAzure.yml up -d
-    
