@@ -1,107 +1,106 @@
 import React, { useState } from "react";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
+import Translation from "./Translation";
+import "./Main.css";
+
 import { Box, ToggleButton, ToggleButtonGroup, Button } from "@mui/material";
 
 const TextContainer = () => {
+  const [alignment, setAlignment] = React.useState("left");
+
   const [showingSummary, setShowingSummary] = useState(true);
   const [showingSubtitle, setShowingSubtitle] = useState(false);
-
-  const [alignment, setAlignment] = useState("left");
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  const [showingTranslation, setShowingTranslation] = useState(false);
+  const handleAlignment = (event, newAlignment) => {
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
   };
 
   const showText = () => {
     if (showingSummary) {
       return <Summary />;
-    } else {
+    } else if (!showingSummary && showingSubtitle) {
+      return <Translation />;
+    } else if (showingTranslation && !showingSubtitle) {
       return <Subtitle />;
     }
   };
 
-  const children = [
-    <ToggleButton
-      value="right"
-      key="right"
-      onClick={(e) => {
-        setShowingSummary(true);
-      }}
-    >
-      요약
-      {showText}
-    </ToggleButton>,
-    <ToggleButton
-      value="justify"
-      key="justify"
-      onClick={(e) => {
-        setShowingSummary(false);
-        setShowingSubtitle(true);
-      }}
-    >
-      전체자막
-      {showText}
-    </ToggleButton>,
-  ];
   const control = {
     value: alignment,
-    onChange: handleChange,
+    onChange: handleAlignment,
     exclusive: true,
   };
   return (
-    <Box
-      sx={{
-        height: "100%",
-      }}
-      sm={{ xs: 12, md: 10 }}
-    >
-      <ToggleButtonGroup size="m" {...control} fullWidth>
-        {/* <ToggleButton
-          value="right"
-          key="right"
+    <Box sm={{ xs: 12, md: 10, backgroundColor: "red", height: "100%" }}>
+      <ToggleButtonGroup
+        className="toggle_btn_container"
+        fullWidth
+        value={alignment}
+        exclusive
+        onChange={handleAlignment}
+        aria-label="text alignment"
+        backgroundColor="#E8E1C2"
+      >
+        <ToggleButton
+          backgroundColor="#e8e1ce"
+          className="toggle_btns"
+          value="left"
+          aria-label="left aligned"
           onClick={(e) => {
             setShowingSummary(true);
           }}
         >
           요약
-          {showText}
         </ToggleButton>
-        ,
         <ToggleButton
-          value="justify"
-          key="justify"
+          value="center"
+          aria-label="centered"
           onClick={(e) => {
-            setShowingSummary(false);
             setShowingSubtitle(true);
+            setShowingSummary(false);
+            setShowingTranslation(false);
           }}
         >
-          전체자막
-          {showText}
-        </ToggleButton> */}
-        {children}
+          번역
+        </ToggleButton>
+        <ToggleButton
+          value="right"
+          aria-label="right aligned"
+          onClick={(e) => {
+            setShowingTranslation(true);
+            setShowingSummary(false);
+            setShowingSubtitle(false);
+          }}
+        >
+          전체 자막
+        </ToggleButton>
       </ToggleButtonGroup>
-      <Summary></Summary>
+      <div>{showText()}</div>
 
-      <Box
-        sx={{
-          textAlign: "center",
+      <div
+        style={{
+          textAlign: "right",
           gridArea: "footer",
           marginBottom: 3,
+          // height: 100,
         }}
       >
         <Button
-          style={{
+          variant="contained"
+          // color="primary"
+          style={{ height: 40 }}
+          sx={{
+            textAlign: "right",
             maxWidth: "100vh",
             minWidth: "30vh",
-            // textAlign: "center",
-            // gridArea: "footer",
-            // marginBottom: 3,
-            variant: "contained",
           }}
         >
           저장하기
         </Button>
-      </Box>
+      </div>
     </Box>
   );
 };
