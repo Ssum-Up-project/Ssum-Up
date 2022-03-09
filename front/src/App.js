@@ -1,36 +1,49 @@
 import React, { useState, createContext } from "react";
-import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 import "./App.css";
+import GlobalStyle from "./styles/GlobalStyle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/intro/Home.jsx";
 import Team from "./pages/team/Team.jsx";
-import LogIn from "./pages/login/LogIn.jsx";
-import MyPage from "./pages/mypage/MyPage";
-import SignUp from "./pages/login/SignUp.jsx";
-import MainOutput from "./pages/main/MainOutput";
+import Main from "./pages/main/Main";
+import Intro from "./pages/intro/Intro";
+import Home from "./pages/intro/Home";
+import MySummary from "./pages/mysummary/MyPage"
 import { AppWrapper } from "./context/AppWrapper";
-
+import PrivateRoute from "./service/PrivateRoute";
 
 export const VideoInfoStateContext = createContext(null);
 export const VideoInfoDispatchContext = createContext(null);
 
+const dummyList = [
+  {
+    summary: "SM",
+    subtitle: "SB",
+    Translation: "TL",
+  },
+];
 
 function App() {
   return (
-    <AppWrapper>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/log-in" element={<LogIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/main-output" element={<MainOutput />} />
-          <Route path="/my-page" element={<MyPage />}/>
-        </Routes>
-      </Router>
-    </AppWrapper>
-  );
+    <div>
+      {/* <GlobalStyle /> */}
+      <AppWrapper>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Intro />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/team" element={<Team />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/my-summary" element={
+              <PrivateRoute>
+                <MySummary />
+              </PrivateRoute>
+              }/>
+          </Routes>
+        </Router>
+      </AppWrapper>
+    </div>
+ );
 }
 
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   Avatar,
   Button,
-  CssBaseline,
+  Dialog,
   TextField,
   FormControl,
   FormHelperText,
@@ -11,7 +11,8 @@ import {
   Typography,
   Container,
   styled,
-  Link
+  Link,
+  CssBaseline
 } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -30,7 +31,7 @@ const Boxs = styled(Box)`
 `;
 
 // const theme = createTheme(); ()안에 값 세팅 해야함
-const LogIn = () => {
+export default function LogIn(){
   const theme = createTheme();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -38,28 +39,22 @@ const LogIn = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordState, setPasswordState] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const regexEmail =/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
-        if (!regexEmail.test(email)) setEmailError('올바른 이메일 형식이 아닙니다.');
-        else setEmailError('');  
-    const regexPassword =/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
-        if (!regexPassword.test(password))
-        setPasswordState('영어 소문자와 숫자 및 특수기호만 입력 가능합니다.');
-        else setPasswordState('');
 
-    if (
-      regexEmail.test(email) &&
-      regexPassword.test(password) 
-    ) {
+  const [open, setOpen]= useState(true);
+  const handleClose  = () => setOpen(false);
+  const handleSubmit = () => {
       AuthService.login(email, password).then(
       () => {
-        navigate("/");
-        window.location.reload();
+        setOpen(false);
       });
     }
-  };
+
+  
   return (
+    <Dialog        
+     onClose={handleClose} 
+    open={open}
+    scroll="paper">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -131,7 +126,7 @@ const LogIn = () => {
         </Box>
       </Container>
     </ThemeProvider>
+    </Dialog>                  
   );
 };
 
-export default LogIn;

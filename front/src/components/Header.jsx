@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from "react";
 import AuthService from "./../service/auth.service"
-import { Link } from "react-router-dom";
-import "./Navbar.css";
+import { Link,Navigate } from "react-router-dom";
+import { Button } from "./Button";
+import "./Header.css";
 import "./Button.css";
+import MySummary from "../pages/mysummary/MyPage";
+import LogInModal from "../pages/login/LogInModal";
+import SignUpModal from "../pages/login/SignUpModal"
 
-
-function Navbar() {
-  // const navigate = useNavigate();
+function Header() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [isMySummary, setIsMySummary] = useState(false); // 로그인 상태면 true, 그러면 MySummary페이지로 이동
+  // const [isLogIn, setIsLogIn] = useState(false);
+  // const changeLoadingState = () => {
+  //   setIsLoading((current) => !current);
+  // };
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  const openDialog = () => {
+    setClick(false);
+    {<LogInModal/>}
+  }
 
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
@@ -38,13 +49,13 @@ function Navbar() {
   useEffect(() => {
     showButton();
   }, []);
-
   window.addEventListener("resize", showButton);
-return (
+
+  return (
     <>
-      <nav className="navbar">
-        <div className="navbar-container">
-          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+      <nav className="Header">
+        <div className="Header-container">
+          <Link to="/" className="Header-logo" onClick={closeMobileMenu}>
             (LOGO)
             {/* <i class="fab fa-typo3" /> */}
           </Link>
@@ -68,8 +79,8 @@ return (
             {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
             {currentUser?(
                 <><li className="nav-item">
-                <Link to="/my-page" className="nav-links" onClick={closeMobileMenu}>
-                  My Page
+                <Link to="/my-summary" className="nav-links" onClick={closeMobileMenu}>
+                My Summary
                 </Link>
               </li>
               <li className="nav-item">
@@ -79,11 +90,11 @@ return (
                 </li></>
             ):(
               <>
-              <li className="nav-item">
+            {/* TODO: 페이지 아니고 모달 */}
+            <li className="nav-item">
               <Link
-                to="/log-in"
-                className="nav-links"
-               onClick={closeMobileMenu}
+              className="nav-links"
+               onClick={openDialog}
               >
                 Log in
               </Link>
@@ -99,11 +110,9 @@ return (
             </li></>
             )}
           </ul>
-          {/* {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
-          {button && <Button buttonStyle="btn--outline">SIGN UP</Button>} */}
         </div>
       </nav>
     </>
   );
 }
-export default Navbar;
+export default Header;

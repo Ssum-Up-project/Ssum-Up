@@ -46,14 +46,8 @@ class PlayLists(APIView):
     )
     def get(self, request):
         """
-<<<<<<< HEAD
-        플레이리스트(카테고리) 목록
-        사용자가 저장한 동영상의 목록을 반환.
-=======
         플레이리스트(카테고리) 목록 *token 필요
-
         사용자가 저장한 동영상의 목록을 반환. 
->>>>>>> d52b4c8fc0458d4b46d364856b68f3708c3ba6d0
         """
         self.user = self.get_user()
         playlist = PlayList.objects.filter(user_id=self.user.id)
@@ -69,12 +63,8 @@ class PlayLists(APIView):
     )
     def post(self, request, format=None):
         """
-<<<<<<< HEAD
-        플레이리스트(카테고리) 추가
-=======
-        플레이리스트(카테고리) 추가 *token 필요
 
->>>>>>> d52b4c8fc0458d4b46d364856b68f3708c3ba6d0
+        플레이리스트(카테고리) 추가 *token 필요
         플레이리스트(카테고리)에 동영상 추가.
         """
         self.user = self.get_user()

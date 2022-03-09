@@ -169,14 +169,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "none"
 SITE_ID = 1
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-<<<<<<< HEAD
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication', 
-    ]
-}
-=======
+
 REST_AUTH_SERIALIZERS = {"USER_DETAILS_SERIALIZER": "app.serializers.UserSerializer"}
 SWAGGER_SETTINGS = {
     "LOGIN_URL": "/api/rest-auth/login",
@@ -188,4 +181,4 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ]
 }
->>>>>>> d52b4c8fc0458d4b46d364856b68f3708c3ba6d0
+

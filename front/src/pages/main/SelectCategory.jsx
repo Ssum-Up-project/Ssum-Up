@@ -119,7 +119,7 @@ function Category(props) {
   //플레이리스트 데이터 전송
     const handleClose = async(value) => {
       setSelectedValue(value);
-      UserService.postPlayList(value,4)//앞이 플레이리스트명, 뒤가 비디오데이터 id
+      UserService.postPlayList(value,2)//앞이 플레이리스트명, 뒤가 비디오데이터 id
       .then(() => {
         setOpen(false);
         window.location.reload();

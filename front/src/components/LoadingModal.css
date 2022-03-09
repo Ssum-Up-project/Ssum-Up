@@ -1,0 +1,22 @@
+.modalBg {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 가운데 정렬 */
+  background-color: rgba(169, 169, 169, 0.9);
+  /*  */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  /* vw, vh 기기 넓이, 높이 만큼 */
+  height: 100vh;
+  z-index: 99;
+}
+
+.modalImg {
+  z-index: 999;
+}
+/* [#28] */

@@ -1,0 +1,10 @@
+.toggle_btn_container {
+  background-color: #e8e1ce;
+  z-index: 99999;
+}
+
+.toggle_btns {
+  background-color: #e8e1ce;
+  z-index: 999;
+}
+/* // [#28] */
