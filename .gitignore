@@ -27,3 +27,20 @@ db.sqlite3-journal
 
 .static
 static
+
+
+# DB 도커 컨테이너가 사용하는 파일들
+/db/data/ssumup
+/db/data/mysql
+/db/data/performance_schema
+/db/data/aria_log.*
+/db/data/aria_log_control
+/db/data/ib_buffer_pool
+/db/data/ib_logfile*
+/db/data/ibdata*
+/db/data/multi-master.info
+/db/data/ibtmp*
+/db/data/tc.log
+# /db/data/
+
+**/.devcontainer
