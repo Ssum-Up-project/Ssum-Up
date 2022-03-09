@@ -2,9 +2,56 @@
   padding: 4rem;
 }
 
-h1 {
-  text-align: center;
+/* ---------------- Introduction ---------------- */
+.Introduction {
+  padding: 0;
+  margin-top: 60px;
+  font-size: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: column;
+  max-width: 1120px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
 }
+
+.Introduction__title {
+  position: absolute;
+  width: 441px;
+  height: 18px;
+
+  font-family: Arial;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 180px;
+  line-height: 18px;
+  /* identical to box height, or 10% */
+
+  display: flex;
+  align-items: center;
+
+  color: #ebe2c5;
+}
+/* .Introduction__p {
+  padding: 50px;
+  max-width: 1120px;
+  width: 40%;
+} */
+
+.Introduction__text {
+  width: 465px;
+  height: 465px;
+  background: #191718;
+  border: 1.5px solid #ebe3c4;
+  box-sizing: border-box;
+
+  position: relative;
+  top: 20px;
+  left: 20px;
+}
+
+/* ---------------- Team ---------------- */
 
 .cards__container {
   display: flex;
@@ -28,7 +75,7 @@ h1 {
   display: flex;
   flex: 1;
   margin: 0 1rem;
-  border-radius: 10px;
+  border: 1.5px solid #e8e1c2;
 }
 
 .cards__item__link {
@@ -63,7 +110,7 @@ h1 {
   max-width: calc((100%) - 60px);
   font-size: 12px;
   font-weight: 700;
-  background-color: #1f98f4;
+  background-color: #e05448;
   box-sizing: border-box;
 }
 
@@ -95,6 +142,7 @@ h1 {
   line-height: 24px;
 }
 
+/* mobile */
 @media only screen and (min-width: 1200px) {
   .content__blog__container {
     width: 84%;
