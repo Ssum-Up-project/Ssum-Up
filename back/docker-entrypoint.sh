@@ -4,7 +4,7 @@ python3 manage.py migrate --run-syncdb --noinput
 
 python3 manage.py collectstatic --noinput
 # sudo chmod -R 777 static
-# sudo chown -R gitlab-runner:gitlab-runner static 
+# sudo chown -R gitlab-runner:gitlab-runner static
 
 # python3 manage.py createcachetable
 
