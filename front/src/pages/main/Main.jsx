@@ -82,10 +82,10 @@ const Main = () => {
                   C
                 </ToggleButton>
               </ToggleButtonGroup>
-              {/* 텍스트 자리 */}
+
               <div>{showText()}</div>
 
-              {/* 저장 버튼 자리 */}
+              {/* TODO: 저장버튼 모양, 위치 수정 필요 */}
               <Button
                 variant="contained"
                 style={{ height: 40 }}
