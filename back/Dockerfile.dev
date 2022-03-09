@@ -1,3 +1,4 @@
+# python:3.8-alpine 으로하면 requirements.txt 에있는 특정 한두개의 파이썬 패키지 설치하면서 에러남
 FROM python:3.8.12-slim-buster
 
 # .pyc 생성 방지
@@ -15,9 +16,9 @@ COPY ./requirements.txt .
 #   && apk add --no-cache mariadb-dev zlib-dev jpeg-dev libffi-dev
 
 
-RUN pip3 install --upgrade pip setuptools \
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get -yq install python3-dev default-libmysqlclient-dev build-essential \
+  && pip3 install --upgrade pip setuptools \
   && pip install -r requirements.txt
 
 COPY . .
-
-# CMD ["python", "app.py"]
