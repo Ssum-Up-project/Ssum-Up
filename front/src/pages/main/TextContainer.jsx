@@ -4,7 +4,6 @@ import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
 import "./Main.css";
-
 import { Box, ToggleButton, ToggleButtonGroup, Button } from "@mui/material";
 
 const TextContainer = () => {
@@ -35,7 +34,7 @@ const TextContainer = () => {
     exclusive: true,
   };
   return (
-    <Box sm={{ xs: 12, md: 10, backgroundColor: "red", height: "100%" }}>
+    <div className="text_box">
       <ToggleButtonGroup
         className="toggle_btn_container"
         fullWidth
@@ -45,6 +44,7 @@ const TextContainer = () => {
         aria-label="text alignment"
         color="#E8E1C2"
       >
+        {/* Buttons */}
         <ToggleButton
           backgroundColor="#e8e1ce"
           className="toggle_btns"
@@ -79,30 +79,19 @@ const TextContainer = () => {
           전체 자막
         </ToggleButton>
       </ToggleButtonGroup>
-      <div>{showText()}</div>
-
-      <div
-        style={{
+      <Button
+        variant="contained"
+        // color="primary"
+        style={{ height: 40 }}
+        sx={{
           textAlign: "right",
-          gridArea: "footer",
-          marginBottom: 3,
-          // height: 100,
+          maxWidth: "100vh",
+          minWidth: "30vh",
         }}
       >
-        <Button
-          variant="contained"
-          // color="primary"
-          style={{ height: 40 }}
-          sx={{
-            textAlign: "right",
-            maxWidth: "100vh",
-            minWidth: "30vh",
-          }}
-        >
-          저장하기
-        </Button>
-      </div>
-    </Box>
+        저장하기
+      </Button>
+    </div>
   );
 };
 
