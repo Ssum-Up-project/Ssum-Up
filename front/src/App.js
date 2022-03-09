@@ -23,13 +23,14 @@ const dummyList = [
 function App() {
   return (
     <div style={{ width: "100%" }}>
+      <Intro />
       <GlobalStyle />
       <AppWrapper>
         <Router>
           <Header />
           <Routes>
-            {/* <Route path="/" element={<Intro />}></Route> */}
-            <Route path="/" element={<Home />}></Route>
+            {/* <Route path="/" element={<Intro />} /> */}
+            <Route path="/home" element={<Home />} />
             <Route path="/team" element={<Team />} />
             <Route path="/main" element={<Main />} />
           </Routes>
