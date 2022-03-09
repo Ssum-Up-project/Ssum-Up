@@ -1,5 +1,5 @@
-// [#28]
 import React from "react";
+import "./LoadingModal.css";
 
 const LoadingModal = () => {
   return (

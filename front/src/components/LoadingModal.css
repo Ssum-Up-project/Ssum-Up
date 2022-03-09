@@ -13,10 +13,10 @@
   width: 100vw;
   /* vw, vh 기기 넓이, 높이 만큼 */
   height: 100vh;
-  z-index: 99;
+  z-index: 10;
 }
 
 .modalImg {
-  z-index: 999;
+  z-index: 20;
+  color: red;
 }
-/* [#28] */

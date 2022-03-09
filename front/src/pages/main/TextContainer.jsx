@@ -43,7 +43,7 @@ const TextContainer = () => {
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
-        backgroundColor="#E8E1C2"
+        color="#E8E1C2"
       >
         <ToggleButton
           backgroundColor="#e8e1ce"
