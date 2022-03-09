@@ -1,9 +1,11 @@
 #!/bin/bash
 
+python3 manage.py makemigrations --noinput 
 python3 manage.py migrate --run-syncdb --noinput
 
-python3 manage.py collectstatic --noinput
+sudo -H -u gitlab-runner bash -c "python3 manage.py collectstatic --noinput"
 # sudo chmod -R 777 static
+sudo chown -R gitlab-runner:gitlab-runner static 
 
 # python3 manage.py createcachetable
 
