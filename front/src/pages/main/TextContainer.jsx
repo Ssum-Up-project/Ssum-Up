@@ -1,13 +1,8 @@
-import React, { useState,useEffect  } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState} from "react";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
-import AuthService from "../../service/auth.service"
-import Category from "./SelectCategory"
-import LoginModal from "../login/LogInModal"
 import "./Main.css";
-
 import { Box, ToggleButton, ToggleButtonGroup, Button } from "@mui/material";
 
 const TextContainer = () => {
@@ -20,21 +15,6 @@ const TextContainer = () => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
     }
-  };
-
-  //로그인한 유저인지 아닌지 확인
-  const [currentUser, setCurrentUser] = useState(undefined);
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-    }
-  }, []);
-
-  //로그인 모달로 이동
-  const navigate=useNavigate();
-  const ClickMoveLogin = () => {
-    navigate("/log-in")
   };
 
   const showText = () => {
@@ -53,7 +33,7 @@ const TextContainer = () => {
     exclusive: true,
   };
   return (
-    <Box sm={{ xs: 12, md: 10, backgroundColor: "red", height: "100%" }}>
+    <div className="text_box">
       <ToggleButtonGroup
         className="toggle_btn_container"
         fullWidth
@@ -61,8 +41,9 @@ const TextContainer = () => {
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
-        backgroundColor="#E8E1C2"
+        color="#E8E1C2"
       >
+        {/* Buttons */}
         <ToggleButton
           backgroundColor="#e8e1ce"
           className="toggle_btns"
@@ -97,30 +78,19 @@ const TextContainer = () => {
           전체 자막
         </ToggleButton>
       </ToggleButtonGroup>
-      <div>{showText()}</div>
-
-      <div
-        style={{
+      <Button
+        variant="contained"
+        // color="primary"
+        style={{ height: 40 }}
+        sx={{
           textAlign: "right",
-          gridArea: "footer",
-          marginBottom: 3,
-          // height: 100,
+          maxWidth: "100vh",
+          minWidth: "30vh",
         }}
       >
-      {currentUser?
-        (<Category />):
-        (
-          <Button 
-          sx={{          
-            variant:"contained",
-            maxWidth: "100vh",
-            minWidth: "30vh"
-          }}
-          onClick={ClickMoveLogin}>
-              Save
-          </Button>
-      )}</div>
-      </Box>
+        저장하기
+      </Button>
+    </div>
   );
 };
 

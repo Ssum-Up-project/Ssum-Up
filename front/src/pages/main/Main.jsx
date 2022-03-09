@@ -1,82 +1,127 @@
-// [#28]
-import React, { useState, useEffect, useContext } from "react";
-import { Paper, Grid, Box, Button, Typography } from "@mui/material";
-import TextContainer from "./TextContainer";
+import React, { useState,useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import Youtube from "./Youtube";
-import { useVideoState } from "../../context/AppWrapper";
+import Summary from "./Summary";
+import Subtitle from "./Subtitle";
+import Translation from "./Translation";
+import LoginModal from "../login/LogInModal"
+import AuthService from "../../service/auth.service"
+import Category from "./SelectCategory"
+// import { useVideoState } from "../../context/AppWrapper";
 import "./Main.css";
+import { ToggleButton, ToggleButtonGroup, Button, Stack } from "@mui/material";
 
-// const dummyList = {
-//   title: "TEST",
-//   subtitle:
-//     "SUBTITLE SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, porttitor vel vehicula non, faucibus dignissim arcu. Aenean fringilla felis vitae pellentesque mollis. Morbi sodales non arcu id placerat. Integer eget arcu nisl. Donec dapibus leo sed urna pharetra, eu elementum diam eleifend. Ut pellentesque, enim non scelerisque feugiat, erat est pharetra elit, eu volutpat nisl nibh a ipsum. Proin gravida elit eu sapien vulputate semper. Phasellus metus metus, scelerisque sed nisi vitae, pulvinar dictum ante. In odio lectus, pharetra sed eros sit amet, maximus faucibus nibh.",
-//   summary:
-//     "SUMMARY SAMPLE : Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie eros eget ex aliquam auctor. In arcu felis, rutrum sit amet nunc ac, dignissim sodales metus. Donec velit enim, ",
-// };
+const Main = () => {
+  const [alignment, setAlignment] = React.useState("left");
+  const [showingSummary, setShowingSummary] = useState(true);
+  const [showingSubtitle, setShowingSubtitle] = useState(false);
+  const [showingTranslation, setShowingTranslation] = useState(false);
 
-const Main = ({ TextList }) => {
-  // console.log(TextList); // 에러남 type error
-  const videoState = useVideoState;
-  const [playerURL, setPlayerURL] = useState();
-
-  useEffect(() => {
-    const storedURL = localStorage.getItem("storedURL");
-    if (playerURL !== null) {
-      setPlayerURL(storedURL);
+  const handleAlignment = (event, newAlignment) => {
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
     }
-  }, [playerURL]);
+  };
+  const showText = () => {
+    if (showingSummary) {
+      return <Summary />;
+    } else if (!showingSummary && showingSubtitle) {
+      return <Translation />;
+    } else if (showingTranslation && !showingSubtitle) {
+      return <Subtitle />;
+    }
+  };
+    //로그인한 유저인지 아닌지 확인
+    const [currentUser, setCurrentUser] = useState(undefined);
+    useEffect(() => {
+      const user = AuthService.getCurrentUser();
+      if (user) {
+        setCurrentUser(user);
+      }
+    }, []);
+  
+    //로그인 모달로 이동
+    const navigate=useNavigate();
+    const ClickMoveLogin = () => {
+      navigate("/log-in")
+    };
 
   return (
-    // TODO: 전체 화면에서 이 Paper 안의 Grid들이 가운데로 안옴
-    <Paper
-      sx={{
-        marginTop: 6,
-        p: 1,
-        marginRight: 13,
-        marginLeft: 13,
-        height: "auto",
-        flexGrow: 1,
-        border: "3px solid",
-        // textAlign: "center",
-        // position: "relative",
-        // width: "100%",
-        // textAlign: "center",
-      }}
-      elevation={3}
-      item
-      lg={8}
-      md={8}
-      xs={12}
-    >
-      <Grid container spacing={0} width="100%">
-        <Grid
-          item
-          lg={6}
-          xs={12}
-          sx={{
-            // backgroundColor: "blue",
-            height: "30rem",
-            width: "50%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Youtube playerURL={playerURL} />
-        </Grid>
+    <div className="Main">
+      <div className="line">
+        <div className="container">
+          <section className="section">
+            <div className="youtube_container">
+              <Youtube></Youtube>
+            </div>
+          </section>
+        </div>
 
-        <Grid item lg={5} xs={12} width="50%">
-          <Box
-            sx={{
-              backgroundColor: "red",
-              height: "30rem",
-            }}
-          >
-            <TextContainer></TextContainer>
-          </Box>
-        </Grid>
-      </Grid>
-    </Paper>
+        <div className="container">
+          <section className="section">
+            {/* TEXT */}
+            <div className="text_container">
+              <ToggleButtonGroup
+                value={alignment}
+                exclusive
+                onChange={handleAlignment}
+                aria-label="text alignment"
+                fullWidth
+              >
+                <ToggleButton
+                  value="left"
+                  aria-label="left aligned"
+                  onClick={(e) => {
+                    setShowingSummary(true);
+                  }}
+                >
+                  A
+                </ToggleButton>
+                <ToggleButton
+                  value="center"
+                  aria-label="centered"
+                  onClick={(e) => {
+                    setShowingSubtitle(true);
+                    setShowingSummary(false);
+                    setShowingTranslation(false);
+                  }}
+                >
+                  B
+                </ToggleButton>
+                <ToggleButton
+                  value="right"
+                  aria-label="right aligned"
+                  onClick={(e) => {
+                    setShowingTranslation(true);
+                    setShowingSummary(false);
+                    setShowingSubtitle(false);
+                  }}
+                >
+                  C
+                </ToggleButton>
+              </ToggleButtonGroup>
+              {/* 텍스트 자리 */}
+              <div>{showText()}</div>
+              {/* 저장 버튼 자리 */}
+              {currentUser?
+                (<Category />):
+                (
+                  <Button 
+                    variant="contained"
+                    sx={{      
+                        height: 40 ,    
+                        variant:"contained",
+                        maxWidth: "100vh",
+                        minWidth: "30vh"
+                      }}
+                  onClick={ClickMoveLogin}>
+                  저장하기
+                </Button>)}
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
   );
 };
 

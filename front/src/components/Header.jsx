@@ -92,9 +92,9 @@ function Header() {
               <>
             {/* TODO: 페이지 아니고 모달 */}
             <li className="nav-item">
-              <Link
+              <Link to="/log-in"
               className="nav-links"
-               onClick={openDialog}
+               onClick={closeMobileMenu}
               >
                 Log in
               </Link>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   Avatar,
   Button,
-  Dialog,
+  CssBaseline,
   TextField,
   FormControl,
   FormHelperText,
@@ -11,8 +11,7 @@ import {
   Typography,
   Container,
   styled,
-  Link,
-  CssBaseline
+  Link
 } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -31,7 +30,7 @@ const Boxs = styled(Box)`
 `;
 
 // const theme = createTheme(); ()안에 값 세팅 해야함
-export default function LogIn(){
+const LogIn = () => {
   const theme = createTheme();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -40,21 +39,29 @@ export default function LogIn(){
   const [passwordState, setPasswordState] = useState('');
 
 
-  const [open, setOpen]= useState(true);
-  const handleClose  = () => setOpen(false);
-  const handleSubmit = () => {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const regexEmail =/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+        if (!regexEmail.test(email)) setEmailError('올바른 이메일 형식이 아닙니다.');
+        else setEmailError('');  
+    const regexPassword =/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+        if (!regexPassword.test(password))
+        setPasswordState('영어 소문자와 숫자 및 특수기호만 입력 가능합니다.');
+        else setPasswordState('');
+
+    if (
+      regexEmail.test(email) &&
+      regexPassword.test(password) 
+    ) {
       AuthService.login(email, password).then(
       () => {
-        setOpen(false);
+        navigate("/");
+        window.location.reload();
       });
     }
-
-  
+  };
   return (
-    <Dialog        
-     onClose={handleClose} 
-    open={open}
-    scroll="paper">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -85,6 +92,7 @@ export default function LogIn(){
                     error={emailError !== '' || false}
                     onChange={(e) => {
                       setEmail(e.target.value)
+                      console.log(e.target.value)
                     }}
                   />
                 </Grid>
@@ -100,6 +108,7 @@ export default function LogIn(){
                     error={passwordState !== '' || false}
                     onChange={(e) => {
                       setPassword(e.target.value)
+                      console.log(e.target.valuel)
                     }}
                   />
                 </Grid>
@@ -126,7 +135,8 @@ export default function LogIn(){
         </Box>
       </Container>
     </ThemeProvider>
-    </Dialog>                  
+
   );
 };
 
+export default LogIn;

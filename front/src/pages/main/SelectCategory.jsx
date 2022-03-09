@@ -132,13 +132,16 @@ function Category(props) {
   
     return (
       <div>
-        <Button
-        sx={{          
-            variant:"contained",
-            maxWidth: "100vh",
-            minWidth: "30vh"
-          }} onClick={handleClickOpen}>
-          Save
+        <Button       
+          sx={{      
+                height: 40 ,    
+                variant:"contained",
+                maxWidth: "100vh",
+                minWidth: "30vh"
+              }}
+          variant="contained"
+          onClick={handleClickOpen}>
+          저장하기
         </Button>
         <Category
           selectedValue={selectedValue}

@@ -11,6 +11,9 @@ import MySummary from "./pages/mysummary/MyPage"
 import { AppWrapper } from "./context/AppWrapper";
 import PrivateRoute from "./service/PrivateRoute";
 
+import LogIn from "./pages/login/LogInModal";
+import SignUp from "./pages/login/SignUpModal";
+
 export const VideoInfoStateContext = createContext(null);
 export const VideoInfoDispatchContext = createContext(null);
 
@@ -24,14 +27,16 @@ const dummyList = [
 
 function App() {
   return (
-    <div>
-      {/* <GlobalStyle /> */}
+    <div style={{ width: "100%" }}>
+     {/* <GlobalStyle />*/}
       <AppWrapper>
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<Intro />}></Route>
+            {/* <Route path="/" element={<Intro />}></Route> */}
             <Route path="/" element={<Home />}></Route>
+            <Route path="/log-in" element={<LogIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
             <Route path="/team" element={<Team />} />
             <Route path="/main" element={<Main />} />
             <Route path="/my-summary" element={

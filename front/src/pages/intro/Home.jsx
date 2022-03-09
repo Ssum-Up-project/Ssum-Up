@@ -56,8 +56,8 @@ const Home = () => {
       videoDispatch(fetchedVideoInfo);
       setTimeout(() => {
         changeLoadingState();
-        navigate("/main");
-      }, [10000]);
+        navigate("/main"); // navigate
+      }, [5000]);
       console.log(localStorage);
       // changeLoadingState();
       // navigate("/main");
