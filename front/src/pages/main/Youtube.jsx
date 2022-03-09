@@ -15,9 +15,10 @@ const Youtube = ({ playerURL }) => {
   // }, [storedURL]);
 
   return (
-    <div style={{ height: "30vh", Width: "100%" }}>
+    <div style={{ height: "auto", width: "100%" }}>
       <ReactPlayer
-        url={"playerURL"}
+        // url={"playerURL"}
+        url={"https://www.youtube.com/watch?v=HO4m1w9tiSA"}
         playing={true}
         loop={true}
         className="react-player"
