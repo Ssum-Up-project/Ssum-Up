@@ -48,7 +48,7 @@ services:
         '--collation-server=utf8mb4_unicode_ci'
       ]
     container_name: Django_db
-    restart: unless-stopped
+    restart: always
     ports:
       - 3306:3306
     volumes:
