@@ -100,7 +100,7 @@ class SearchLog(models.Model):
         related_name='searchlog',
         on_delete=models.CASCADE
     )
-    video_id = models.ForeignKey(
+    video_data_id = models.ForeignKey(
         VideoData, 
         related_name='searchlog', 
         on_delete=models.CASCADE
