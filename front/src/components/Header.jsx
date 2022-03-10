@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
+import { Modal } from "@mui/material";
 import "./Header.css";
 import "./Button.css";
 import MySummaryModal from "../pages/mysummary/MySummaryModal";
+
 function Header() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
