@@ -185,7 +185,7 @@ class VideoDataList(APIView):
             # 로그인 확인
             if request.user.is_authenticated:
                 # save searchlog
-                searchlog_input = {"user_id": request.user.id, "video_id": video[0].id}
+                searchlog_input = {"user_id": request.user.id, "video_data_id": video[0].id}
                 serializer_searchlog = SearchLogSerializer(data=searchlog_input)
                 if serializer_searchlog.is_valid(raise_exception=True):
                     serializer_searchlog.save()
@@ -206,7 +206,7 @@ class VideoDataList(APIView):
             # 로그인 확인
             if request.user.is_authenticated:
                 # save searchlog
-                searchlog_input = {"user_id": request.user.id, "video_id": video_data.id}
+                searchlog_input = {"user_id": request.user.id, "video_data_id": video_data.id}
                 serializer_searchlog = SearchLogSerializer(data=searchlog_input)
                 if serializer_searchlog.is_valid(raise_exception=True):
                     serializer_searchlog.save()
