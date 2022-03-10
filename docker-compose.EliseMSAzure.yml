@@ -22,7 +22,7 @@ services:
     volumes:
       - ./db/data:/var/lib/mysql
       - ./db/initdb.d:/docker-entrypoint-initdb.d
-    env_file: ./.env.dev
+    env_file: ./back/.env.dev
     environment:
       TZ: Asia/Seoul
     networks:
@@ -33,6 +33,7 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./back
+    image: clarkgable1/aiprj:latest
     command: sh -c "chmod +x docker-entrypoint.gitlab-runner.sh && ./docker-entrypoint.gitlab-runner.sh"
     ports:
       - 5000:8000
@@ -40,7 +41,7 @@ services:
     volumes:
       - ./back:/app/
     env_file:
-      - ./.env.dev
+      - ./back/.env.dev
     networks:
       - backnet
     restart: always
