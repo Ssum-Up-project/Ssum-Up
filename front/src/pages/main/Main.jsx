@@ -1,11 +1,13 @@
+import "./Main.css";
 import React, { useState } from "react";
 import Youtube from "./Youtube";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
 // import { useVideoState } from "../../context/AppWrapper";
-import "./Main.css";
-import { ToggleButton, ToggleButtonGroup, Button, Stack } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button } from "../../components/Button";
+// import Layout from "../Layout";
 
 const Main = () => {
   const [alignment, setAlignment] = React.useState("left");
@@ -29,6 +31,7 @@ const Main = () => {
   };
 
   return (
+    // <Layout>
     <div className="Main">
       <div className="line">
         <div className="container">
@@ -40,9 +43,8 @@ const Main = () => {
         </div>
 
         <div className="container">
-          <section className="section">
-            {/* TEXT */}
-            <div className="text_container">
+          <section className="section_text">
+            <div className="text_container_main">
               <ToggleButtonGroup
                 value={alignment}
                 exclusive
@@ -57,7 +59,7 @@ const Main = () => {
                     setShowingSummary(true);
                   }}
                 >
-                  A
+                  요약
                 </ToggleButton>
                 <ToggleButton
                   value="center"
@@ -68,7 +70,7 @@ const Main = () => {
                     setShowingTranslation(false);
                   }}
                 >
-                  B
+                  번역
                 </ToggleButton>
                 <ToggleButton
                   value="right"
@@ -79,29 +81,27 @@ const Main = () => {
                     setShowingSubtitle(false);
                   }}
                 >
-                  C
+                  전체 영상
                 </ToggleButton>
               </ToggleButtonGroup>
 
               <div>{showText()}</div>
 
-              {/* TODO: 저장버튼 모양, 위치 수정 필요 */}
-              <Button
-                variant="contained"
-                style={{ height: 40 }}
-                sx={{
-                  textAlign: "right",
-                  maxWidth: "100vh",
-                  minWidth: "30vh",
-                }}
-              >
-                저장하기
-              </Button>
+              <div className="save_btn_main">
+                <Button
+                  className="start_btn"
+                  buttonStyle="btn--outline2"
+                  buttonSize="btn--large"
+                >
+                  저장
+                </Button>
+              </div>
             </div>
           </section>
         </div>
       </div>
     </div>
+    // </Layout>
   );
 };
 

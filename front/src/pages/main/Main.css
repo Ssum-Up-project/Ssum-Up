@@ -3,6 +3,8 @@
   font-size: 1em;
 } */
 
+/* white #F7F7F9 / red #D2302C */
+
 .Main {
   width: 100%;
 }
@@ -13,11 +15,13 @@
 
   margin-left: 75px;
   margin-right: 75px;
-  border: 1.5px solid #e8e1c2;
+  border: 3px solid #f7f7f9;
   margin-top: 50px;
   justify-content: center;
   align-items: center;
   display: flex;
+  height: 500px;
+  padding-right: 13px;
 }
 
 .container {
@@ -27,6 +31,13 @@
   width: 100%;
   padding: 10px;
   margin: 10px;
+}
+
+.section_text {
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  margin-right: 5px;
 }
 
 .youtube_container {
@@ -40,11 +51,16 @@
   display: flex;
 }
 
-.text_container {
+.text_container_main {
   width: 100%;
   background-color: white;
   height: 400px;
   position: relative;
+}
+
+.save_btn_main {
+  text-align: right;
+  margin-top: 50px;
 }
 
 /* mobile */
@@ -75,6 +91,11 @@
 
   .section {
     /* card */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  .section_text {
     padding: 0;
     margin: 0;
     width: 100%;

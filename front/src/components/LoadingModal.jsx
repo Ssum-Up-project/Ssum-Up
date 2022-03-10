@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LoadingModal.css";
+import PropagateLoader from "react-spinners/PropagateLoader";
+
+const override = {
+  display: "block",
+  // margin: "auto",
+  marginRight: "50px",
+  borderColor: "red",
+};
 
 const LoadingModal = () => {
+  // let [loading, setLoading] = useState(true);
+  let [color, setColor] = useState("#E05448");
   return (
     <div className="modalBg">
-      <h1 className="modalImg">로딩 임시 이미지</h1>
+      <h1 className="modalTxt">요약 중</h1>
+      <div className="madalImg">
+        <PropagateLoader
+          color={"#E05448"}
+          // loading={true}
+          css={{ override }}
+          size={25}
+        />
+      </div>
     </div>
   );
 };
