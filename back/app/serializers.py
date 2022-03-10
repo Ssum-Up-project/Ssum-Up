@@ -1,5 +1,3 @@
-from re import search
-from urllib import request
 from rest_framework import serializers
 from .models import PlayList
 from .models import VideoData
@@ -147,3 +145,31 @@ class SearchLogSerializer(serializers.ModelSerializer):
         searchlog.video_id = validated_data["video_id"]
         searchlog.save()
         return searchlog
+
+
+class VideoDataBaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoData
+        fields = ['id', 'url', 'title']
+
+class SearchLogDetailSerializer(serializers.ModelSerializer):
+    video_data = VideoDataBaseSerializer(many=True, read_only=True)
+    class Meta:
+        model = SearchLog
+        fields = ['id', 'user_id', 'created_at', 'video_data']
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['video_id'] = VideoDataBaseSerializer(instance.video_id).data
+        return response
+
+class PlayListDetailSerializer(serializers.ModelSerializer):
+    video_data = VideoDataBaseSerializer(many=True, read_only=True)
+    class Meta:
+        model = PlayList
+        fields = ['id', 'user_id', 'create_at', 'list_name', 'video_data']
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['video_data_id'] = VideoDataBaseSerializer(instance.video_data_id).data
+        return response

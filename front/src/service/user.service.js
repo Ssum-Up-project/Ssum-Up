@@ -10,12 +10,12 @@ const postPlayList=async (list_name, video_data_id) => {
     return axios.post(API_URL + "playlist/",
     {list_name, video_data_id},{ headers: authHeader()});
 };
-const getVideoData = () => {
-    return axios.get(API_URL + "videodata/", { headers: authHeader()});
+const getSearchLog = () => {
+    return axios.get(API_URL + "searchlog/user/", { headers: authHeader()});
   };
 
 export default {
-    getVideoData,
+    getSearchLog,
     postPlayList,
     getPlayList,
 };

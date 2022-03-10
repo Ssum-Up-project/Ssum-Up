@@ -11,9 +11,12 @@ Deploy:
   only:
     - deploy # deploy 브랜치에 푸시시 자동배포되게 설정
   tags:
-    - team4-AiPrj-runner
+    - aiteam4-runner
   script:
     - echo "team4 AiPrj auto deploy gitlab runner"
+    - pwd
+    - ls -al
     - docker-compose down
     - docker system prune -af --volumes
     - docker-compose -f docker-compose.EliseMSAzure.yml up -d
+    

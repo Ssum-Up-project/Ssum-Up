@@ -6,19 +6,33 @@ import {
     MenuItem,
     FormControl,
     Select,
-    Paper
+    Paper,
+    containerClasses
 } from '@mui/material';
 import UserService from "../../service/user.service";
 import Playlist from "./PlaylistCarousel"
 import RecentVideos from "./RecentCarousel"
 
 const MyPageContent=()=>{
+    //플레이리스트
     const [contents, setContents] = useState([]);
     useEffect(()=>{
         UserService.getPlayList().then(
             (response) => {
                 console.log(response.data)
                 setContents(response.data);
+            },(error) => {
+                console.log("error")
+            }
+          );
+        }, []);
+    //서치로그
+    const [searchlog, setSearchlog] = useState([]);
+    useEffect(()=>{
+        UserService.getSearchLog ().then(
+            (response) => {
+                console.log(response.data)
+                setSearchlog(response.data);
             },(error) => {
                 console.log("error")
             }
@@ -34,7 +48,6 @@ const MyPageContent=()=>{
     const handleChange = (event) => {
         setCategory(event.target.value);
      };
-    const selectData = contents.filter(data => data.list_name===category);
 
     return(
         <Box
@@ -44,6 +57,14 @@ const MyPageContent=()=>{
         }}
       >
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+            <div>최근 기록</div>
+        </Grid>
+        <Grid item xs={12}>
+            <Box> 
+                <RecentVideos searchlog ={searchlog}/>
+            </Box>
+        </Grid>
         <Grid item xs={12}>
             <FormControl variant="standard" sx={{minHeight:20, minWidth: 120}}>
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -59,15 +80,14 @@ const MyPageContent=()=>{
                 </Select>
             </FormControl>
         </Grid>
-        <Grid item xs={12}>        
-           {category?(<Playlist category={selectData}/>):(<Playlist category={savedPlaylist[0]}/>)}
-        </Grid>
         <Grid item xs={12}>
-            <div>최근 기록</div>
+         <Box >           
+            {category?
+           (<Playlist category = {category} playlists ={contents}/>):
+           (<Playlist category = {""} playlists ={contents}/>)}
+        </Box>        
         </Grid>
-        <Grid item xs={12}>
-            <RecentVideos videos={contents}/>
-        </Grid>
+
       </Grid>
     </Box>
         );
