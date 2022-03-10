@@ -3,23 +3,51 @@ version: "3"
 # 개발 환경
 
 services:
+
+  # DATABASE
+  db:
+    image: mariadb:10.2.10
+    # 윈도우에서 빌드시 my.cnf 파일 퍼미션 -rwxr-xr-x 일괄 설정 문제로 MariaDB에서
+    # "World-writable config file '/etc/mysql/conf.d/my.cnf' is ignored" 되서 데이터 삽입시 한글 깨져서 입력되고 길이제한 걸리기도 하는 문제 수정용
+    command:
+      [
+        '--character-set-server=utf8mb4',
+        '--skip-character-set-client-handshake',
+        '--collation-server=utf8mb4_unicode_ci'
+      ]
+    container_name: Django_db
+    restart: always
+    ports:
+      - 3306:3306
+    # volumes:
+    #   - ./db/data:/var/lib/mysql
+    #   - ./db/initdb.d:/docker-entrypoint-initdb.d
+    env_file: ./back/.env.dev
+    environment:
+      TZ: Asia/Seoul
+    networks:
+      - backnet
+
   # BACKEND
   backend:
     build:
       dockerfile: Dockerfile.dev
       context: ./back
-    # command: sh -c "python3 manage.py migrate --run-syncdb --noinput && python manage.py createsuperuser --noinput --email $DJANGO_SUPERUSER_EMAIL && python3 manage.py runserver 0.0.0.0:8000"
-    command: sh -c "chmod +x docker-entrypoint.sh && ./docker-entrypoint.sh"
+    image: clarkgable1/aiprj:latest
+    # command: sh -c "chmod +x docker-entrypoint.gitlab-runner.sh && ./docker-entrypoint.gitlab-runner.sh"
+    command: sh -c "python3 manage.py makemigrations --noinput && python3 manage.py migrate --run-syncdb --noinput && python3 manage.py collectstatic --noinput && gunicorn config.wsgi --bind 0.0.0.0:8000 --timeout 180"
     ports:
       - 5000:8000
     container_name: Django_backend
-    volumes:
-      - ./back:/app/
+    # volumes:
+    #   - ./back:/app/
     env_file:
       - ./back/.env.dev
-  #   depends_on:
-  #     - database
-
+    networks:
+      - backnet
+    restart: always
+    depends_on:
+      - db
   # # FRONTEND
   # frontend:
   #   command: "npm start"
@@ -36,8 +64,6 @@ services:
   #   volumes:
   #     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
-  # # DATABASE
-  # database:
-  #   environment:
-  #     MYSQL_DATABASE: "ssumup"
-  #     MYSQL_ROOT_PASSWORD: ""
+
+networks:
+  backnet:
