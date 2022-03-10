@@ -7,6 +7,9 @@ import Team from "./pages/team/Team.jsx";
 import Main from "./pages/main/Main";
 import Intro from "./pages/intro/Intro";
 import Home from "./pages/intro/Home";
+import ReHome from "./pages/intro/ReHome";
+
+import Layout from "./Layout";
 import { AppWrapper } from "./context/AppWrapper";
 
 export const VideoInfoStateContext = createContext(null);
@@ -22,15 +25,14 @@ const dummyList = [
 
 function App() {
   return (
-    <div style={{ width: "100%" }}>
-      <Intro />
+    <div>
       <GlobalStyle />
       <AppWrapper>
         <Router>
-          <Header />
           <Routes>
-            {/* <Route path="/" element={<Intro />} /> */}
+            <Route path="/" element={<Intro />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/re-home" element={<ReHome />} />
             <Route path="/team" element={<Team />} />
             <Route path="/main" element={<Main />} />
           </Routes>

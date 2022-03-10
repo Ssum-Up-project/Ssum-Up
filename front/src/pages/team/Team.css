@@ -1,7 +1,7 @@
 .cards {
   padding: 4rem;
 }
-
+/* red: #D2302C / white: #F7F7F9 */
 /* ---------------- Introduction ---------------- */
 .Introduction {
   padding: 0;
@@ -31,7 +31,7 @@
   display: flex;
   align-items: center;
 
-  color: #ebe2c5;
+  color: #f7f7f9;
 }
 /* .Introduction__p {
   padding: 50px;
@@ -42,8 +42,8 @@
 .Introduction__text {
   width: 465px;
   height: 465px;
-  background: #191718;
-  border: 1.5px solid #ebe3c4;
+  background: #d2302c;
+  border: 1.5px solid #f7f7f9;
   box-sizing: border-box;
 
   position: relative;
@@ -75,7 +75,7 @@
   display: flex;
   flex: 1;
   margin: 0 1rem;
-  border: 1.5px solid #e8e1c2;
+  border: 1.5px solid #f7f7f9;
 }
 
 .cards__item__link {
@@ -110,7 +110,7 @@
   max-width: calc((100%) - 60px);
   font-size: 12px;
   font-weight: 700;
-  background-color: #e05448;
+  background-color: #d2302c;
   box-sizing: border-box;
 }
 

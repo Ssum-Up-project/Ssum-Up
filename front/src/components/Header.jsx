@@ -5,6 +5,7 @@ import { Modal } from "@mui/material";
 import "./Header.css";
 import "./Button.css";
 import MySummaryModal from "../pages/mysummary/MySummaryModal";
+import LogInModal from "../pages/login/LogInModal";
 
 function Header() {
   const [click, setClick] = useState(false);
@@ -14,6 +15,9 @@ function Header() {
   // const changeLoadingState = () => {
   //   setIsLoading((current) => !current);
   // };
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -91,13 +95,19 @@ function Header() {
           </ul>
 
           {button && (
-            // <Link to="./log-in" className="btn-mobile">
-            <Button buttonStyle="btn--outline">LOG IN</Button>
-            // </Link>
+            <Button buttonStyle="btn--outline" onClick={handleOpen}>
+              LOG IN
+            </Button>
           )}
-
-          {/* {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
-          {button && <Button buttonStyle="btn--outline">SIGN UP</Button>} */}
+          <Modal
+            hideBackdrop
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="child-modal-title"
+            aria-describedby="child-modal-description"
+          >
+            <LogInModal />
+          </Modal>
         </div>
       </nav>
     </>

@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
+import Button from "../../components/Button";
 import "./Main.css";
-import { Box, ToggleButton, ToggleButtonGroup, Button } from "@mui/material";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 const TextContainer = () => {
   const [alignment, setAlignment] = React.useState("left");
@@ -80,10 +81,9 @@ const TextContainer = () => {
         </ToggleButton>
       </ToggleButtonGroup>
       <Button
-        variant="contained"
-        // color="primary"
-        style={{ height: 40 }}
-        sx={{
+        buttonStyle="btn--outline2"
+        buttonSize="btn--large"
+        style={{
           textAlign: "right",
           maxWidth: "100vh",
           minWidth: "30vh",
