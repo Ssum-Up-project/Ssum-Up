@@ -19,10 +19,10 @@ services:
     restart: always
     ports:
       - 3306:3306
-    volumes:
-      - ./db/data:/var/lib/mysql
-      - ./db/initdb.d:/docker-entrypoint-initdb.d
-    env_file: ./.env.dev
+    # volumes:
+    #   - ./db/data:/var/lib/mysql
+    #   - ./db/initdb.d:/docker-entrypoint-initdb.d
+    env_file: ./back/.env.dev
     environment:
       TZ: Asia/Seoul
     networks:
@@ -33,14 +33,16 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./back
-    command: sh -c "chmod +x docker-entrypoint.gitlab-runner.sh && ./docker-entrypoint.gitlab-runner.sh"
+    image: clarkgable1/aiprj:latest
+    # command: sh -c "chmod +x docker-entrypoint.gitlab-runner.sh && ./docker-entrypoint.gitlab-runner.sh"
+    command: sh -c "python3 manage.py makemigrations --noinput && python3 manage.py migrate --run-syncdb --noinput && python3 manage.py collectstatic --noinput && gunicorn config.wsgi --bind 0.0.0.0:8000 --timeout 180"
     ports:
       - 5000:8000
     container_name: Django_backend
     volumes:
       - ./back:/app/
     env_file:
-      - ./.env.dev
+      - ./back/.env.dev
     networks:
       - backnet
     restart: always
