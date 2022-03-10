@@ -39,8 +39,8 @@ services:
     ports:
       - 5000:8000
     container_name: Django_backend
-    volumes:
-      - ./back:/app/
+    # volumes:
+    #   - ./back:/app/
     env_file:
       - ./back/.env.dev
     networks:
