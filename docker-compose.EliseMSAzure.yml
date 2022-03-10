@@ -35,7 +35,10 @@ services:
       context: ./back
     image: clarkgable1/aiprj:latest
     # command: sh -c "chmod +x docker-entrypoint.sh && ./docker-entrypoint.sh"
-    command: sh -c "chmod +x docker-entrypoint.gitlab-runner.sh"
+    command:
+      - chmod
+      - +x
+      - docker-entrypoint.gitlab-runner.sh
     entrypoint: "docker-entrypoint.gitlab-runner.sh"
     # command: sh -c "python3 manage.py makemigrations --noinput && python3 manage.py migrate --run-syncdb --noinput && gunicorn config.wsgi --bind 0.0.0.0:8000 --timeout 180"
     ports:
