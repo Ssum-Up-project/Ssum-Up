@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile.dev
       context: ./back
     image: clarkgable1/aiprj:latest
-    command: sh -c "chmod +x docker-entrypoint.gitlab-runner.sh && ./docker-entrypoint.gitlab-runner.sh"
+    command: sh -c "chmod +x docker-entrypoint.sh && ./docker-entrypoint.sh"
     ports:
       - 5000:8000
     container_name: Django_backend

@@ -20,4 +20,4 @@ $@
 
 # gunicorn config 파일을 통한 실행
 # gunicorn -c config/gunicorn.conf.py
-gunicorn config.wsgi --bind 0.0.0.0:8000 --timeout 150
+gunicorn config.wsgi --bind 0.0.0.0:8000 --timeout 180
