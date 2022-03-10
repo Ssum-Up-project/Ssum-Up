@@ -166,7 +166,7 @@ const LogIn = () => {
           <Grid item>
             {/* <Link to="/sign-up">회원가입</Link> */}
             <Link href="/sign-up" variant="body2">
-              회원가입
+              아직 회원이 아니신가요? 회원가입
             </Link>
           </Grid>
         </Grid>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { VideoInfoStateContext } from "../../App.js";
 import ReactPlayer from "react-player";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
@@ -12,6 +11,7 @@ import {
   // FormControlLabel,
   // Switch,
 } from "@mui/material";
+import { useVideoState } from "../../context/AppWrapper";
 
 // const dummyList = {
 //   title: "TEST",
@@ -22,8 +22,8 @@ import {
 // };
 
 const Video = () => {
-  const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
-
+  // const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
+  const videoState = useVideoState;
   const [playerURL, setPlayerURL] = useState();
 
   useEffect(() => {
@@ -49,6 +49,7 @@ const Video = () => {
       <Grid container spacing={2}>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <div style={{ height: "80vh", Width: "100vh" }}>
+            <div style={{ backgroundColor: "red" }}>{videoState.title}</div>
             <ReactPlayer
               url={"CurrentURL"}
               playing={true}
@@ -87,10 +88,10 @@ const Video = () => {
               }}
             >
               <Typography variant="h5" component="div" gutterBottom>
-                TITLE : {fetchedVideoInfo.title}
+                {/* TITLE : {fetchedVideoInfo.title} */}
               </Typography>
               <Typography variant="subtitle1" component="div" gutterBottom>
-                URL : {fetchedVideoInfo.url}
+                {/* URL : {fetchedVideoInfo.url} */}
               </Typography>
             </Box>
             <Box
@@ -114,6 +115,7 @@ const Video = () => {
               {/* <Summary fetchedVideoInfo={dummyList} /> */}
               {/* <Subtitle fetchedVideoInfo={dummyList} /> */}
               <Summary />
+
               <Subtitle />
             </Box>
             <Box
