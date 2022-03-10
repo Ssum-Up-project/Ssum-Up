@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -96,10 +97,32 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+env_file = os.path.join(BASE_DIR, ".env.dev")
+dotenv.read_dotenv(env_file)
+
+def get_env(key_name):
+    return os.environ[key_name]
+
+# SQLITE3 사용
+if get_env("USE_SQLITE3") == "1":
+    print('Using SqlLite3')
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+else:
+    print('Using MariaDB')
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": get_env("MYSQL_DATABASE"),
+            "USER": get_env("MYSQL_USER"),
+            "PASSWORD": get_env("MYSQL_PASSWORD"),
+            "HOST": get_env("MYSQL_HOST"),
+            "PORT": get_env("MYSQL_PORT"),
+        }
     }
 }
 
