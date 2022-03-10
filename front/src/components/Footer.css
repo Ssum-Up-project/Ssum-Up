@@ -4,7 +4,6 @@ footer- = footer-fontainer
 */
 
 .Footer {
-  background-color: #242424;
   padding: 4rem 0 2rem 0;
   display: flex;
   flex-direction: column;
@@ -21,7 +20,6 @@ footer- = footer-fontainer
 
   margin-bottom: 24px;
   padding: 24px;
-  color: #fff;
 }
 
 .footer-container > p {
@@ -51,6 +49,7 @@ footer- = footer-fontainer
 }
 
 .footer-links {
+  border: 1.5px solid #e8e1c2;
   width: 100%;
   max-width: 1000px;
   display: flex;

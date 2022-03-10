@@ -1,0 +1,95 @@
+/* 
+배경
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+} */
+
+.Home {
+  /* background: url('images/ url') center center/cover no-repeat; */
+  background-color: #191718;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2); */
+  object-fit: contain;
+}
+
+/* description_short */
+
+.Home .description_short {
+  font-size: 40px;
+  margin-top: -80px;
+  width: 590px;
+  height: 86px;
+  left: 593px;
+  top: 302px;
+
+  /* font-family: Swagger; */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 18px;
+
+  /* display: flex; */
+  align-items: center;
+  text-align: center;
+  color: #e8e1c2;
+  line-height: 1.5;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+/* 왜 적용 안되? */
+.Home .input_url {
+  width: 500px;
+  height: 26px;
+  padding: 8px 20px;
+  /* border-radius: 2px; */
+  margin-top: 50px;
+  margin-right: 10px;
+  /* outline: black; */
+  border: 2px solid #aeaeae;
+  background-color: #eeeeee;
+  font-size: 15px;
+  margin-bottom: 16px;
+  /* display: flex;
+  position: absolute;
+  width: 550px;
+  height: 44px;
+  left: 613px;
+  top: 513px; */
+}
+
+input::placeholder {
+  color: #aeaeae;
+}
+
+/* ?? 적용 안됨 버튼.css에서 바꿔야 되나? */
+/* .sec-btn .btns {
+  width: 500px;
+} */
+
+@media screen and (max-width: 960px) {
+  .Home > h2 {
+    font-size: 70px;
+    margin-top: -150px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* .Home > h2 {
+    font-size: 50px;
+    margin-top: -100px;
+  } */
+
+  .Home > p {
+    font-size: 30px;
+  }
+}

@@ -1,5 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 
+// export const VideoStateContext = createContext(null);
+// export const VideoDispatchContext = createContext(null);
 const VideoStateContext = createContext(null);
 const VideoDispatchContext = createContext(null);
 
@@ -14,7 +16,8 @@ export function AppWrapper({ children }) {
     id: 0,
     url: "url",
     title: "title",
-    subtitles: "subtitles",
+    subtitles: "subtitles sample",
+    translation: "translation sample",
     summarized_subtitles: "summarized subtitle sample",
   });
 

@@ -86,24 +86,20 @@ const LogIn = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      {/*  max width = extra small --- mui breakpoints */}
       <Box
-        // Box = css의 div같은 역할
         sx={{
-          // css
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        {/* Avatar - 아이콘 동그랗게 만들기 / sx {{m = margin, bgcolor = background color / "secondary.main" mui에서 지정한 컬러컨셉}}*/}
+        {/* Avatar - 아이콘 동그랗게 만들기 */}
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
 
         <Typography component="h1" variant="h5">
-          {/* Typography - 텍스트의 폰트를 지정할 수 있도록 함 / html상에서는 h1태그인데 보이는건 mui의 h5를 적용 component="h1" variant="h5" */}
           LOG IN
         </Typography>
 
@@ -111,14 +107,13 @@ const LogIn = () => {
           name="email"
           vlaue={email}
           onChange={onChangeEmail}
-          // error={() => console.log(this.state.data.email)}
           error={validateEmail()}
           helperText={validatePasswrod() ? "이메일을 확인해주세요" : ""}
           margin="normal"
           label="Email adress"
           s
-          required // 필수 입력 값
-          fullWidth // 화면 전체 너비
+          required
+          fullWidth
           autoComplete="email"
           autoFocus
         ></TextField>
@@ -135,7 +130,7 @@ const LogIn = () => {
           }
           margin="normal"
           label="Password"
-          type="password" // 비밀번호 안보이게
+          type="password"
           required
           fullWidth
           autoComplete="current-password"
@@ -150,21 +145,18 @@ const LogIn = () => {
           type="submit" // 클릭 시 서버로 전송 submit
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2, height: 50 }} // sx = css 효과 주는 프롭 / mt = margin top, mb = margin bottom
+          sx={{ mt: 3, mb: 2, height: 50 }}
         >
           로그인
         </Button>
 
-        {/* Grid comtainer 안에 있는 컴포넌트들이 '행'이 되는 것 - 하위 Grid컴포넌트 안에 들어가는 것item이 '열'이 됨*/}
         <Grid container>
           <Grid item xs>
-            {/* 얘가 너비 여백(빈 컬럼 부분)을 다 가져가도록 설정 xs = auto layout*/}
             <Link href="/" variant="body2">
               비밀번호 찾기
             </Link>
           </Grid>
           <Grid item>
-            {/* <Link to="/sign-up">회원가입</Link> */}
             <Link href="/sign-up" variant="body2">
               아직 회원이 아니신가요? 회원가입
             </Link>

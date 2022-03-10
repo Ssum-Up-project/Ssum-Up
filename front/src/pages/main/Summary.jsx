@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { VideoInfoStateContext } from "../../App.js";
+import { useVideoState } from "../../context/AppWrapper";
 
 import Box from "@mui/material/Box";
 
 function Summary() {
-  // const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
+  const videoState = useVideoState();
 
   return (
     <Box
@@ -19,13 +19,12 @@ function Summary() {
         mb: 3,
         padding: 2,
         maxWidth: "95vh",
-        height: "14vh",
+        height: "22.4rem",
         // backgroundColor: "#F2F2F2",
-        backgroundColor: "yellow",
       }}
     >
       {/* {fetchedVideoInfo.summary} */}
-      요약 내용ㅇㅇㅇㅇ
+      {videoState.summarized_subtitles}
     </Box>
   );
 }
