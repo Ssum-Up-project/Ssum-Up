@@ -57,21 +57,22 @@ const Home = () => {
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
 
     if (regeX.test(inputURL)) {
-      // changeLoadingState();
+      // changeLoadingState(); // 💥 오류 안남 & 로딩 안 켜짐 & 화면 넘어감
 
       // 위 requestURL 함수 사용할 경우 아래 주석 풀기
-      const fetchedVideoInfo = await requestURL();
-      localStorage.setItem("storedURL", JSON.stringify(inputURL));
-      videoDispatch(fetchedVideoInfo);
+      // const fetchedVideoInfo = await requestURL(); // 💥 오류 남(ERR_CONNECTION_REFUSED) & 로딩 켜짐 & 화면 안넘어감
+      // localStorage.setItem("storedURL", JSON.stringify(inputURL)); // 💥 오류남 (Error while trying to use the following icon) & 로딩 안 켜짐 & 화면 넘어감
+      // videoDispatch(fetchedVideoInfo);
 
-      // setTimeout(() => {
-      //   changeLoadingState();
-      //   navigate("/main");
-      // }, [2000]);
+      setTimeout(() => {
+        changeLoadingState();
+        navigate("/main");
+      }, [2000]);
       // console.log(localStorage);
       // 위 setTiemout 안 쓸 경우 여기 주석 풀기
       // changeLoadingState();
       // navigate("/main");
+      // 💥 여기서 이동이 안됨 ..
     } else {
       alert("URL을 확인해주세요.");
     }

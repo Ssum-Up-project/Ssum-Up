@@ -40,6 +40,9 @@
 } */
 
 .Introduction__text {
+  font-size: 23px;
+  padding: 20px;
+  margin-right: 5rem;
   width: 465px;
   height: 465px;
   background: #d2302c;
