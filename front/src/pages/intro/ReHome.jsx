@@ -40,7 +40,7 @@ const ReHome = () => {
         return response.data;
       })
       .catch((err) => {
-        console.ERR("ERRRORRR");
+        console.error("ERRRORRR");
       });
     return fetchedVideoInfo;
   };

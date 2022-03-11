@@ -118,7 +118,9 @@ function Header() {
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
           >
-            <LogInModal />
+            <div>
+              <LogInModal />
+            </div>
           </Modal>
         </div>
       </nav>
