@@ -61,11 +61,9 @@ const Register = () => {
     await axios
       .post('http://localhost:8000/api/rest-auth/registration/', postData)
       .then(function (response) {
-        console.log(response, '성공');
         navigate('/log-in');
       })
       .catch(function (err) {
-        console.log(err);
         setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
       });
   };
@@ -178,11 +176,6 @@ const Register = () => {
               </FormControl>
               <FormHelperTexts>{registerError}</FormHelperTexts>
               <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="/log-in" variant="body2">
-                    이미 계정이 있으신가요? 로그인
-                  </Link>
-                </Grid>
               </Grid>
             </Box>
           </Box>

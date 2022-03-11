@@ -43,8 +43,6 @@ const FormHelperTexts = styled(FormHelperText)`
 const Boxs = styled(Box)`
   padding-bottom: 40px;
 `;
-
-
 function ModalContainer() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -64,10 +62,9 @@ function ModalContainer() {
   );
 }
 
-const LogInModal = ({openModal}) => {
-  const navigate = useNavigate();
+const LogInModal = () => {
 
-  const [open, setOpen] = useState(openModal);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -77,13 +74,15 @@ const LogInModal = ({openModal}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registerError, setRegisterError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     AuthService.login(email, password).then(
       () => {
-        navigate("/home");
         window.location.reload();
+      }).catch(function (err) {
+        setRegisterError('로그인에 실패하였습니다. 다시한번 확인해 주세요.');
       });
   }
   return (
@@ -99,7 +98,7 @@ const LogInModal = ({openModal}) => {
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
             <Typography component="h1" variant="h5">
-              회원가입
+              로그인
             </Typography>
             <Boxs component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <FormControl component="fieldset" variant="standard">
@@ -142,11 +141,20 @@ const LogInModal = ({openModal}) => {
                   로그인
                 </Button>
               </FormControl>
+              <FormHelperTexts>{registerError}</FormHelperTexts>
               <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link href="/sign-up" variant="body2">
-                      회원가입
-                    </Link>
+                  <Button size="small" onClick={handleOpen}>
+                  아직 회원이 아니신가요? 회원가입
+                    </Button>
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="child-modal-title"
+                      aria-describedby="child-modal-description"
+                    >
+                      <SignUpModal />
+                    </Modal>
                   </Grid>
                 </Grid>
             </Boxs>

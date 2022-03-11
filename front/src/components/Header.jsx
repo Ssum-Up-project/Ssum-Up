@@ -5,7 +5,6 @@ import { Button } from "./Button";
 import { Modal } from "@mui/material";
 import "./Header.css";
 import "./Button.css";
-import MySummary from "../pages/mysummary/MyPage";
 import LogInModal from "../pages/login/LogInModal";
 import SignUpModal from "../pages/login/SignUpModal"
 
@@ -22,6 +21,8 @@ function Header() {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const signUphandleOpen = () => setSignUpOpen(true);
+  const signUphandleClose = () => setSignUpOpen(false);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -103,25 +104,32 @@ function Header() {
                   >
                     Log in
                     </Button>
-                </li><li>
-                <Button buttonStyle="btn--outline"
-                      className="nav-links-mobile"
-                      onClick={handleOpen}
-                    >
-                      Sign Up
-                      </Button>
-                  </li></>)}
-              </ul>
-            <Modal
+                    <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
           >
-            <div>
-              <LogInModal />
-            </div>
+            <LogInModal />
           </Modal>
+                </li><li>
+                <Button buttonStyle="btn--outline"
+                      className="nav-links-mobile"
+                      onClick={signUphandleOpen}
+                    >
+                      Sign Up
+                      </Button>
+                      <Modal
+                        open={signUpOpen}
+                        onClose={signUphandleClose}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+          >
+            <SignUpModal />
+          </Modal>
+                  </li></>)}
+              </ul>
+
         </div>
       </nav>
 
