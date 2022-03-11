@@ -135,8 +135,7 @@ const LogInModal = () => {
             </Grid>
             <Grid item>
               아직 회원이 아니신가요?
-              {/* <Link href="/sign-up" variant="body2">
-                 회원가입
+              {/* <Link href="/sign-up" variant="body2">회원가입
               </Link> */}
               <Button
                 type="submit"
@@ -148,13 +147,12 @@ const LogInModal = () => {
                 회원가입
               </Button>
               <Modal
-                hideBackdrop
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
               >
-                <ModalContainer />
+                <SignUpModal />
               </Modal>
             </Grid>
           </Grid>

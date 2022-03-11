@@ -16,6 +16,8 @@ function Header() {
   //   setIsLoading((current) => !current);
   // };
   const [open, setOpen] = useState(false);
+  const [signUpOpen, setSignUpOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -100,7 +102,6 @@ function Header() {
             </Button>
           )}
           <Modal
-            hideBackdrop
             open={open}
             onClose={handleClose}
             aria-labelledby="child-modal-title"
