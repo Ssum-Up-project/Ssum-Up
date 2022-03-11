@@ -142,7 +142,7 @@ class SearchLogSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         searchlog = SearchLog()
         searchlog.user_id = validated_data["user_id"]
-        searchlog.video_data_id = validated_data["video_data_id"]
+        searchlog.video_id = validated_data["video_id"]
         searchlog.save()
         return searchlog
 
