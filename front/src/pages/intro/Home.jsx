@@ -1,9 +1,8 @@
 import "../../App.css";
 import "./Home.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
-// import { VideoDispatchContext } from "../../context/AppWrapper";
 import LoadingModal from "../../components/LoadingModal";
 import { Typography } from "@mui/material";
 import Layout from "../../Layout";
@@ -23,14 +22,10 @@ const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [inputURL, setinputURL] = useState();
-  // const videoDispatch = useContext(VideoDispatchContext);
 
   useEffect(() => {
     new WOW.WOW().init();
   }, []);
-  useEffect(() => {
-    console.log("Loading", isLoading);
-  }, [isLoading]);
 
   const changeLoadingState = () => {
     setIsLoading((current) => !current);
@@ -38,13 +33,13 @@ const Home = () => {
 
   const requestURL = async () => {
     const fetchedVideoInfo = await axios
-      .post("http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",{
+      .post("http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videodata/",{
         url: inputURL
       }).then((response) => {
         console.log(response.data);
         return response.data;
       }).catch((err) => {
-        console.error("ERRRORRR");
+        console.error(err);
       });
     return fetchedVideoInfo;
   };
@@ -55,10 +50,8 @@ const Home = () => {
 
     if (regeX.test(inputURL)) {
       changeLoadingState();
-
       const fetchedVideoInfo = await requestURL();
       localStorage.setItem("storedURL", JSON.stringify(inputURL));
-      // videoDispatch(fetchedVideoInfo);
 
       navigate("/main", {
         state: {
@@ -116,7 +109,8 @@ const Home = () => {
             요약 하기
           </Button>
         </div>
-        {isLoading && <LoadingModal />}
+        {/* {isLoading && <LoadingModal />} */}
+        <LoadingModal />
       </div>
     </Layout>
   );

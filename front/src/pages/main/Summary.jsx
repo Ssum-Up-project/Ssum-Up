@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import { VideoStateContext } from "../../context/AppWrapper";
-
+import React from "react";
 import Box from "@mui/material/Box";
 
 function Summary({ videoInfo }) {

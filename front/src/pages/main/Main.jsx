@@ -1,18 +1,16 @@
 import "./Main.css";
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Youtube from "./Youtube";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
-import LoginModal from "../login/LogInModal"
 import AuthService from "../../service/auth.service"
 import Category from "./SelectCategory"
 import "./Main.css";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Button } from "../../components/Button";
 import Layout from "../Layout";
-import { VideoDispatchContext } from "../../context/AppWrapper";
 
 const CONTENT = {
   SUMMARY: 'SUMMARY',
@@ -21,20 +19,13 @@ const CONTENT = {
 }
 
 const Main = () => {
+  const navigate = useNavigate();
   const { state } = useLocation()
-  // const videoDispatch = useContext(VideoDispatchContext);
-
+  
+  const [currentUser, setCurrentUser] = useState(undefined);
   const [alignment, setAlignment] = useState("left");
   const [showingContent, setShowingContent] = useState(CONTENT.SUMMARY)
   
-  const handleAlignment = (event, newAlignment) => {
-    if (newAlignment !== null) {
-      setAlignment(newAlignment);
-    }
-  };
-
-  //로그인한 유저인지 아닌지 확인
-  const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
@@ -42,10 +33,10 @@ const Main = () => {
     }
   }, []);
 
-  //로그인 모달로 이동
-  const navigate=useNavigate();
-  const ClickMoveLogin = () => {
-    navigate("/log-in")
+  const handleAlignment = (event, newAlignment) => {
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
   };
 
   return (
@@ -56,7 +47,7 @@ const Main = () => {
             <div className="container">
               <section className="section">
                 <div className="youtube_container">
-                  <Youtube></Youtube>
+                  <Youtube videoInfo={state.video}/>
                 </div>
               </section>
             </div>
@@ -111,7 +102,7 @@ const Main = () => {
                         className="start_btn"
                         buttonStyle="btn--outline2"
                         buttonSize="btn--large"
-                        onClick={ClickMoveLogin}
+                        onClick={() => navigate("/log-in")}
                       >
                         저장
                       </Button>
