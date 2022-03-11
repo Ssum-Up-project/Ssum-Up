@@ -83,6 +83,7 @@ class PlayList(models.Model):
         VideoData,
         on_delete=models.CASCADE,
         related_name='playlist_video_data',
+        db_column="video_id",
         verbose_name='유튜브 동영상 데이터',
     )
     create_at = models.DateTimeField(auto_now_add=True)
@@ -97,12 +98,14 @@ class PlayList(models.Model):
 class SearchLog(models.Model):
     user_id = models.ForeignKey(
         User, 
-        related_name='searchlog',
+        related_name='searchlog', 
+        db_column="user_id", 
         on_delete=models.CASCADE
     )
-    video_data_id = models.ForeignKey(
+    video_id = models.ForeignKey(
         VideoData, 
         related_name='searchlog', 
+        db_column="video_id", 
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
