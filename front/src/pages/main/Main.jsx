@@ -1,6 +1,5 @@
 import "./Main.css";
 import React, { useState, useContext,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Youtube from "./Youtube";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
@@ -8,15 +7,15 @@ import Translation from "./Translation";
 import LoginModal from "../login/LogInModal"
 import AuthService from "../../service/auth.service"
 import Category from "./SelectCategory"
-import "./Main.css";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup,Modal } from "@mui/material";
 import { Button } from "../../components/Button";
 import Layout from "../Layout";
 import { VideoStateContext } from "../../context/AppWrapper";
 
+
 const Main = () => {
   const state = useContext(VideoStateContext);
-  const [alignment, setAlignment] = React.useState("left");
+  const [alignment, setAlignment] = useState("left");
   const [showingSummary, setShowingSummary] = useState(true);
   const [showingSubtitle, setShowingSubtitle] = useState(false);
   const [showingTranslation, setShowingTranslation] = useState(false);
@@ -43,12 +42,11 @@ const Main = () => {
         setCurrentUser(user);
       }
     }, []);
+
+    const [open, setOpen] = useState(false);
   
-    //로그인 모달로 이동
-    const navigate=useNavigate();
-    const ClickMoveLogin = () => {
-      navigate("/log-in")
-    };
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
   return (
     <Layout>
@@ -106,21 +104,28 @@ const Main = () => {
                 </ToggleButtonGroup>
 
                 <div>{showText()}</div>
-                {currentUser?
-                (<Category />):
-                (
 
+                {currentUser?
+                (<Category/>):
+                (
                   <div className="save_btn_main">
                   <Button
                     className="start_btn"
                     buttonStyle="btn--outline2"
                     buttonSize="btn--large"
-                    onClick={ClickMoveLogin}
+                    onClick={handleOpen}
                   >
                     저장
                   </Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="child-modal-title"
+                    aria-describedby="child-modal-description"
+                  >
+                  <LoginModal />
+                </Modal>
                 </div>)}
-
               </div>
             </section>
           </div>
