@@ -1,9 +1,14 @@
 import "./Main.css";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Youtube from "./Youtube";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
+import LoginModal from "../login/LogInModal"
+import AuthService from "../../service/auth.service"
+import Category from "./SelectCategory"
+import "./Main.css";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Button } from "../../components/Button";
 import Layout from "../Layout";
@@ -30,6 +35,20 @@ const Main = () => {
       return <Subtitle />;
     }
   };
+    //로그인한 유저인지 아닌지 확인
+    const [currentUser, setCurrentUser] = useState(undefined);
+    useEffect(() => {
+      const user = AuthService.getCurrentUser();
+      if (user) {
+        setCurrentUser(user);
+      }
+    }, []);
+  
+    //로그인 모달로 이동
+    const navigate=useNavigate();
+    const ClickMoveLogin = () => {
+      navigate("/log-in")
+    };
 
   return (
     <Layout>
@@ -87,16 +106,21 @@ const Main = () => {
                 </ToggleButtonGroup>
 
                 <div>{showText()}</div>
+                {currentUser?
+                (<Category />):
+                (
 
-                <div className="save_btn_main">
+                  <div className="save_btn_main">
                   <Button
                     className="start_btn"
                     buttonStyle="btn--outline2"
                     buttonSize="btn--large"
+                    onClick={ClickMoveLogin}
                   >
                     저장
                   </Button>
-                </div>
+                </div>)}
+
               </div>
             </section>
           </div>

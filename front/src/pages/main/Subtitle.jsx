@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 
 const Subtitle = () => {
   const videoState = useContext(VideoStateContext);
-
   return (
     <Box
       sx={{
@@ -19,8 +18,7 @@ const Subtitle = () => {
         padding: 2,
         maxWidth: "95vh",
         height: "22.4rem", // backgroundColor: "#F2F2F2",
-      }}
-    >
+      }}>
       {videoState.subtitles}
     </Box>
   );

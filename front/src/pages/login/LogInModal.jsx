@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import {
-  Box,
-  Modal,
-  Button,
-  TextField,
-  Link,
-  Grid,
-  Typography,
   Avatar,
+  Button,
+  Modal,
+  TextField,
+  FormControl,
+  FormHelperText,
+  CssBaseline,
+  Grid,
+  Box,
+  Typography,
   Container,
+  styled,
+  Link
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import AuthService from "../../service/auth.service";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import SignUpModal from "./SignUpModal";
 
 const style = {
@@ -28,8 +32,21 @@ const style = {
   pb: 20,
 };
 
+
+const FormHelperTexts = styled(FormHelperText)`
+  width: 100%;
+  padding-left: 16px;
+  font-weight: 700;
+  color: #d32f2f;
+`;
+
+const Boxs = styled(Box)`
+  padding-bottom: 40px;
+`;
+
+
 function ModalContainer() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -47,10 +64,10 @@ function ModalContainer() {
   );
 }
 
-const LogInModal = () => {
+const LogInModal = ({openModal}) => {
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(openModal);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -60,106 +77,82 @@ const LogInModal = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onChangeEmail = (e) => {
-    setEmail(e.target.vlaue);
-  };
-  const onChangePassword = (e) => {
-    setPassword(e.target.vlaue);
-  };
 
-  const onClick = () => {
-    navigate(`/`);
-  };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    AuthService.login(email, password).then(
+      () => {
+        navigate("/home");
+        window.location.reload();
+      });
+  }
   return (
-    <>
-      {/* <Button onClick={handleOpen}>Open Child Modal</Button> */}
-
-      <Container component="main" maxWidth="sm" sx={{ ...style }}>
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-
-          <Typography component="h1" variant="h5">
-            LOG IN
-          </Typography>
-
-          <TextField
-            name="email"
-            vlaue={email}
-            onChange={onChangeEmail}
-            margin="normal"
-            label="Email adress"
-            s
-            required
-            fullWidth
-            autoComplete="email"
-            autoFocus
-          ></TextField>
-
-          <TextField
-            name="password"
-            vlaue={password}
-            onChange={onChangePassword}
-            margin="normal"
-            label="Password"
-            type="password"
-            required
-            fullWidth
-            autoComplete="current-password"
-          ></TextField>
-
-          <Button
-            onClick={onClick}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, height: 50 }}
+        <Container component="main" maxWidth="xs" sx={{ ...style }}>
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
           >
-            로그인
-          </Button>
-
-          <Grid container>
-            <Grid item xs>
-              <Link href="/" variant="body2">
-                비밀번호 찾기
-              </Link>
-            </Grid>
-            <Grid item>
-              아직 회원이 아니신가요?
-              {/* <Link href="/sign-up" variant="body2">회원가입
-              </Link> */}
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, height: 50 }}
-                onClick={handleOpen}
-              >
-                회원가입
-              </Button>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="child-modal-title"
-                aria-describedby="child-modal-description"
-              >
-                <SignUpModal />
-              </Modal>
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
-    </>
-  );
-};
-
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
+            <Typography component="h1" variant="h5">
+              회원가입
+            </Typography>
+            <Boxs component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <FormControl component="fieldset" variant="standard">
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      autoFocus
+                      fullWidth
+                      type="email"
+                      id="email"
+                      name="email"
+                      label="이메일 주소"
+                      onChange={(e) => {
+                        setEmail(e.target.value)
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      type="password"
+                      id="password"
+                      name="password"
+                      label="비밀번호 (숫자+영문자+특수문자 8자리 이상)"
+                      onChange={(e) => {
+                        setPassword(e.target.value)
+                      }}
+                    />
+                  </Grid> 
+                </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  size="large"
+                >
+                  로그인
+                </Button>
+              </FormControl>
+              <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <Link href="/sign-up" variant="body2">
+                      회원가입
+                    </Link>
+                  </Grid>
+                </Grid>
+            </Boxs>
+          </Box>
+        </Container>
+    );
+  };
+  
 export default LogInModal;

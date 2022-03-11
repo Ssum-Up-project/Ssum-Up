@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { useNavigate } from "react-router";
+import axios from 'axios';
 import {
+  Avatar,
   Box,
-  // Modal,
   Button,
+  CssBaseline,
   TextField,
-  Link,
+  FormControl,
+  FormHelperText,
   Grid,
   Typography,
-  Avatar,
   Container,
-  CssBaseline,
-  FormHelperText,
   styled,
-} from "@mui/material";
+  Link
+} from '@mui/material/';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const style = {
   position: "absolute",
@@ -30,51 +30,57 @@ const style = {
   px: 4,
   pb: 20,
 };
+
 const FormHelperTexts = styled(FormHelperText)`
   width: 100%;
   padding-left: 16px;
   font-weight: 700;
   color: #d32f2f;
 `;
+const Boxs = styled(Box)`
+  padding-bottom: 40px;
+`;
 
-const SignUpModal = () => {
+const Register = () => {
+  const theme = createTheme();
   const navigate = useNavigate();
-  // const [open, setOpen] = useState(false);
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
+  const [ email, setEmail ] = useState('')
+  const [ password1, setPassword1 ] = useState('')
+  const [ password2, setPassword2 ] = useState('')
+  const [emailError, setEmailError] = useState('');
+  const [passwordState, setPasswordState] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [registerError, setRegisterError] = useState('');
 
-  const [emailError, setEmailError] = useState("");
-  const [passwordState, setPasswordState] = useState("");
-  const [passwordError, setPasswordError] = useState("");
 
-  // API 연결 부분
-  //   await axios
-  //     .post("http://127.0.0.1:8000/api/rest-auth/registration/", postData)
-  //     .then((response) => {
-  //       console.log(response, "성공!");
-  //       navigate("/log-in");
-  //     })
-  //     .catch((err) => {
-  //       console.log("Error: ", err);
-  //       // setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.'); // ??? 이건 뭐야
-  //     });
-  // };
+  const onhandlePost = async (data) => {
+    const { email, password,rePassword  } = data;
+    const postData = { email, password1,password2 };
+
+    // post
+    await axios
+      .post('http://localhost:8000/api/rest-auth/registration/', postData)
+      .then(function (response) {
+        console.log(response, '성공');
+        navigate('/log-in');
+      })
+      .catch(function (err) {
+        console.log(err);
+        setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = new FormData(e.currentTarget);
     const joinData = {
-      email: data.get("email"),
-      name: data.get("name"),
-      password: data.get("password"),
-      rePassword: data.get("rePassword"),
+      email: data.get('email'),
+      password: data.get('password'),
+      rePassword: data.get('rePassword'),
     };
     const { email, password1, Password2 } = joinData;
+    onhandlePost(joinData);
   };
   return (
     <>
@@ -86,6 +92,7 @@ const SignUpModal = () => {
           aria-labelledby="child-modal-title"
           aria-describedby="child-modal-description"
         > */}
+      <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm" sx={{ ...style }}>
         <CssBaseline>
           <Box
@@ -105,33 +112,12 @@ const SignUpModal = () => {
             <Box
               component="form"
               noValidate
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               sx={{ mt: 3 }}
             >
+              <FormControl component="fieldset" variant="standard">
               {/* Grid spacing ???  */}
               <Grid container spacing={2}>
-                {/* xs, sm?? breakpoints? */}
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="성"
-                    name="firstName"
-                    autoComplete="family-name"
-                    required
-                    fullWidth
-                    id="firstName"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="이름"
-                    name="lastName"
-                    autoComplete="given-name"
-                    required
-                    fullWidth
-                    id="lastName"
-                  />{" "}
-                </Grid>
                 {/* ====================================================== */}
                 <Grid item xs={12}>
                   <TextField
@@ -142,6 +128,9 @@ const SignUpModal = () => {
                     autoComplete="email"
                     label="이메일 주소"
                     error={emailError !== "" || false}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                    }}
                   />
                   <FormHelperTexts>{emailError}</FormHelperTexts>
                 </Grid>
@@ -154,7 +143,9 @@ const SignUpModal = () => {
                     type="password"
                     id="password1"
                     autoComplete="new-password"
-                    error={passwordState !== "" || false}
+                    onChange={(e) => {
+                      setPassword1(e.target.value)
+                    }}
                   />
                 </Grid>
                 <FormHelperTexts>{passwordState}</FormHelperTexts>
@@ -169,6 +160,9 @@ const SignUpModal = () => {
                     id="password2"
                     autoComplete="new-password"
                     error={passwordState !== "" || false}
+                    onChange={(e) => {
+                      setPassword2(e.target.value)
+                    }}
                   />{" "}
                 </Grid>
                 <FormHelperTexts>{passwordError}</FormHelperTexts>
@@ -178,10 +172,11 @@ const SignUpModal = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, height: 50 }}
-                onClick={handleSubmit}
               >
                 회원가입
               </Button>
+              </FormControl>
+              <FormHelperTexts>{registerError}</FormHelperTexts>
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="/log-in" variant="body2">
@@ -193,9 +188,11 @@ const SignUpModal = () => {
           </Box>
         </CssBaseline>
       </Container>
+      </ThemeProvider>
       {/* </Modal> */}
     </>
   );
 };
 
-export default SignUpModal;
+export default Register;
+

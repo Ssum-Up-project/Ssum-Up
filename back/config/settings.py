@@ -23,13 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-efv-^woeet6hq=la2ky+r$6i02wz_oybm*n1&8kblw=7j!jq=x')
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", "django-insecure-efv-^woeet6hq=la2ky+r$6i02wz_oybm*n1&8kblw=7j!jq=x"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG', 1))
+DEBUG = int(os.environ.get("DEBUG", 1))
 
-if os.environ.get('DJANGO_ALLOWED_HOSTS'):
-    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
+if os.environ.get("DJANGO_ALLOWED_HOSTS"):
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 else:
     ALLOWED_HOSTS = []
 
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     "app",
     # DRF
     "rest_framework",
-    'drf_yasg', # Swagger API Doc
+    "drf_yasg",  # Swagger API Doc
     # DRF Authentication 이용
     "rest_framework.authtoken",
     "rest_auth",
@@ -97,6 +99,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
 env_file = os.path.join(BASE_DIR, ".env.dev")
 dotenv.read_dotenv(env_file)
 
@@ -123,8 +126,8 @@ else:
             "HOST": get_env("MYSQL_HOST"),
             "PORT": get_env("MYSQL_PORT"),
         }
+
     }
-}
 
 
 # Password validation
@@ -159,9 +162,12 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
+# https://docs.djangoproject.com/ko/3.2/howto/static-files/
 
 STATIC_URL = "static/"
+# django-admin collectstatic 생성 파일 저장 경로
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -187,17 +193,16 @@ ACCOUNT_AUTHENTICATION_METHOD = "none"
 SITE_ID = 1
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER':'app.serializers.UserSerializer'
-}
+REST_AUTH_SERIALIZERS = {"USER_DETAILS_SERIALIZER": "app.serializers.UserSerializer"}
 SWAGGER_SETTINGS = {
-    'LOGIN_URL' : '/api/rest-auth/login',
-    'LOGOUT_URL' : '/api/rest-auth/logout',
+    "LOGIN_URL": "/api/rest-auth/login",
+    "LOGOUT_URL": "/api/rest-auth/logout",
+}
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ]
+
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication', 
-    ]
-}

@@ -35,40 +35,40 @@ const Home = () => {
     setIsLoading((current) => !current);
   };
 
-  const requestURL = async () => {
-    const fetchedVideoInfo = await axios
-      .post(
-        "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videodata/",
-        // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-        { url: inputURL }
-      )
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      })
-      .catch((err) => {
-        console.ERR("ERRRORRR");
-      });
-    return fetchedVideoInfo;
-  };
+  // const requestURL = async () => {
+  //   const fetchedVideoInfo = await axios
+  //     .post(
+  //       "elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000",
+  //       // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
+  //       { url: inputURL }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       return response.data;
+  //     })
+  //     .catch((err) => {
+  //       console.ERR("ERRRORRR");
+  //     });
+  //   return fetchedVideoInfo;
+  // };
 
   const onClickButton = async () => {
     const regeX =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
 
     if (regeX.test(inputURL)) {
-      // changeLoadingState();
+      changeLoadingState();
 
       // 위 requestURL 함수 사용할 경우 아래 주석 풀기
-      const fetchedVideoInfo = await requestURL();
+      // const fetchedVideoInfo = await requestURL();
       localStorage.setItem("storedURL", JSON.stringify(inputURL));
       videoDispatch(fetchedVideoInfo);
 
-      // setTimeout(() => {
-      //   changeLoadingState();
-      //   navigate("/main");
-      // }, [2000]);
-      // console.log(localStorage);
+      setTimeout(() => {
+        changeLoadingState();
+        navigate("/main");
+      }, [2000]);
+      console.log(localStorage);
       // 위 setTiemout 안 쓸 경우 여기 주석 풀기
       // changeLoadingState();
       // navigate("/main");

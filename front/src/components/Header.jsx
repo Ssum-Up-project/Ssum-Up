@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import AuthService from "./../service/auth.service"
+import { Link,Navigate } from "react-router-dom";
 import { Button } from "./Button";
 import { Modal } from "@mui/material";
 import "./Header.css";
 import "./Button.css";
-import MySummaryModal from "../pages/mysummary/MySummaryModal";
+import MySummary from "../pages/mysummary/MyPage";
 import LogInModal from "../pages/login/LogInModal";
+import SignUpModal from "../pages/login/SignUpModal"
 
 function Header() {
   const [click, setClick] = useState(false);
@@ -23,19 +25,38 @@ function Header() {
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  
+  const openDialog = () => {
+    setClick(false);
+    {<LogInModal/>}
+  }
 
-  // const showButton = () => {
-  //   if (window.innerWidth <= 960) {
-  //     setButton(false);
-  //   } else {
-  //     setButton(true);
-  //   }
+  const [currentUser, setCurrentUser] = useState(undefined);
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
+  const logOut = () => {
+    AuthService.logout();
+  };
+ // const goLogin = () => {
+  //   navigate("/login");
   // };
+  // display the button on mobile or removes it depending on the screen size
+  const showButton = () => {
+    if (window.innerWidth <= 960) {
+      setButton(false);
+    } else {
+      setButton(true);
+    }
+  };
 
-  // useEffect(() => {
-  //   showButton();
-  // }, []);
-  // window.addEventListener("resize", showButton);
+  useEffect(() => {
+    showButton();
+  }, []);
+  window.addEventListener("resize", showButton);
 
   return (
     <>
@@ -62,48 +83,36 @@ function Header() {
                 About Team
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                to="/my-summary"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
+            {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
+            {currentUser?(
+                <><li className="nav-item">
+                <Link to="/my-summary" className="nav-links" onClick={closeMobileMenu}>
                 My Summary
-              </Link>
-              {isMySummary && <MySummaryModal />}
-            </li>
-
-            {/* mobile - 삭제 */}
-            {/* <li className="nav-item">
-              <Link
-                to="/log-in"
-                className="nav-links-mobile"
-                onClick={closeMobileMenu}
-              >
-                Log in
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/sign-up"
-                className="nav-links-mobile"
-                onClick={closeMobileMenu}
-              >
-                Sign Up
-              </Link>
-  </li>*/}
-          </ul>
-
-          {/* browser */}
-          <div className="main_login_btn">
-            {button && (
-              <Button buttonStyle="btn--outline" onClick={handleOpen}>
-                LOG IN
-              </Button>
-            )}
-          </div>
-          <Modal
+                </Link>
+              </li>
+              <li className="nav-item">
+                  <Link to="/" className="nav-links"  onClick={logOut} >
+                    LogOut
+                  </Link>
+                </li></>
+            ):(
+              <><li className="nav-item">
+                  <Button buttonStyle="btn--outline"
+                    className="nav-links"
+                    onClick={handleOpen}
+                  >
+                    Log in
+                    </Button>
+                </li><li>
+                <Button buttonStyle="btn--outline"
+                      className="nav-links-mobile"
+                      onClick={handleOpen}
+                    >
+                      Sign Up
+                      </Button>
+                  </li></>)}
+              </ul>
+            <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="child-modal-title"
@@ -113,6 +122,7 @@ function Header() {
           </Modal>
         </div>
       </nav>
+
     </>
   );
 }
