@@ -160,8 +160,7 @@ class SearchLogDetailSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['video_id'] = VideoDataBaseSerializer(instance.video_id).data
-
+        response['video_data'] = VideoDataBaseSerializer(instance.video_data_id).data
         return response
 
 class PlayListDetailSerializer(serializers.ModelSerializer):

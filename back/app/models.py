@@ -103,6 +103,7 @@ class SearchLog(models.Model):
     video_data_id = models.ForeignKey(
         VideoData, 
         related_name='searchlog', 
+        db_column="video_id", 
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
