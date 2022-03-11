@@ -1,6 +1,7 @@
 image: docker
 variables:
   WORK_DIR: .
+  GIT_STRATEGY: none
 cache:
   key: '$CI_COMMIT_REF_SLUG'
 stages:
