@@ -142,7 +142,7 @@ class SearchLogSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         searchlog = SearchLog()
         searchlog.user_id = validated_data["user_id"]
-        searchlog.video_id = validated_data["video_id"]
+        searchlog.video_data_id = validated_data["video_data_id"]
         searchlog.save()
         return searchlog
 
@@ -161,6 +161,7 @@ class SearchLogDetailSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         response = super().to_representation(instance)
         response['video_id'] = VideoDataBaseSerializer(instance.video_id).data
+
         return response
 
 class PlayListDetailSerializer(serializers.ModelSerializer):
@@ -171,5 +172,5 @@ class PlayListDetailSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['video_data_id'] = VideoDataBaseSerializer(instance.video_data_id).data
+        response['video_data'] = VideoDataBaseSerializer(instance.video_data_id).data
         return response

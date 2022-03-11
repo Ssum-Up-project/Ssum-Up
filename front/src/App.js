@@ -8,11 +8,14 @@ import Main from "./pages/main/Main";
 import Intro from "./pages/intro/Intro";
 import Home from "./pages/intro/Home";
 import MySummary from "./pages/mysummary/MyPage"
+import ReHome from "./pages/intro/ReHome";
+import Login from "./pages/login/LogInModal"
+import SignUp from "./pages/login/SignUpModal"
+import Layout from "./Layout";
 import { AppWrapper } from "./context/AppWrapper";
 import PrivateRoute from "./service/PrivateRoute";
+import PublicRoute from "./service/PublicRoute";
 
-import LogIn from "./pages/login/LogInModal";
-import SignUp from "./pages/login/SignUpModal";
 
 export const VideoInfoStateContext = createContext(null);
 export const VideoInfoDispatchContext = createContext(null);
@@ -27,18 +30,24 @@ const dummyList = [
 
 function App() {
   return (
-    <div style={{ width: "100%" }}>
-     {/* <GlobalStyle />*/}
+    <div>
+      <GlobalStyle />
       <AppWrapper>
         <Router>
-          <Header />
           <Routes>
-            {/* <Route path="/" element={<Intro />}></Route> */}
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/log-in" element={<LogIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/" element={<Intro />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/re-home" element={<ReHome />} />
             <Route path="/team" element={<Team />} />
             <Route path="/main" element={<Main />} />
+            <Route path="/log-in" element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>} />
+            <Route path="/sign-up" element={
+              <PublicRoute>
+                <SignUp />
+              </PublicRoute>} />
             <Route path="/my-summary" element={
               <PrivateRoute>
                 <MySummary />

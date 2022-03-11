@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AuthService from "./../service/auth.service"
 import { Link,Navigate } from "react-router-dom";
 import { Button } from "./Button";
+import { Modal } from "@mui/material";
 import "./Header.css";
 import "./Button.css";
 import MySummary from "../pages/mysummary/MyPage";
@@ -16,9 +17,15 @@ function Header() {
   // const changeLoadingState = () => {
   //   setIsLoading((current) => !current);
   // };
+  const [open, setOpen] = useState(false);
+  const [signUpOpen, setSignUpOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  
   const openDialog = () => {
     setClick(false);
     {<LogInModal/>}
@@ -89,29 +96,33 @@ function Header() {
                   </Link>
                 </li></>
             ):(
-              <>
-            {/* TODO: 페이지 아니고 모달 */}
-            <li className="nav-item">
-              <Link to="/log-in"
-              className="nav-links"
-               onClick={closeMobileMenu}
-              >
-                Log in
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/sign-up"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                Sign Up
-              </Link>
-            </li></>
-            )}
-          </ul>
+              <><li className="nav-item">
+                  <Button buttonStyle="btn--outline"
+                    className="nav-links"
+                    onClick={handleOpen}
+                  >
+                    Log in
+                    </Button>
+                </li><li>
+                <Button buttonStyle="btn--outline"
+                      className="nav-links-mobile"
+                      onClick={handleOpen}
+                    >
+                      Sign Up
+                      </Button>
+                  </li></>)}
+              </ul>
+            <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="child-modal-title"
+            aria-describedby="child-modal-description"
+          >
+            <LogInModal />
+          </Modal>
         </div>
       </nav>
+
     </>
   );
 }

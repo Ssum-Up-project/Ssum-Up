@@ -1,12 +1,14 @@
 import "../../App.css";
 import "./Home.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
-import { useVideoDispatcher } from "../../context/AppWrapper";
+import { VideoDispatchContext } from "../../context/AppWrapper";
 import LoadingModal from "../../components/LoadingModal";
-import { Typography, Input, Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import Layout from "../../Layout";
 import axios from "axios";
+import WOW from "wowjs";
 
 const fetchedVideoInfo = {
   id: 1,
@@ -20,8 +22,11 @@ const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [inputURL, setinputURL] = useState();
-  const videoDispatch = useVideoDispatcher();
+  const videoDispatch = useContext(VideoDispatchContext);
 
+  useEffect(() => {
+    new WOW.WOW().init();
+  }, []);
   useEffect(() => {
     console.log("Loading", isLoading);
   }, [isLoading]);
@@ -30,35 +35,41 @@ const Home = () => {
     setIsLoading((current) => !current);
   };
 
-  const requestURL = async () => {
-    // const fetchedVideoInfo = await axios
-    //   .post(
-    //     "http://127.0.0.1:8000/swagger/",
-    //     // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-    //     { url: inputURL }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     return res.data;
-    //   })
-    //   .catch((err) => {
-    //     console.ERR("ERRRORRR");
-    //   });
-    return fetchedVideoInfo;
-  };
+  // const requestURL = async () => {
+  //   const fetchedVideoInfo = await axios
+  //     .post(
+  //       "elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000",
+  //       // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
+  //       { url: inputURL }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       return response.data;
+  //     })
+  //     .catch((err) => {
+  //       console.ERR("ERRRORRR");
+  //     });
+  //   return fetchedVideoInfo;
+  // };
+
   const onClickButton = async () => {
     const regeX =
       /(http|https):(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(|([\w#!:.?+=&%@!]))?/;
+
     if (regeX.test(inputURL)) {
       changeLoadingState();
-      const fetchedVideoInfo = await requestURL();
+
+      // 위 requestURL 함수 사용할 경우 아래 주석 풀기
+      // const fetchedVideoInfo = await requestURL();
       localStorage.setItem("storedURL", JSON.stringify(inputURL));
       videoDispatch(fetchedVideoInfo);
+
       setTimeout(() => {
         changeLoadingState();
-        navigate("/main"); // navigate
-      }, [5000]);
+        navigate("/main");
+      }, [2000]);
       console.log(localStorage);
+      // 위 setTiemout 안 쓸 경우 여기 주석 풀기
       // changeLoadingState();
       // navigate("/main");
     } else {
@@ -67,77 +78,54 @@ const Home = () => {
   };
 
   return (
-    <div className="Home">
-      {/* <div className="description_short">
-        <h2 className="wow fadeInUp">
-          영어 영상, 요약하고 핵심만 빠르게 파악해
-        </h2>
-        <h2 className="wow fadeInUp">당신의 소중한 시간을 아껴보세요</h2>
-      </div> */}
-      <Typography
-        className="wow fadeInUp"
-        variant="h3"
-        gutterBottom
-        component="h3"
-        color="#e8e1c2"
-      >
-        영어 영상, 요약하고 핵심만 빠르게 파악해
-      </Typography>
-      <Typography
-        className="wow fadeInUp"
-        variant="h3"
-        gutterBottom
-        component="h3"
-        color="#e8e1c2"
-      >
-        당신의 소중한 시간을 아껴보세요.
-      </Typography>
+    <Layout>
+      <div className="Home">
+        <div className="typography">
+          <Typography
+            className="wow fadeInUp"
+            variant="h3"
+            gutterBottom
+            component="h3"
+            color="#f7f7f9"
+          >
+            {/* 영어 영상, 요약해서 핵심만 빠르게 파악해 */}
+          </Typography>
+          <Typography
+            className="wow fadeInUp"
+            variant="h3"
+            gutterBottom
+            component="h3"
+            color="#f7f7f9"
+          >
+            {/* 당신의 소중한 시간을 아껴보세요. */}
+          </Typography>
+        </div>
+        <div>
+          <form>
+            <input
+              className="input_url wow fadeInUp"
+              value={inputURL}
+              onChange={(e) => setinputURL(e.target.value)}
+              type="text"
+              name="inputURL"
+              placeholder="url"
+            />
+          </form>
+        </div>
 
-      {/* TODO: 링크 인풋이랑 버튼 에니메이션 효과*/}
-      <div>
-        <form>
-          <input
-            className="input_url"
-            value={inputURL}
-            onChange={(e) => setinputURL(e.target.value)}
-            type="text"
-            name="inputURL"
-            placeholder="url"
-          />
-        </form>
+        <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
+          <Button
+            className="start_btn"
+            buttonStyle="btn--outline2"
+            buttonSize="btn--large"
+            onClick={onClickButton}
+          >
+            요약 하기
+          </Button>
+        </div>
+        {isLoading && <LoadingModal />}
       </div>
-      {/* <Box
-        sx={{
-          width: 500,
-          maxWidth: "100%",
-        }}
-      >
-        <Input
-          fullWidth
-          multiline
-          value={inputURL}
-          onChange={(e) => setinputURL(e.target.value)}
-          id="outlined-textarea"
-          type="text"
-          name="inputURL"
-          label="Multiline Placeholder"
-          // variant="filled"
-          color="#fff"
-        />
-      </Box> */}
-
-      <div className="sumup_btn">
-        <Button
-          className="start_btn"
-          buttonStyle="btn--outline"
-          buttonSize="btn--large"
-          onClick={onClickButton}
-        >
-          GET STARTED
-        </Button>
-      </div>
-      {isLoading && <LoadingModal />}
-    </div>
+    </Layout>
   );
 };
 export default Home;

@@ -1,9 +1,9 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
-// export const VideoStateContext = createContext(null);
-// export const VideoDispatchContext = createContext(null);
-const VideoStateContext = createContext(null);
-const VideoDispatchContext = createContext(null);
+export const VideoStateContext = createContext(null);
+export const VideoDispatchContext = createContext(null);
+// const VideoStateContext = createContext(null);
+// const VideoDispatchContext = createContext(null);
 
 function videoReducer(state, action) {
   // 액션에 따라서 행해줄 state를 명시해줌
@@ -31,14 +31,14 @@ export function AppWrapper({ children }) {
 }
 
 // state 와 dispatch 를 쉽게 사용하기 위한 커스텀 Hooks
-export function useVideoState() {
-  const state = useContext(VideoStateContext);
-  if (!state) throw new Error("Cannot find VideoState"); // 유효하지 않을땐 에러를 발생
-  return state;
-}
+// export function useVideoState() {
+//   const state = useContext(VideoStateContext);
+//   if (!state) throw new Error("Cannot find VideoState"); // 유효하지 않을땐 에러를 발생
+//   return state;
+// }
 
-export function useVideoDispatcher() {
-  const dispatch = useContext(VideoDispatchContext);
-  if (!dispatch) throw new Error("Cannot find VideoProvider"); // 유효하지 않을땐 에러를 발생
-  return dispatch;
-}
+// export function useVideoDispatcher() {
+//   const dispatch = useContext(VideoDispatchContext);
+//   if (!dispatch) throw new Error("Cannot find VideoProvider"); // 유효하지 않을땐 에러를 발생
+//   return dispatch;
+// }

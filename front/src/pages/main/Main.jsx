@@ -1,4 +1,5 @@
-import React, { useState,useEffect} from "react";
+import "./Main.css";
+import React, { useState, useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Youtube from "./Youtube";
 import Summary from "./Summary";
@@ -7,21 +8,24 @@ import Translation from "./Translation";
 import LoginModal from "../login/LogInModal"
 import AuthService from "../../service/auth.service"
 import Category from "./SelectCategory"
-// import { useVideoState } from "../../context/AppWrapper";
 import "./Main.css";
-import { ToggleButton, ToggleButtonGroup, Button, Stack } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button } from "../../components/Button";
+import Layout from "../Layout";
+import { VideoStateContext } from "../../context/AppWrapper";
 
 const Main = () => {
+  const state = useContext(VideoStateContext);
   const [alignment, setAlignment] = React.useState("left");
   const [showingSummary, setShowingSummary] = useState(true);
   const [showingSubtitle, setShowingSubtitle] = useState(false);
   const [showingTranslation, setShowingTranslation] = useState(false);
-
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
     }
   };
+
   const showText = () => {
     if (showingSummary) {
       return <Summary />;
@@ -47,81 +51,82 @@ const Main = () => {
     };
 
   return (
-    <div className="Main">
-      <div className="line">
-        <div className="container">
-          <section className="section">
-            <div className="youtube_container">
-              <Youtube></Youtube>
-            </div>
-          </section>
-        </div>
+    <Layout>
+      <div className="Main">
+        <div className="line">
+          <div className="container">
+            <section className="section">
+              <div className="youtube_container">
+                <Youtube></Youtube>
+              </div>
+            </section>
+          </div>
 
-        <div className="container">
-          <section className="section">
-            {/* TEXT */}
-            <div className="text_container">
-              <ToggleButtonGroup
-                value={alignment}
-                exclusive
-                onChange={handleAlignment}
-                aria-label="text alignment"
-                fullWidth
-              >
-                <ToggleButton
-                  value="left"
-                  aria-label="left aligned"
-                  onClick={(e) => {
-                    setShowingSummary(true);
-                  }}
+          <div className="container">
+            <section className="section_text">
+              <div className="text_container_main">
+                <ToggleButtonGroup
+                  value={alignment}
+                  exclusive
+                  onChange={handleAlignment}
+                  aria-label="text alignment"
+                  fullWidth
                 >
-                  A
-                </ToggleButton>
-                <ToggleButton
-                  value="center"
-                  aria-label="centered"
-                  onClick={(e) => {
-                    setShowingSubtitle(true);
-                    setShowingSummary(false);
-                    setShowingTranslation(false);
-                  }}
-                >
-                  B
-                </ToggleButton>
-                <ToggleButton
-                  value="right"
-                  aria-label="right aligned"
-                  onClick={(e) => {
-                    setShowingTranslation(true);
-                    setShowingSummary(false);
-                    setShowingSubtitle(false);
-                  }}
-                >
-                  C
-                </ToggleButton>
-              </ToggleButtonGroup>
-              {/* 텍스트 자리 */}
-              <div>{showText()}</div>
-              {/* 저장 버튼 자리 */}
-              {currentUser?
+                  <ToggleButton
+                    value="left"
+                    aria-label="left aligned"
+                    onClick={(e) => {
+                      setShowingSummary(true);
+                    }}
+                  >
+                    요약
+                  </ToggleButton>
+                  <ToggleButton
+                    value="center"
+                    aria-label="centered"
+                    onClick={(e) => {
+                      setShowingSubtitle(true);
+                      setShowingSummary(false);
+                      setShowingTranslation(false);
+                    }}
+                  >
+                    번역
+                  </ToggleButton>
+                  <ToggleButton
+                    value="right"
+                    aria-label="right aligned"
+                    onClick={(e) => {
+                      setShowingTranslation(true);
+                      setShowingSummary(false);
+                      setShowingSubtitle(false);
+                    }}
+                  >
+                    전체 영상
+                  </ToggleButton>
+                </ToggleButtonGroup>
+
+                <div>{showText()}</div>
+                {currentUser?
                 (<Category />):
                 (
-                  <Button 
-                    variant="contained"
-                    sx={{      
-                        height: 40 ,    
-                        variant:"contained",
-                        maxWidth: "100vh",
-                        minWidth: "30vh"
-                      }}
-                  onClick={ClickMoveLogin}>
-                  저장하기
-                </Button>)}
-            </div>
-          </section>
+
+                  <div className="save_btn_main">
+                  <Button
+                    className="start_btn"
+                    buttonStyle="btn--outline2"
+                    buttonSize="btn--large"
+                    onClick={ClickMoveLogin}
+                  >
+                    저장
+                  </Button>
+                </div>)}
+
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
