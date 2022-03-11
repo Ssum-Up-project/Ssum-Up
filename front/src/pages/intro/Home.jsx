@@ -1,12 +1,11 @@
-// [#28]
 import "../../App.css";
 import "./Home.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
-import { useVideoDispatcher } from "../../context/AppWrapper";
+import { VideoDispatchContext } from "../../context/AppWrapper";
 import LoadingModal from "../../components/LoadingModal";
-import { Typography, Input, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import Layout from "../../Layout";
 import axios from "axios";
 import WOW from "wowjs";
@@ -23,7 +22,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [inputURL, setinputURL] = useState();
-  const videoDispatch = useVideoDispatcher();
+  const videoDispatch = useContext(VideoDispatchContext);
 
   useEffect(() => {
     new WOW.WOW().init();
@@ -36,22 +35,22 @@ const Home = () => {
     setIsLoading((current) => !current);
   };
 
-  const requestURL = async () => {
-    const fetchedVideoInfo = await axios
-      .post(
-        "http://127.0.0.1:8000/swagger/",
-        // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-        { url: inputURL }
-      )
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      })
-      .catch((err) => {
-        console.ERR("ERRRORRR");
-      });
-    return fetchedVideoInfo;
-  };
+  // const requestURL = async () => {
+  //   const fetchedVideoInfo = await axios
+  //     .post(
+  //       "elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000",
+  //       // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
+  //       { url: inputURL }
+  //     )
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       return response.data;
+  //     })
+  //     .catch((err) => {
+  //       console.ERR("ERRRORRR");
+  //     });
+  //   return fetchedVideoInfo;
+  // };
 
   const onClickButton = async () => {
     const regeX =
@@ -60,17 +59,19 @@ const Home = () => {
     if (regeX.test(inputURL)) {
       changeLoadingState();
 
-      const fetchedVideoInfo = await requestURL();
+      // 위 requestURL 함수 사용할 경우 아래 주석 풀기
+      // const fetchedVideoInfo = await requestURL();
       localStorage.setItem("storedURL", JSON.stringify(inputURL));
       videoDispatch(fetchedVideoInfo);
 
       setTimeout(() => {
         changeLoadingState();
-        // navigate("/main");
+        navigate("/main");
       }, [2000]);
       console.log(localStorage);
-      changeLoadingState();
-      navigate("/main");
+      // 위 setTiemout 안 쓸 경우 여기 주석 풀기
+      // changeLoadingState();
+      // navigate("/main");
     } else {
       alert("URL을 확인해주세요.");
     }

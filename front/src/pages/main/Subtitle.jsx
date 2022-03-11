@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
-import { useVideoState } from "../../context/AppWrapper";
-
+import { VideoStateContext } from "../../context/AppWrapper";
 import Box from "@mui/material/Box";
 
 const Subtitle = () => {
-  const videoState = useVideoState();
+  const videoState = useContext(VideoStateContext);
 
   return (
     <Box
@@ -23,7 +22,6 @@ const Subtitle = () => {
       }}
     >
       {videoState.subtitles}
-      전체 자막
     </Box>
   );
 };

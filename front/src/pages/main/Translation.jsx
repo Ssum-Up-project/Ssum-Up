@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
-import { useVideoState } from "../../context/AppWrapper";
+import { VideoStateContext } from "../../context/AppWrapper";
 
 const Translation = () => {
-  const videoState = useVideoState();
+  const state = useContext(VideoStateContext);
 
   return (
     <Box
@@ -21,7 +21,7 @@ const Translation = () => {
         height: "22.4rem",
       }}
     >
-      {videoState.translation}
+      {state.translation}
     </Box>
   );
 };

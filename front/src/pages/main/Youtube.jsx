@@ -1,10 +1,9 @@
 // [#28]
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactPlayer from "react-player";
-// import { VideoInfoStateContext } from "../../App.js";
+import { VideoStateContext } from "../../context/AppWrapper";
 
-const Youtube = ({ playerURL }) => {
-  // const { fetchedVideoInfo } = useContext(VideoInfoStateContext);
+const Youtube = () => {
   // const [storedURL, setStoredURL] = useState();
 
   // useEffect(() => {
@@ -14,11 +13,21 @@ const Youtube = ({ playerURL }) => {
   //   }
   // }, [storedURL]);
 
+  const state = useContext(VideoStateContext);
+  const [playerURL, setPlayerURL] = useState();
+
+  useEffect(() => {
+    const storedUrlStringified = localStorage.getItem("storedURL");
+    if (storedUrlStringified !== null) {
+      const storedURL = JSON.parse(storedUrlStringified);
+      setPlayerURL(storedURL);
+    }
+  }, [playerURL]);
+
   return (
     <div style={{ height: "auto", width: "100%" }}>
       <ReactPlayer
-        // url={"playerURL"}
-        url={"https://www.youtube.com/watch?v=HO4m1w9tiSA"}
+        url={playerURL}
         playing={true}
         loop={true}
         className="react-player"

@@ -33,9 +33,23 @@ video {
 
 .img__container {
   background-color: #f7f7f9;
-  width: 700px;
-  height: 100vh;
-  text-align: left;
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 690px;
+  height: 1117px;
+  left: 1066px;
+  top: 0px;
+  align-items: center;
+}
+video {
+  /* position: absolute; */
+  width: 707px;
+  height: 1117px;
+  left: 1021px;
+  top: 0px;
+  z-index: 9;
 }
 
 .start_btn_intro {

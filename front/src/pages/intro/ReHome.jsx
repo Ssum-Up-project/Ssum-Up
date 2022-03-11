@@ -1,9 +1,9 @@
 import "../../App.css";
 import "./Home.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
-import { useVideoDispatcher } from "../../context/AppWrapper";
+import { VideoDispatchContext } from "../../context/AppWrapper";
 import LoadingModal from "../../components/LoadingModal";
 import { Typography } from "@mui/material";
 import Layout from "../../Layout";
@@ -14,7 +14,7 @@ const ReHome = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [inputURL, setinputURL] = useState();
-  const videoDispatch = useVideoDispatcher();
+  const videoDispatch = useContext(VideoDispatchContext);
 
   useEffect(() => {
     new WOW.WOW().init();

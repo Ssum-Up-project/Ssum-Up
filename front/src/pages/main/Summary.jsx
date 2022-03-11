@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { useVideoState } from "../../context/AppWrapper";
+import { VideoStateContext } from "../../context/AppWrapper";
 
 import Box from "@mui/material/Box";
 
 function Summary() {
-  const videoState = useVideoState();
+  const state = useContext(VideoStateContext);
 
   return (
     <Box
@@ -24,7 +24,7 @@ function Summary() {
       }}
     >
       {/* {fetchedVideoInfo.summary} */}
-      {videoState.summarized_subtitles}
+      {state.summarized_subtitles}
     </Box>
   );
 }
