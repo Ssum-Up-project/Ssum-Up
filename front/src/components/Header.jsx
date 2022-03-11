@@ -24,18 +24,18 @@ function Header() {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
+  // const showButton = () => {
+  //   if (window.innerWidth <= 960) {
+  //     setButton(false);
+  //   } else {
+  //     setButton(true);
+  //   }
+  // };
 
-  useEffect(() => {
-    showButton();
-  }, []);
-  window.addEventListener("resize", showButton);
+  // useEffect(() => {
+  //   showButton();
+  // }, []);
+  // window.addEventListener("resize", showButton);
 
   return (
     <>
@@ -62,7 +62,6 @@ function Header() {
                 About Team
               </Link>
             </li>
-            {/* TODO: 여기서 로그인 전: 모달 띄우기, 로그인 후: MySummary페이지로 이동  */}
             <li className="nav-item">
               <Link
                 to="/my-summary"
@@ -74,8 +73,8 @@ function Header() {
               {isMySummary && <MySummaryModal />}
             </li>
 
-            {/* TODO: 페이지 아니고 모달 */}
-            <li className="nav-item">
+            {/* mobile - 삭제 */}
+            {/* <li className="nav-item">
               <Link
                 to="/log-in"
                 className="nav-links-mobile"
@@ -93,14 +92,17 @@ function Header() {
               >
                 Sign Up
               </Link>
-            </li>
+  </li>*/}
           </ul>
 
-          {button && (
-            <Button buttonStyle="btn--outline" onClick={handleOpen}>
-              LOG IN
-            </Button>
-          )}
+          {/* browser */}
+          <div className="main_login_btn">
+            {button && (
+              <Button buttonStyle="btn--outline" onClick={handleOpen}>
+                LOG IN
+              </Button>
+            )}
+          </div>
           <Modal
             open={open}
             onClose={handleClose}
