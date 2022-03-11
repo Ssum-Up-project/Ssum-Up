@@ -109,8 +109,8 @@ const Home = () => {
             요약 하기
           </Button>
         </div>
-        {/* {isLoading && <LoadingModal />} */}
-        <LoadingModal />
+        {isLoading && <LoadingModal />}
+        {/* <LoadingModal /> */}
       </div>
     </Layout>
   );

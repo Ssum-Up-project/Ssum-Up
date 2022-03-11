@@ -53,32 +53,21 @@ const Register = () => {
   const [registerError, setRegisterError] = useState('');
 
 
-  const onhandlePost = async (data) => {
-    const { email, password,rePassword  } = data;
-    const postData = { email, password1,password2 };
-
-    // post
-    await axios
-      .post('http://localhost:8000/api/rest-auth/registration/', postData)
-      .then(function (response) {
-        navigate('/log-in');
-      })
-      .catch(function (err) {
-        setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
-      });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = new FormData(e.currentTarget);
-    const joinData = {
-      email: data.get('email'),
-      password: data.get('password'),
-      rePassword: data.get('rePassword'),
-    };
-    const { email, password1, Password2 } = joinData;
-    onhandlePost(joinData);
+    await axios
+    .post('http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/rest-auth/registration/', {
+      email: email,
+      password1: password1,
+      password2: password2
+    })
+    .then(function (response) {
+      navigate('/log-in');
+    })
+    .catch(function (err) {
+      console.error(err)
+      setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
+    });
   };
   return (
     <>
