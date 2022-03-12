@@ -1,7 +1,13 @@
 .cards {
   padding: 4rem;
+  border-top: 3px solid #d2302c;
+  border-bottom: 3px solid #d2302c;
 }
-/* red: #D2302C / white: #F7F7F9 */
+
+.Team {
+  background-color: #f7f7f9;
+}
+/* red: #D2302C / white: #d2302c */
 /* ---------------- Introduction ---------------- */
 .Introduction {
   padding: 0;
@@ -12,45 +18,44 @@
   flex-flow: column;
   max-width: 1120px;
   width: 90%;
+  height: 60rem;
   margin: 0 auto;
+
   display: flex;
+  flex-flow: column;
+  align-items: center;
+  max-width: 1120px;
+  width: 90%;
+  margin: 0 auto;
+  flex-direction: row;
 }
 
 .Introduction__title {
-  position: absolute;
-  width: 441px;
-  height: 18px;
+  margin-top: -46rem;
+  color: #d2302c;
+  flex-grow: 1;
+}
 
+.Introduction__title h1 {
   font-family: Arial;
   font-style: normal;
   font-weight: bold;
-  font-size: 180px;
-  line-height: 18px;
-  /* identical to box height, or 10% */
-
-  display: flex;
-  align-items: center;
-
-  color: #f7f7f9;
+  font-size: 200px;
+  color: #d2302c;
 }
-/* .Introduction__p {
-  padding: 50px;
-  max-width: 1120px;
-  width: 40%;
-} */
 
 .Introduction__text {
   width: 465px;
   height: 465px;
-  background: #d2302c;
-  border: 1.5px solid #f7f7f9;
-  box-sizing: border-box;
-
+  background: #f7f7f9;
+  border: 2px solid #d2302c;
+  color: #d2302c;
   position: relative;
   top: 20px;
-  left: 20px;
+  font-size: 22px;
+  padding: 19px;
+  flex-grow: 1;
 }
-
 /* ---------------- Team ---------------- */
 
 .cards__container {
@@ -75,7 +80,7 @@
   display: flex;
   flex: 1;
   margin: 0 1rem;
-  border: 1.5px solid #f7f7f9;
+  border: 1.5px solid #d2302c;
 }
 
 .cards__item__link {
@@ -142,7 +147,6 @@
   line-height: 24px;
 }
 
-/* mobile */
 @media only screen and (min-width: 1200px) {
   .content__blog__container {
     width: 84%;
@@ -155,8 +159,35 @@
   }
 }
 
-@media only screen and (max-width: 1024px) {
+/* mobile */
+@media only screen and (max-width: 1090px) {
   .cards__item {
     margin-bottom: 2rem;
+  }
+
+  .Introduction {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+  }
+  .Introduction__title {
+    margin-top: 0;
+    flex-grow: 0.5;
+  }
+  .Introduction__title h1 {
+    font-size: 40px;
+  }
+  .Introduction__text {
+    margin-top: -100px;
+    display: flex;
+    flex-grow: 0.5;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    border: 1.5px solid #d2302c;
+    border: none;
+    font-size: 16px;
+    height: 10%;
   }
 }

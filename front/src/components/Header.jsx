@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import AuthService from "./../service/auth.service"
-import { Link,Navigate } from "react-router-dom";
+import AuthService from "./../service/auth.service";
+import { Link, Navigate } from "react-router-dom";
 import { Button } from "./Button";
 import { Modal } from "@mui/material";
 import "./Header.css";
 import "./Button.css";
 import LogInModal from "../pages/login/LogInModal";
-import SignUpModal from "../pages/login/SignUpModal"
+import SignUpModal from "../pages/login/SignUpModal";
 
 function Header() {
   const [click, setClick] = useState(false);
@@ -26,11 +26,13 @@ function Header() {
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
-  
+
   const openDialog = () => {
     setClick(false);
-    {<LogInModal/>}
-  }
+    {
+      <LogInModal />;
+    }
+  };
 
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
@@ -42,7 +44,7 @@ function Header() {
   const logOut = () => {
     AuthService.logout();
   };
- // const goLogin = () => {
+  // const goLogin = () => {
   //   navigate("/login");
   // };
   // display the button on mobile or removes it depending on the screen size
@@ -85,54 +87,64 @@ function Header() {
               </Link>
             </li>
             {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
-            {currentUser?(
-                <><li className="nav-item">
-                <Link to="/my-summary" className="nav-links" onClick={closeMobileMenu}>
-                My Summary
-                </Link>
-              </li>
-              <li className="nav-item">
-                  <Link to="/" className="nav-links"  onClick={logOut} >
+            {currentUser ? (
+              <>
+                <li className="nav-item">
+                  <Link
+                    to="/my-summary"
+                    className="nav-links"
+                    onClick={closeMobileMenu}
+                  >
+                    My Summary
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/" className="nav-links" onClick={logOut}>
                     LogOut
                   </Link>
-                </li></>
-            ):(
-              <><li className="nav-item">
-                  <Button buttonStyle="btn--outline"
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Button
+                    buttonStyle="btn--outline"
                     className="nav-links"
                     onClick={handleOpen}
                   >
                     Log in
-                    </Button>
-                    <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="child-modal-title"
-            aria-describedby="child-modal-description"
-          >
-            <LogInModal />
-          </Modal>
-                </li><li>
-                <Button buttonStyle="btn--outline"
-                      className="nav-links-mobile"
-                      onClick={signUphandleOpen}
-                    >
-                      Sign Up
-                      </Button>
-                      <Modal
-                        open={signUpOpen}
-                        onClose={signUphandleClose}
-                        aria-labelledby="child-modal-title"
-                        aria-describedby="child-modal-description"
-          >
-            <SignUpModal />
-          </Modal>
-                  </li></>)}
-              </ul>
-
+                  </Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="child-modal-title"
+                    aria-describedby="child-modal-description"
+                  >
+                    <LogInModal />
+                  </Modal>
+                </li>
+                <li>
+                  <Button
+                    buttonStyle="btn--outline"
+                    className="nav-links-mobile"
+                    onClick={signUphandleOpen}
+                  >
+                    Sign Up
+                  </Button>
+                  <Modal
+                    open={signUpOpen}
+                    onClose={signUphandleClose}
+                    aria-labelledby="child-modal-title"
+                    aria-describedby="child-modal-description"
+                  >
+                    <SignUpModal />
+                  </Modal>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
       </nav>
-
     </>
   );
 }

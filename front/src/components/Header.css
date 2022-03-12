@@ -4,11 +4,11 @@
   color: #e05448; #f7f7f9*/
   background-color: #f7f7f9;
   color: #d2302c;
-  height: 80px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   position: sticky;
   top: 0;
   z-index: 999;
