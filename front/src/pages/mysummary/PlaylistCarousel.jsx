@@ -81,7 +81,7 @@ export default function PlaylistCarousel(props) {
       callback.findIndex((data) => data.video_data.id === arr.video_data.id)
   );
   return (
-    <div>
+    <div className="save_btn_main">
       {props.category ? (
         <StyledSlider {...settings}>
           {selectData.map((playlist, index) => (
