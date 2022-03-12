@@ -117,9 +117,9 @@ const Main = () => {
                           onClose={handleClose}
                           aria-labelledby="child-modal-title"
                           aria-describedby="child-modal-description"
-                         >
-                    <LogInModal />
-                  </Modal>
+                        >
+                          <LogInModal />
+                        </Modal>
                       </div>
                     )}
                   </div>

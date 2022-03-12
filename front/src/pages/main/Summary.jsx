@@ -8,15 +8,14 @@ function Summary({ videoInfo }) {
         flexDirection: "column",
         display: "flex",
         overflow: "hidden",
-        overflowY: "scroll", // added scroll
+        overflowY: "scroll",
         margin: "auto",
         mr: 2,
         ml: 2,
         mb: 3,
         padding: 2,
         maxWidth: "95vh",
-        height: "100%",
-        backgroundColor: "#F2F2F2",
+        height: "22.4rem",
       }}
     >
       <p style={{

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   ListItemAvatar,
   Dialog,
   Avatar,
@@ -21,6 +20,7 @@ import UserService from "../../service/user.service";
 import { useLocation } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
+import { Button } from "../../components/Button";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -161,8 +161,9 @@ export default function SelectCategory() {
   };
 
   return (
-    <div>
+    <div className="save_btn_main">
       {/* <p>{rating}</p> */}
+      <p>서비스에 만족하시나요?</p>
       <StyledRating
         name="simple-controlled"
         value={rating}
@@ -171,13 +172,10 @@ export default function SelectCategory() {
         }}
       />
       <Button
-        sx={{
-          height: 40,
-          variant: "contained",
-          maxWidth: "100vh",
-          minWidth: "30vh",
-        }}
-        variant="contained"
+        className="start_btn"
+        buttonStyle="btn--outline2"
+        buttonSize="btn--large"
+        // variant="contained"
         onClick={handleClickOpen}
       >
         저장하기
