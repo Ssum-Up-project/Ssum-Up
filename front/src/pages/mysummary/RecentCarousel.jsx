@@ -12,6 +12,8 @@ import {
   CardActions } 
   from '@mui/material';
 import { minHeight } from "@mui/system";
+import { useNavigate } from "react-router";
+import UserService from "../../service/user.service";
 
 const settings={ 
   dots: true,
@@ -53,6 +55,28 @@ const StyledSlider = styled(Slider)`
   `;
 
 export default function Test(props){
+  const navigate = useNavigate();
+
+  const requestURL = async (url) => {
+    const fetchedVideoInfo = await 
+    UserService.postVideoData(url)
+      .then((response) => {
+        return response.data;
+      }).catch((err) => {
+        console.error(err);
+      });
+    return fetchedVideoInfo;
+  };
+
+  const onClickButton = async (url) => {
+    const fetchedVideoInfo = await requestURL(url);
+    localStorage.setItem("storedURL", JSON.stringify(url));
+    navigate("/main", {
+        state: {
+          video: fetchedVideoInfo
+        }
+      });   
+  };
   return (
     <div>
       <StyledSlider {...settings}>
@@ -68,7 +92,7 @@ export default function Test(props){
                   url={log.video_data.url} /></Box>
             </CardActionArea>
            <CardActions>
-             <Button size="small" color="primary">
+             <Button size="small" color="primary" onClick={(e) => onClickButton(log.video_data.url)}>
              {log.video_data.title}
              </Button>
             </CardActions>
