@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Team.css";
+import WOW from "wowjs";
 
 const Introduction = () => {
+  useEffect(() => {
+    new WOW.WOW().init();
+  }, []);
   return (
     <div className="Introduction">
-      <div className="Introduction__title">
+      <div className="Introduction__title wow fadeInDown">
         <h1>What</h1>
       </div>
 
-      <div className="Introduction__text">
+      <div className="Introduction__text wow fadeInUp">
         <p>
           SSumUp은 자연어 처리 기술을 통해 사람들의 불편을 해소하고 더 편리하고
           효율적으로 만들 수 있는 것이 무엇일까 라는 고민에서 출발했어요. 요즘은

@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
@@ -65,7 +65,7 @@ const TextContainer = () => {
             setShowingTranslation(false);
           }}
         >
-          번역
+          요약 번역
         </ToggleButton>
         <ToggleButton
           value="right"

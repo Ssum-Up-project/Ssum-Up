@@ -89,14 +89,14 @@ const Home = () => {
       <div className="Home" style={{ height: "50rem" }}>
         <section className="banner major">
           <div className="inner">
-            <header className="major">
+            <header className="major wow fadeInDown">
               <h1 style={{ fontWeight: "bold", marginBottom: "2rem" }}>
-                Youtube!
+                Youtube,
               </h1>
             </header>
-            <div className="content">
+            <div className="content wow fadeIn">
               <p>
-                요약해서 핵심만 빠르게 파악해,
+                요약해서 핵심만 빠르게 파악해서
                 <br />
                 당신의 소중한 시간을 아껴보세요.
               </p>

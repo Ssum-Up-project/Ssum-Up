@@ -24,10 +24,10 @@ import { Button } from "../../components/Button";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
-    color: "black",
+    color: "#f7f7f9",
   },
   "& .MuiRating-iconHover": {
-    color: "gray",
+    color: "#f7f7f9",
   },
 });
 
@@ -168,7 +168,13 @@ export default function SelectCategory() {
   };
 
   return (
-    <div>
+    <div className="save_btn_main">
+      <p
+        className="rating_message"
+        style={{ marginRight: "-40px", marginTop: "4px" }}
+      >
+        요역과 번역의 내용이 어떠셨나요?
+      </p>
       {/* <p>{rating}</p> */}
       <StyledRating
         name="simple-controlled"

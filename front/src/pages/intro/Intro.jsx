@@ -36,10 +36,15 @@ const Intro = () => {
       <div className="text_container">
         <h1 className="wow bounceInLeft">SSumUp</h1>
         {/* <img src="image/logo_red.png" alt="logo" className="intro_logo" /> */}
-        <p>
-          Wall Street Journal의 시사뉴스부터 The Verge의 최신 테크 뉴스까지,
-        </p>
-        <p> 영어와 시간의 제약을 넘어 더욱 효율적으로 유튜브를 이용하는 방법</p>
+        <div className="wow fadeIn">
+          <p>
+            Wall Street Journal시사 뉴스부터 The Verge의 최신 테크 뉴스까지,
+          </p>
+          <p style={{ fontSize: "24px" }}>
+            {" "}
+            영어와 시간의 제약을 넘어 더욱 효율적으로 유튜브를 이용하는 방법
+          </p>
+        </div>
 
         <div className="start_btn_intro">
           <Button

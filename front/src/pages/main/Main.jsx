@@ -75,7 +75,7 @@ const Main = () => {
                         aria-label="centered"
                         onClick={() => setShowingContent(CONTENT.TRANSLATION)}
                       >
-                        번역
+                        요약 번역
                       </ToggleButton>
                       <ToggleButton
                         value="right"

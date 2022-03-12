@@ -63,8 +63,13 @@
 }
 
 .save_btn_main {
+  display: flex;
+  justify-content: space-between;
   text-align: right;
-  margin-top: 50px;
+  margin-top: 100px;
+}
+.rating_message {
+  color: #f7f7f9;
 }
 
 /* mobile */
