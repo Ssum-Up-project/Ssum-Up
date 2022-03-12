@@ -6,8 +6,10 @@ import { Button } from "../../components/Button";
 import LoadingModal from "../../components/LoadingModal";
 import { Typography } from "@mui/material";
 import Layout from "../../Layout";
-import axios from "axios";
+// import axios from "axios";
 import WOW from "wowjs";
+// import authHeader from "../../service/auth-header";
+import UserService from "../../service/user.service";
 
 // const fetchedVideoInfo = {
 //   id: 1,
@@ -30,12 +32,14 @@ const Home = () => {
   const changeLoadingState = () => {
     setIsLoading((current) => !current);
   };
-
+  
   const requestURL = async () => {
-    const fetchedVideoInfo = await axios
-      .post("http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videodata/",{
-        url: inputURL
-      }).then((response) => {
+    const fetchedVideoInfo = await 
+    // axios.post("http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videodata/",{
+    //     url: inputURL
+    //   }, { headers: authHeader()})
+    UserService.postVideoData(inputURL)
+      .then((response) => {
         console.log(response.data);
         return response.data;
       }).catch((err) => {

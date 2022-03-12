@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 import FolderIcon from '@mui/icons-material/Folder';
 import AddIcon from '@mui/icons-material/Add';
 import UserService from "../../service/user.service";
+import { useLocation } from "react-router-dom";
 
 
 function Category(props) {
@@ -108,6 +109,8 @@ function Category(props) {
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(undefined);
     const [saveError,setSaverError] = useState(false);
+    
+    const { state } = useLocation()
   
     const handleClickOpen = () => {
       setOpen(true);
@@ -119,7 +122,7 @@ function Category(props) {
   //플레이리스트 데이터 전송
     const handleClose = async(value) => {
       setSelectedValue(value);
-      UserService.postPlayList(value,1)//앞이 플레이리스트명, 뒤가 비디오데이터 id
+      UserService.postPlayList(value, state.video.id)//앞이 플레이리스트명, 뒤가 비디오데이터 id
       .then(() => {
         setOpen(false);
         window.location.reload();
