@@ -75,7 +75,8 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         url = validated_data["url"]
         video_data.url = url
         video_data.title = self.getVideoTitle(url)
-        subtitles = self.getVideoSubtitles(url)
+        subtitles = self.preprocess(self.getVideoSubtitles(url))
+
 
         # 자동 생성 자막 구두점 처리
         params = { "subtitles": subtitles, }
@@ -135,6 +136,48 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
                 subtitles += line["text"] + " "
 
             return subtitles
+    
+    def preprocess(self, subtitles):
+        transcript = self.remove_description_text(subtitles)
+        transcript = self.remove_overlap_text(transcript)
+        transcript = self.remove_filler_words(transcript)
+        return transcript
+
+    def remove_description_text(self, subtitles):
+        """ 1. 괄호나 대괄호로 처리된 description 제거
+            정규표현식으로 괄호 또는 대괄호 안에 있는 문자열 제거
+        """
+        parenthesis = "\(.*\)|\s-\s.*"
+        bracket = "\[.*\]|\s-\s.*"
+
+        parenthesis_cleaned_subtitle = re.sub(parenthesis,"", subtitles)
+        bracket_cleaned_subtitle = re.sub(bracket, "", parenthesis_cleaned_subtitle)
+        return bracket_cleaned_subtitle
+
+    def remove_overlap_text(self, subtitles):
+        """ 2. 중복단어 반복 제거 """
+        splited = subtitles.split()
+
+        repeated_cleaned_subtitle = ""
+
+        for i in range(len(splited) -1) :
+            if splited[i] == splited[i+1] :
+                pass
+            else :
+                repeated_cleaned_subtitle += splited[i] + " "
+
+        repeated_cleaned_subtitle += splited[-1]
+        return repeated_cleaned_subtitle
+
+    def remove_filler_words(self, subtitles):
+        """3. filler words 제거하기 (필러워드 예: 음, 아~)
+            - 만들어진 filler words 리스트가 없어서 직접 구글 검색 등을 통해 사용 빈도가 높은 filler words 들을 수집하여 list를 생성함
+        """
+        # fw_cleaned_test에 클린이 된 text가 할당됨
+        fw_list = " i mean | basically | you know | umm | um | uh | huh | er | eh | ah | like that | just | really | somehow | i guess | i suppose | like i said | or something like that | kind of | sort of | you see | see what i mean | yeah "
+        fw_cleaned_text = re.sub(fw_list, " ", subtitles)
+        return fw_cleaned_text
+
 
 
 class SearchLogSerializer(serializers.ModelSerializer):
