@@ -12,10 +12,7 @@ function Header() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [isMySummary, setIsMySummary] = useState(false); // 로그인 상태면 true, 그러면 MySummary페이지로 이동
-  // const [isLogIn, setIsLogIn] = useState(false);
-  // const changeLoadingState = () => {
-  //   setIsLoading((current) => !current);
-  // };
+
   const [open, setOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
 
@@ -27,13 +24,6 @@ function Header() {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const openDialog = () => {
-    setClick(false);
-    {
-      <LogInModal />;
-    }
-  };
-
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -44,10 +34,7 @@ function Header() {
   const logOut = () => {
     AuthService.logout();
   };
-  // const goLogin = () => {
-  //   navigate("/login");
-  // };
-  // display the button on mobile or removes it depending on the screen size
+
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -102,18 +89,11 @@ function Header() {
                   <Link to="/" className="nav-links" onClick={logOut}>
                     LogOut
                   </Link>
-                  {/* <Button
-                    onClick={logOut}
-                    buttonStyle="btn--outline"
-                    buttonSize="btn--large"
-                  >
-                    LogOut
-                  </Button> */}
                 </li>
               </>
             ) : (
               <>
-                <li className="nav-item">
+                <li>
                   <Button
                     buttonStyle="btn--outline"
                     className="nav-links"
@@ -156,3 +136,4 @@ function Header() {
   );
 }
 export default Header;
+

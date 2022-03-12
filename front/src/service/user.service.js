@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 const API_URL =
-  "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/";
+  "http://localhost:8000/api/";
 // 'http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/';
 
 const getPlayList = () => {

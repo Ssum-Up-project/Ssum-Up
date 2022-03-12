@@ -13,10 +13,11 @@ import {
   Typography,
   Container,
   styled,
-  Link
+  Modal
 } from '@mui/material/';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LogInModal from "./LogInModal";
 
 const style = {
   position: "absolute",
@@ -24,6 +25,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
+  width: 380,
+  height:500,
   borderRadius: 6,
   boxShadow: 24,
   pt: 7,
@@ -52,17 +55,22 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState('');
   const [registerError, setRegisterError] = useState('');
 
+  const[open,setOpen]= useState('')
+
+  const handleClose = () => setOpen(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     await axios
-    .post('http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/rest-auth/registration/', {
+    .post('http://localhost:8000/api/rest-auth/registration/', {
       email: email,
       password1: password1,
       password2: password2
     })
     .then(function (response) {
-      navigate('/log-in');
+      alert("가입되었습니다.");
+      setOpen(true);
     })
     .catch(function (err) {
       console.error(err)
@@ -71,20 +79,11 @@ const Register = () => {
   };
   return (
     <>
-      {/* <Button onClick={handleOpen}>Open Child Modal</Button> */}
-      {/* <Modal
-          hideBackdrop
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
-        > */}
       <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm" sx={{ ...style }}>
         <CssBaseline>
           <Box
             sx={{
-              marginTop: 8,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -125,10 +124,10 @@ const Register = () => {
                   <TextField
                     required
                     fullWidth
-                    name="password"
+                    name="password1"
                     label="비밀번호 (숫자+영문자+특수문자 포함 8자리 이상)"
                     type="password"
-                    id="password"
+                    id="password1"
                     autoComplete="new-password"
                     onChange={(e) => {
                       setPassword1(e.target.value)
@@ -141,10 +140,10 @@ const Register = () => {
                   <TextField
                     required
                     fullWidth
-                    name="rePassword"
+                    name="password2"
                     label="비밀번호 재입력"
                     type="password"
-                    id="rePassword"
+                    id="password2"
                     autoComplete="new-password"
                     error={passwordState !== "" || false}
                     onChange={(e) => {
@@ -171,7 +170,14 @@ const Register = () => {
         </CssBaseline>
       </Container>
       </ThemeProvider>
-      {/* </Modal> */}
+      <Modal
+         open={open}
+         onClose={handleClose}
+         aria-labelledby="child-modal-title"
+         aria-describedby="child-modal-description"
+        >
+        <LogInModal />
+      </Modal>
     </>
   );
 };

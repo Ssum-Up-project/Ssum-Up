@@ -10,14 +10,14 @@ import Layout from "../Layout";
 import WOW from "wowjs";
 import UserService from "../../service/user.service";
 
-// const fetchedVideoInfo = {
-//   id: 1,
-//   url: "https://www.youtube.com/watch?v=dKmHLAKQ5PI&ab_channel=TED",
-//   title: "title value",
-//   subtitles: "subtitles value",
-//   summarized_subtitles: "summarized subtitle sample value33333",
-//   translation: 'translated'
-// };
+/*const fetchedVideoInfo = {
+id: 2,
+url: "https://youtu.be/SSBvPCd1gaQ",
+title: "title value",
+subtitles: "subtitles value",
+summarized_subtitles: "summarized subtitle sample value33333",
+translation: 'translated'
+};*/
 
 const Home = () => {
   const navigate = useNavigate();

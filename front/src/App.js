@@ -8,10 +8,7 @@ import Intro from "./pages/intro/Intro";
 import Home from "./pages/intro/Home";
 import MySummary from "./pages/mysummary/MyPage";
 import ReHome from "./pages/intro/ReHome";
-import Login from "./pages/login/LogInModal";
-import SignUp from "./pages/login/SignUpModal";
 import PrivateRoute from "./service/PrivateRoute";
-import PublicRoute from "./service/PublicRoute";
 
 function App() {
   return (
@@ -24,23 +21,6 @@ function App() {
           <Route path="/re-home" element={<ReHome />} />
           <Route path="/team" element={<Team />} />
           <Route path="/main" element={<Main />} />
-
-          <Route
-            path="/log-in"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/sign-up"
-            element={
-              <PublicRoute>
-                <SignUp />
-              </PublicRoute>
-            }
-          />
           <Route
             path="/my-summary"
             element={

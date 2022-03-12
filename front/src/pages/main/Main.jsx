@@ -8,9 +8,10 @@ import Translation from "./Translation";
 import AuthService from "../../service/auth.service";
 import Category from "./SelectCategory";
 import "./Main.css";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup,Modal } from "@mui/material";
 import { Button } from "../../components/Button";
 import Layout from "../Layout";
+import LogInModal from "../login/LogInModal";
 
 
 const CONTENT = {
@@ -26,6 +27,9 @@ const Main = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [alignment, setAlignment] = useState("left");
   const [showingContent, setShowingContent] = useState(CONTENT.SUMMARY);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -104,10 +108,18 @@ const Main = () => {
                           className="start_btn"
                           buttonStyle="btn--outline2"
                           buttonSize="btn--large"
-                          onClick={() => navigate("/log-in")}
+                          onClick={handleOpen}
                         >
                           저장
                         </Button>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="child-modal-title"
+                          aria-describedby="child-modal-description"
+                         >
+                    <LogInModal />
+                  </Modal>
                       </div>
                     )}
                   </div>

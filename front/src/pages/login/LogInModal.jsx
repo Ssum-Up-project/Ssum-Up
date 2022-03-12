@@ -12,7 +12,6 @@ import {
   Typography,
   Container,
   styled,
-  Link,
 } from "@mui/material";
 import AuthService from "../../service/auth.service";
 import SignUpModal from "./SignUpModal";
@@ -21,6 +20,8 @@ const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
+  width: 380,
+  height:500,
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   borderRadius: 6,
@@ -40,33 +41,8 @@ const FormHelperTexts = styled(FormHelperText)`
 const Boxs = styled(Box)`
   padding-bottom: 40px;
 `;
-function ModalContainer() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <>
-      <Button onClick={handleOpen}>회원가입 하기</Button>
-      <Modal>
-        <SignUpModal />
-      </Modal>
-    </>
-  );
-}
 
 const LogInModal = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -83,11 +59,10 @@ const LogInModal = () => {
       });
   };
   return (
-    <Container component="main" maxWidth="xs" sx={{ ...style }}>
+    <Container component="main" sx={{ ...style }}>
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -145,19 +120,6 @@ const LogInModal = () => {
           </FormControl>
           <FormHelperTexts>{registerError}</FormHelperTexts>
           <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Button size="small" onClick={handleOpen}>
-                아직 회원이 아니신가요? 회원가입
-              </Button>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="child-modal-title"
-                aria-describedby="child-modal-description"
-              >
-                <SignUpModal />
-              </Modal>
-            </Grid>
           </Grid>
         </Boxs>
       </Box>
