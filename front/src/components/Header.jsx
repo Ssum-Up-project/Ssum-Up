@@ -102,6 +102,13 @@ function Header() {
                   <Link to="/" className="nav-links" onClick={logOut}>
                     LogOut
                   </Link>
+                  {/* <Button
+                    onClick={logOut}
+                    buttonStyle="btn--outline"
+                    buttonSize="btn--large"
+                  >
+                    LogOut
+                  </Button> */}
                 </li>
               </>
             ) : (
