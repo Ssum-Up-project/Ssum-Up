@@ -5,6 +5,7 @@ from .views import VideoDataList
 from .views import VideoDataDetail
 from .views import SearchLogList
 from .views import SearchLogUserList
+from .views import RatingDetail
 
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path("videodata/<str:pk>/", VideoDataDetail.as_view(), name="videodata_detail"),
     path("searchlog/", SearchLogList.as_view(), name="searchlog"),
     path("searchlog/user/", SearchLogUserList.as_view(), name="searchlog_user"),
+    path("rating", RatingDetail.as_view(), name="rating"),
 ]

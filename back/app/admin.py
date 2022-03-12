@@ -8,6 +8,7 @@ from .models import SearchLog
 from .models import User
 from .models import PlayList
 from .models import VideoData
+from .models import Rating
 
 
 class PlayListInline(admin.TabularInline):
@@ -58,3 +59,4 @@ admin.site.unregister(Group)
 admin.site.register(PlayList)
 admin.site.register(VideoData, VideoDataAdmin)
 admin.site.register(SearchLog)
+admin.site.register(Rating)

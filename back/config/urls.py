@@ -35,7 +35,6 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="서버 관리자 이메일"),
         license=openapi.License(name="Elice AI 3rd - AI Team4 License"),
     ),
-    # validators=['flex'],
     public=True,
     permission_classes=(AllowAny,),
 )

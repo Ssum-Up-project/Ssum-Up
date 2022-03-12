@@ -52,3 +52,8 @@ class UnableUtubeTranscriptException(BaseException):
   status_code = status.HTTP_400_BAD_REQUEST
   default_detail = "영문 자막이 제공되는 영상이 아닙니다"
   default_code = "NoTranscriptException"
+
+class AlreadyRatedVideo(BaseException):
+    status_code = status.HTTP_406_NOT_ACCEPTABLE
+    default_detail = "해당 유저는 이미 평가를 제출했습니다."
+    default_code = "AlreadyRatedVideo"

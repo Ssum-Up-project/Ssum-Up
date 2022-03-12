@@ -1,7 +1,7 @@
-# Create your views here.
 from rest_framework.response import Response
 
 from .models import PlayList
+from .models import Rating
 from .models import VideoData
 from .models import User
 from .models import SearchLog
@@ -21,6 +21,8 @@ from .serializers import SearchLogSerializer
 from .serializers import SearchLogDetailSerializer
 from .serializers import UserSerializer
 from .serializers import PlayListPostSerializer
+from .serializers import RatingPostSerializer
+from .exceptions import AlreadyRatedVideo
 from .exceptions import AlreadyVideoInPlaylist
 
 from drf_yasg.utils import swagger_auto_schema
@@ -92,22 +94,6 @@ class PlayListDetail(APIView):
             return Http404
 
     @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: PlayListDetailSerializer,
-            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
-        }
-    )
-    def get(self, request, pk, format=None):
-        '''
-        플레이리스트(특정 플레이리스트)
-
-        특정 playlist의 video_id들을 가져옵니다.
-        '''
-        playlist = self.get_object(pk)
-        serializer = PlayListDetailSerializer(playlist)
-        return Response(serializer.data)
-
-    @swagger_auto_schema(
         request_body=PlayListSerializer,
         responses={
             status.HTTP_200_OK: PlayListSerializer,
@@ -146,18 +132,6 @@ class PlayListDetail(APIView):
 
 class VideoDataList(APIView):
 
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: VideoDataListSerializer,
-            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
-        }
-    )
-    def get(self, request):
-        videodata = VideoData.objects.all()
-        serializer = VideoDataListSerializer(videodata, many=True)
-        return Response(serializer.data) # , status.HTTP_200_OK
-
-    
     @swagger_auto_schema(
         request_body=VideoDataPostSerializer,
         responses={
@@ -243,19 +217,6 @@ class VideoDataDetail(APIView):
         serializer = VideoDataResponseSerializer(videodata)
         return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        videodata = self.get_object(pk)
-        serializer = VideoDataListSerializer(videodata, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        videodata = self.get_object(pk)
-        videodata.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 class SearchLogList(APIView):
 
@@ -299,3 +260,31 @@ class SearchLogUserList(APIView):
             searchlog = None
         serializer = SearchLogDetailSerializer(searchlog, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class RatingDetail(APIView):
+    @swagger_auto_schema(
+        request_body=RatingPostSerializer,
+        responses={
+            status.HTTP_200_OK: RatingPostSerializer,
+            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
+        }
+    )
+    def post(self, request, format=None):
+        """
+        사용자의 영상 평가 저장 *token 필요
+
+        사용자의 영상 평가 저장
+        """
+
+        serializer = RatingPostSerializer(data=request.data, context={"request": request})
+        serializer.is_valid(raise_exception=True)
+
+        # checkExistRating
+        if Rating.objects.filter(
+            user_id=request.user, rating=serializer.validated_data["rating"],
+            video_data_id=serializer.validated_data["video_data_id"]
+            ).exists():
+            raise AlreadyRatedVideo
+
+        serializer.save()
+        return Response(RatingPostSerializer(serializer.instance).data, status=status.HTTP_201_CREATED)

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import PlayList
+from .models import Rating
 from .models import VideoData
 from .models import User
 from .models import SearchLog
@@ -13,15 +14,10 @@ from .exceptions import NoTranscriptException, NoVideoTitleException, VideoUnava
 
 
 class UserSerializer(serializers.ModelSerializer):
-    playlist = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=PlayList.objects.all()
-    )
-    # 문제가 생길수 있는 부분 남겨둠
     
     class Meta:
         model = User
-        fields = ("email", "password", "playlist")
-    # playlist를 필드에 추가해줌으로서 문제 해결
+        fields = ("email", "password")
 
 
 class PlayListSerializer(serializers.ModelSerializer):
@@ -29,7 +25,6 @@ class PlayListSerializer(serializers.ModelSerializer):
         model = PlayList
         video_data_id = serializers.ReadOnlyField(source="videodata.id")
         user_id = serializers.ReadOnlyField(source="user.id")
-        # fields = ("id", "list_name", "video_data_id", "user_id")
         fields = '__all__'
 
 class PlayListPostSerializer(serializers.ModelSerializer):
@@ -59,9 +54,6 @@ class PlayListPostSerializer(serializers.ModelSerializer):
 class VideoDataListSerializer(serializers.ModelSerializer):
     """동영상 목록 조회"""
 
-    # 역참조 데이터는 코드로 데이터 삽입시 생성가능한데, 포스트맨등으로 테스트시 에러남.
-    # playlist = serializers.PrimaryKeyRelatedField(many=True, queryset=PlayList.objects.all())
-
     class Meta:
         model = VideoData
         fields = ["id", "url", "title", "summarized_subtitles"]
@@ -72,8 +64,6 @@ class VideoDataResponseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VideoData
-        # fields = ["id", "url", "title", "summarized_subtitles"]
-        # read_only_fields = ("created_at",)
         fields = "__all__"
 
 
@@ -173,3 +163,21 @@ class PlayListDetailSerializer(serializers.ModelSerializer):
         response = super().to_representation(instance)
         response['video_data'] = VideoDataBaseSerializer(instance.video_data_id).data
         return response
+
+class RatingPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ["video_data_id", 'rating', "user_id", "created_at"]
+        read_only_fields = ("user_id","created_at",)
+    
+    def create(self, validated_data):
+        request = self.context.get("request")        
+
+        rating = Rating()
+        rating.user_id = request.user
+        rating.video_data_id = validated_data["video_data_id"]
+        rating.rating = validated_data["rating"]
+
+        rating.save()
+
+        return rating

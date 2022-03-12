@@ -27,7 +27,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    # id = models.AutoField(primary_key=True)
     username = None
     email = models.EmailField(
         default="", verbose_name="email", max_length=100, unique=True
@@ -42,8 +41,6 @@ class User(AbstractBaseUser):
 
     # 사용자의 username field는 email으로 설정
     USERNAME_FIELD = "email"
-    # 필수로 작성해야하는 field
-    # REQUIRED_FIELDS = ['email'] # 에러남
 
     def __str__(self):
         return self.email
@@ -106,5 +103,24 @@ class SearchLog(models.Model):
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __int__(self):
+        return self.id
+
+
+class Rating(models.Model):
+    user_id = models.ForeignKey(
+        User, 
+        related_name='rating',
+        on_delete=models.CASCADE
+    )
+    video_data_id = models.ForeignKey(
+        VideoData, 
+        related_name='rating', 
+        on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField()
+
     def __int__(self):
         return self.id
