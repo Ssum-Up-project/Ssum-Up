@@ -15,7 +15,7 @@ const login = async (email, password) => {
 const logout = async () => {
   await axios.post(API_URL + "logout/", {}).then(function () {
     localStorage.removeItem("user"); //로컬 스토리지에서 제거
-    window.location.replace("./home"); //페이지 리로드
+    window.location.replace("/home"); //페이지 리로드
   });
 };
 
