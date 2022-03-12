@@ -15,13 +15,18 @@ function Summary({ videoInfo }) {
         mb: 3,
         padding: 2,
         maxWidth: "95vh",
-        height: "100%",
-        backgroundColor: "#F2F2F2",
+        height: "80%",
+        backgroundColor: "#fff",
+        fontSize: "20px",
       }}
     >
-      <p style={{
-        color: 'black'
-      }}>{videoInfo.summarized_subtitles}</p>
+      <p
+        style={{
+          color: "black",
+        }}
+      >
+        {videoInfo.summarized_subtitles}
+      </p>
     </Box>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   ListItemAvatar,
   Dialog,
   Avatar,
@@ -21,6 +20,7 @@ import UserService from "../../service/user.service";
 import { useLocation } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
+import { Button } from "../../components/Button";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -102,8 +102,15 @@ function Category(props) {
         </ListItem>
       </List>
       <DialogActions>
-        <Button onClick={() => handleListItemClick(addCategory)}>Add</Button>
-        <Button onClick={() => handleClose()}>Cancel</Button>
+        <Button
+          onClick={() => handleListItemClick(addCategory)}
+          buttonStyle="btn--outline"
+        >
+          Add
+        </Button>
+        <Button onClick={() => handleClose()} buttonStyle="btn--outline">
+          Cancel
+        </Button>
       </DialogActions>
     </Dialog>
   );
@@ -171,7 +178,10 @@ export default function SelectCategory() {
         }}
       />
       <Button
-        sx={{
+        className="start_btn"
+        buttonStyle="btn--outline2"
+        buttonSize="btn--large"
+        style={{
           height: 40,
           variant: "contained",
           maxWidth: "100vh",

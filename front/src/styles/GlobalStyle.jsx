@@ -4,7 +4,8 @@ import { createGlobalStyle, GlobalStyles } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 *{
-  font-family: 'Roboto', sans-serif;
+  font-family:  'Nanum Gothic Coding', monospace;
+
 
 }
 body {

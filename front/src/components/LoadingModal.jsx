@@ -15,7 +15,7 @@ const LoadingModal = () => {
   return (
     <div className="modalBg">
       <h1 className="modalTxt">요약 중</h1>
-      <div style={{ marginRight: "200px" }}>
+      <div style={{ paddingRight: "1.25rem", marginTop: "-1.5rem" }}>
         <PropagateLoader
           color={"#E05448"}
           // loading={true}

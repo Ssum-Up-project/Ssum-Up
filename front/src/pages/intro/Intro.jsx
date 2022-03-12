@@ -34,7 +34,7 @@ const Intro = () => {
   return (
     <div className="Intro">
       <div className="text_container">
-        <h1 className="wow bounceInLeft">SSum Up</h1>
+        <h1 className="wow bounceInLeft">SSumUp</h1>
         {/* <img src="image/logo_red.png" alt="logo" className="intro_logo" /> */}
         <p>
           Wall Street Journal의 시사뉴스부터 The Verge의 최신 테크 뉴스까지,

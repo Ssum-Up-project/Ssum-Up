@@ -16,11 +16,14 @@ const Translation = ({ videoInfo }) => {
         padding: 2,
         maxWidth: "95vh",
         height: "22.4rem",
+        fontSize: "20px",
       }}
     >
-      <p style={{
-        color: 'black'
-      }}>
+      <p
+        style={{
+          color: "black",
+        }}
+      >
         {videoInfo.translated_subtitles}
       </p>
     </Box>

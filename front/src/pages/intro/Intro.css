@@ -7,7 +7,7 @@ video {
 }
 
 .Intro {
-  margin-left: 7rem;
+  margin-left: 3rem;
   margin-right: 5rem;
   flex-direction: row;
   display: flex;
@@ -31,10 +31,11 @@ video {
 .text_container h1 {
   color: #f7f7f9;
   font-size: 170px;
+  margin-bottom: 2rem;
 }
 
 .text_container p {
-  font-size: 24px;
+  font-size: 22px;
   line-height: 40px;
 }
 

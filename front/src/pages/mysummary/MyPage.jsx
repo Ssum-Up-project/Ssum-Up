@@ -58,10 +58,11 @@ const MyPageContent = () => {
         sx={{
           p: 5,
           margin: "auto",
+          height: "50rem",
         }}
       >
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ color: "#f7f7f9", fontSize: "20px" }}>
             <div>최근 기록</div>
           </Grid>
           <Grid item xs={12}>
@@ -74,7 +75,12 @@ const MyPageContent = () => {
               variant="standard"
               sx={{ minHeight: 20, minWidth: 120 }}
             >
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ color: "#f7f7f9", fontSize: "20px" }}
+              >
+                재생목록
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"

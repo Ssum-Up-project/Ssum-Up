@@ -16,10 +16,14 @@ const Subtitle = ({ videoInfo }) => {
         padding: 2,
         maxWidth: "95vh",
         height: "22.4rem", // backgroundColor: "#F2F2F2",
-      }}>
-      <p style={{
-        color: 'black'
-      }}>
+        fontSize: "20px",
+      }}
+    >
+      <p
+        style={{
+          color: "black",
+        }}
+      >
         {videoInfo.subtitles}
       </p>
     </Box>

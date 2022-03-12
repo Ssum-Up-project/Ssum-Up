@@ -13,32 +13,12 @@ function Team() {
           <div className="cards__container">
             <div className="cards__wrapper">
               <ul className="cards__items">
-                <CardItem
-                  src=""
-                  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,...."
-                  label="pic 0"
-                  path="/"
-                />
-                <CardItem
-                  src=""
-                  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,...."
-                  label="pic 1"
-                  path="/"
-                />
-                <CardItem
-                  src=""
-                  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,...."
-                  label="pic 2"
-                  path="/"
-                />
+                <CardItem src="" text="이상지" label="이상지" path="/" />
+                <CardItem text="이슬아" label="pic 0" path="/" />
+                <CardItem src="" text="박진화" label="pic 2" path="/" />
               </ul>
               <ul className="cards__items">
-                <CardItem
-                  src=""
-                  text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,...."
-                  label="pic 3"
-                  path="/"
-                />
+                <CardItem src="" text="김승수" label="pic 3" path="/" />
                 <CardItem
                   src=""
                   text="Lorem ipsum dolor sit amet, consectetur adipiscing elit,...."

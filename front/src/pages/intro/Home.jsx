@@ -1,6 +1,6 @@
 import "../../App.css";
 import "./Home.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
 import LoadingModal from "../../components/LoadingModal";
@@ -22,8 +22,8 @@ import UserService from "../../service/user.service";
 const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [inputURL, setinputURL] = useState();
-
+  const [inputURL, setInputURL] = useState();
+  const inputRef = useRef();
   useEffect(() => {
     new WOW.WOW().init();
   }, []);
@@ -33,15 +33,25 @@ const Home = () => {
   };
 
   const requestURL = async () => {
-    const fetchedVideoInfo = await UserService.postVideoData(inputURL)
+    const result = await UserService.postVideoData(inputURL)
       .then((response) => {
         console.log(response.data);
-        return response.data;
+        return {
+          status: response.status,
+          statusText: response.statusText,
+          data: response.data,
+        };
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err.response);
+        const response = err.response;
+        return {
+          status: response.status,
+          statusText: response.statusText,
+          data: response.data,
+        };
       });
-    return fetchedVideoInfo;
+    return result;
   };
 
   const onClickButton = async () => {
@@ -50,12 +60,23 @@ const Home = () => {
 
     if (regeX.test(inputURL)) {
       changeLoadingState();
-      const fetchedVideoInfo = await requestURL();
+      const result = await requestURL();
       localStorage.setItem("storedURL", JSON.stringify(inputURL));
+
+      if (result.status === 400) {
+        const resultData = result.data;
+        if (resultData.code === "NoTranscriptException") {
+          alert(resultData.detail + "\nUrl을 다시 확인해주세요.");
+          changeLoadingState();
+          setInputURL("https://");
+          inputRef.current.focus();
+          return;
+        }
+      }
 
       navigate("/main", {
         state: {
-          video: fetchedVideoInfo,
+          video: result.data,
         },
       });
     } else {
@@ -65,32 +86,40 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="Home">
+      <div className="Home" style={{ height: "50rem" }}>
         <section className="banner major">
           <div className="inner">
             <header className="major">
-              <h1>Youtube,</h1>
+              <h1 style={{ fontWeight: "bold", marginBottom: "2rem" }}>
+                Youtube!
+              </h1>
             </header>
             <div className="content">
               <p>
-                요약해서 핵심만 빠르게 파악해
+                요약해서 핵심만 빠르게 파악해,
                 <br />
                 당신의 소중한 시간을 아껴보세요.
               </p>
             </div>
           </div>
-          <div>
+          <div
+            className="input_btn"
+            style={{ marginLeft: "2rem", marginTop: "9rem" }}
+          >
             <form>
               <input
                 className="wow fadeInUp"
                 value={inputURL}
-                onChange={(e) => setinputURL(e.target.value)}
+                onChange={(e) => setInputURL(e.target.value)}
                 type="text"
                 name="inputURL"
                 placeholder="url"
               />
             </form>
-            <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
+            <div
+              className="sumup_btn wow fadeIn"
+              style={{ marginLeft: "2rem" }}
+            >
               <Button
                 className="start_btn"
                 buttonStyle="btn--outline2"
@@ -124,8 +153,7 @@ const Home = () => {
               요약 하기
             </Button>
           </div> */}
-          {/* {isLoading && <LoadingModal />} */}
-          <LoadingModal />
+          {isLoading && <LoadingModal />}
         </div>
       </div>
     </Layout>
