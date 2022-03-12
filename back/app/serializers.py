@@ -11,7 +11,11 @@ from .summarize import summarize
 from youtube_transcript_api._errors import NoTranscriptFound
 from pytube.exceptions import VideoUnavailable
 from .exceptions import NoTranscriptException, NoVideoTitleException, VideoUnavailableException, UnableUtubeTranscriptException
-
+from rpunct import RestorePuncts
+import torch.cuda
+import re
+import requests
+import json
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -71,9 +75,28 @@ class VideoDataPostSerializer(serializers.ModelSerializer):
         url = validated_data["url"]
         video_data.url = url
         video_data.title = self.getVideoTitle(url)
-        video_data.subtitles = self.getVideoSubtitles(url)
+        subtitles = self.getVideoSubtitles(url)
+
+        # 자동 생성 자막 구두점 처리
+        params = { "subtitles": subtitles, }
+        headers={
+        'Referer': 'https://itunes.apple.com',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36'
+        }
+
+        try:
+            # res = requests.post("http://172.21.0.3:5000/api/punct", data=json.dumps(params))
+            res = requests.post("http://punctserver:5000/api/punct",headers=headers , data=json.dumps(params), verify=False)
+            subtitles_returned = res.text
+            print(f'플라스크에서 처리한 구두점 처리 리턴 텍스트: {subtitles_returned}')
+        except:
+            print("requests.post() Error")
+            subtitles_returned = subtitles
+        
+        # 구두점 처리된 자막 DB에 저장되게 처리
+        video_data.subtitles = subtitles_returned
         # 자막 요약하기
-        video_data.summarized_subtitles = summarize(video_data.subtitles)
+        video_data.summarized_subtitles = summarize(subtitles_returned)
         # 요약 자막 번역하기
         video_data.translated_subtitles = Translator().translate(video_data.summarized_subtitles, src='en', dest='ko').text
         video_data.save()

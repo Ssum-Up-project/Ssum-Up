@@ -1,5 +1,6 @@
 # python:3.8-alpine 으로하면 requirements.txt 에있는 특정 한두개의 파이썬 패키지 설치하면서 에러남
-FROM python:3.8.12-slim-buster
+# python:3.8-alpine => rpunct(자동생성자막이라 구두점(마침표, 쉼표 등) 없는 영문텍스트 구두점 생성해주는 딥러닝 상위 패키지) 때문에 기본 이미지 pytorch-cuda11.x(호스트 컴의 cuda드라이버 버전) 변경
+FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
 
 # .pyc 생성 방지
 ENV PYTHONDONTWRITEBYTECODE 1
