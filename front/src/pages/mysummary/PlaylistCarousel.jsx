@@ -5,7 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
 import { Button, Card, CardActionArea, Box, CardActions } from "@mui/material";
-import { height } from "@mui/system";
+import { useNavigate } from "react-router";
+import UserService from "../../service/user.service";
 
 const settings = {
   dots: true,
@@ -20,6 +21,7 @@ const settings = {
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3,
+        infinite: true,
         dots: true,
       },
     },
@@ -28,7 +30,7 @@ const settings = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
-        initialSlide: 0,
+        initialSlide: 2,
       },
     },
     {
@@ -47,6 +49,29 @@ const StyledSlider = styled(Slider)`
 `;
 
 export default function PlaylistCarousel(props) {
+  const navigate = useNavigate();
+
+  const requestURL = async (url) => {
+    const fetchedVideoInfo = await UserService.postVideoData(url)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    return fetchedVideoInfo;
+  };
+
+  const onClickButton = async (url) => {
+    const fetchedVideoInfo = await requestURL(url);
+    localStorage.setItem("storedURL", JSON.stringify(url));
+    navigate("/main", {
+      state: {
+        video: fetchedVideoInfo,
+      },
+    });
+  };
+
   const selectData = props.playlists.filter(
     (data) => data.list_name === props.category
   );
@@ -64,7 +89,6 @@ export default function PlaylistCarousel(props) {
               key={index}
               sx={{
                 maxWidth: 330,
-                height: 200,
               }}
             >
               <CardActionArea>
@@ -79,7 +103,11 @@ export default function PlaylistCarousel(props) {
                 </Box>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={(e) => onClickButton(playlist.video_data.url)}
+                >
                   {playlist.video_data.title}
                 </Button>
               </CardActions>
@@ -107,8 +135,11 @@ export default function PlaylistCarousel(props) {
                 </Box>
               </CardActionArea>
               <CardActions>
-                {/* 제목(버튼) onClick -> 데이터 main으로 보냄 & main으로 이동 ..... video_data.id   */}
-                <Button size="small" color="primary">
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={(e) => onClickButton(playlist.video_data.url)}
+                >
                   {playlist.video_data.title}
                 </Button>
               </CardActions>
