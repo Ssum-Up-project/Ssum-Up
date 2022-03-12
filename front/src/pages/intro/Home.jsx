@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
 import LoadingModal from "../../components/LoadingModal";
 import { Typography } from "@mui/material";
-import Layout from "../../Layout";
+import Layout from "../Layout";
 // import axios from "axios";
 import WOW from "wowjs";
 // import authHeader from "../../service/auth-header";
