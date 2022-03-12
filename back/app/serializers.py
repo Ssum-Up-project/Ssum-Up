@@ -11,8 +11,6 @@ from .summarize import summarize
 from youtube_transcript_api._errors import NoTranscriptFound
 from pytube.exceptions import VideoUnavailable
 from .exceptions import NoTranscriptException, NoVideoTitleException, VideoUnavailableException, UnableUtubeTranscriptException
-from rpunct import RestorePuncts
-import torch.cuda
 import re
 import requests
 import json
