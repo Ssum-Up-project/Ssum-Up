@@ -1,6 +1,8 @@
 import axios from "axios";
-const API_URL ='http://127.0.0.1:8000/api/rest-auth/';
-  // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/rest-auth/";
+const API_URL =
+  "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/rest-auth/";
+
+// "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/rest-auth/";
 
 const login = async (email, password) => {
   const response = await axios.post(API_URL + "login/", {

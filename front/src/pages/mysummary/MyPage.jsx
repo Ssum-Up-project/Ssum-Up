@@ -82,6 +82,7 @@ const MyPageContent = () => {
                 label="Category"
                 onChange={handleChange}
               >
+                <MenuItem value={""}>전체</MenuItem>
                 {savedPlaylist.map((playlist, index) => (
                   <MenuItem value={playlist.list_name} key={index}>
                     {playlist.list_name}

@@ -125,10 +125,10 @@ const Register = () => {
                   <TextField
                     required
                     fullWidth
-                    name="password1"
+                    name="password"
                     label="비밀번호 (숫자+영문자+특수문자 포함 8자리 이상)"
                     type="password"
-                    id="password1"
+                    id="password"
                     autoComplete="new-password"
                     onChange={(e) => {
                       setPassword1(e.target.value)
@@ -141,10 +141,10 @@ const Register = () => {
                   <TextField
                     required
                     fullWidth
-                    name="password2"
+                    name="rePassword"
                     label="비밀번호 재입력"
                     type="password"
-                    id="password2"
+                    id="rePassword"
                     autoComplete="new-password"
                     error={passwordState !== "" || false}
                     onChange={(e) => {

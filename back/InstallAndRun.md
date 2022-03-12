@@ -12,7 +12,7 @@
 *가상환경 실행/진입: source ./venvAi/bin/activate
 (각자 사용하는 IDE(VSCode, PyCharm)에 맞게 가상환경 지정)
 
-*pip 최신 버전 업그레이드: python -m pip install --upgrade pip
+*pip 최신 버전 업그레이드: python -m pip install --upgrade pipgit
 
 *필요 파이썬 패키지(장고 등) 설치:
   - cd back

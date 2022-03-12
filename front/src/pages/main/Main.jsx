@@ -115,7 +115,7 @@ const Main = () => {
               </div>
             </>
           ) : (
-            <p>요청된 URL이 없습니다.</p>
+            <p style={{ color: "#fff" }}>요청된 URL이 없습니다.</p>
           )}
         </div>
       </div>
