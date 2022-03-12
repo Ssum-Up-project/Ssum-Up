@@ -13,9 +13,13 @@ const postPlayList=async (list_name, video_data_id) => {
 const getSearchLog = () => {
     return axios.get(API_URL + "searchlog/user/", { headers: authHeader()});
   };
+  const postSearchLog  = async (url) => {
+    return axios.post(API_URL + "videodata/", {url}, { headers: authHeader()});
+};
 
 export default {
     getSearchLog,
     postPlayList,
     getPlayList,
+    postSearchLog
 };

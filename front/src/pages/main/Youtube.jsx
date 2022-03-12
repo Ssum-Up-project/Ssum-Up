@@ -25,7 +25,7 @@ const Youtube = () => {
   }, [playerURL]);
 
   return (
-    <div style={{ height: "auto", width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <ReactPlayer
         url={playerURL}
         playing={true}

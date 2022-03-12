@@ -11,6 +11,7 @@ import {
   Box,
   CardActions } 
   from '@mui/material';
+import { height } from "@mui/system";
 
 const settings={ 
   dots: true,
@@ -25,7 +26,6 @@ const settings={
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
           dots: true
         }
       } ,
@@ -34,7 +34,7 @@ const settings={
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
+          initialSlide: 0,
         }
       },
       {
@@ -54,7 +54,7 @@ const settings={
 export default function PlaylistCarousel(props){
   const selectData = props.playlists.filter(data => data.list_name===props.category);
   const AllPlaylistData=props.playlists.filter(
-    (arr, index, callback) => index === callback.findIndex(data => data.video_data_id.id === arr.video_data_id.id)
+    (arr, index, callback) => index === callback.findIndex(data => data.video_data.id === arr.video_data.id)
   );
   return (
     <div>
@@ -62,7 +62,8 @@ export default function PlaylistCarousel(props){
               <StyledSlider {...settings}>
               {selectData.map((playlist,index) => (
                 <Card key={index} sx={{ 
-                  maxWidth: 330 
+                  maxWidth: 330 ,
+                  height: 200
                   }}>
                   <CardActionArea>
                     <Box>
@@ -71,11 +72,11 @@ export default function PlaylistCarousel(props){
                         height='155px'
                         light={true}
                         muted={true}
-                        url={playlist.video_data_id.url} /></Box>
+                        url={playlist.video_data.url} /></Box>
                   </CardActionArea>
                  <CardActions>
                    <Button size="small" color="primary">
-                   {playlist.video_data_id.title}
+                   {playlist.video_data.title}
                    </Button>
                   </CardActions>
                 </Card>
@@ -94,11 +95,11 @@ export default function PlaylistCarousel(props){
                   height='155px'
                   light={true}
                   muted={true}
-                  url={playlist.video_data_id.url} /></Box>
+                  url={playlist.video_data.url} /></Box>
             </CardActionArea>
            <CardActions>
              <Button size="small" color="primary">
-             {playlist.video_data_id.title}
+             {playlist.video_data.title}
              </Button>
             </CardActions>
           </Card>

@@ -9,6 +9,7 @@ import { Typography } from "@mui/material";
 import Layout from "../../Layout";
 import axios from "axios";
 import WOW from "wowjs";
+import UserService from "../../service/user.service";
 
 const fetchedVideoInfo = {
   id: 1,
@@ -35,22 +36,17 @@ const Home = () => {
     setIsLoading((current) => !current);
   };
 
-  // const requestURL = async () => {
-  //   const fetchedVideoInfo = await axios
-  //     .post(
-  //       "elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000",
-  //       // "http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/videoInfo/",
-  //       { url: inputURL }
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       return response.data;
-  //     })
-  //     .catch((err) => {
-  //       console.ERR("ERRRORRR");
-  //     });
-  //   return fetchedVideoInfo;
-  // };
+const requestURL = async () => {
+  const fetchedVideoInfo =  await 
+  UserService.postSearchLog(inputURL)
+  .then((response) => {
+    console.log(response.data);
+    return response.data;
+  }).catch((err) => {
+    console.error(err);
+  });
+return fetchedVideoInfo;
+};
 
   const onClickButton = async () => {
     const regeX =

@@ -57,7 +57,9 @@ export default function Test(props){
     <div>
       <StyledSlider {...settings}>
         {props.searchlog.map((log,index) => (
-          <Card key={index} sx={{ maxWidth: 330 }}>
+          <Card key={index} sx={{ 
+            maxWidth: 330,
+            height: 200 }}>
             <CardActionArea>
               <Box>
                 <ReactPlayer
@@ -65,11 +67,11 @@ export default function Test(props){
                   height='155px'
                   light={true}
                   muted={true}
-                  url={log.video_id.url} /></Box>
+                  url={log.video_data.url} /></Box>
             </CardActionArea>
            <CardActions>
              <Button size="small" color="primary">
-             {log.video_id.title}
+             {log.video_data.title}
              </Button>
             </CardActions>
           </Card>
