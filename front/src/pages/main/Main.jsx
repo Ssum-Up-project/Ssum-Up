@@ -12,6 +12,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Button } from "../../components/Button";
 import Layout from "../Layout";
 
+
 const CONTENT = {
   SUMMARY: 'SUMMARY',
   SUBTITLE: 'SUBTITLE',
@@ -97,7 +98,7 @@ const Main = () => {
                   {currentUser
                     ?  <Category />
                     : (
-                    <div className="save_btn_main">
+                    <div className="save_btn_main">          
                       <Button
                         className="start_btn"
                         buttonStyle="btn--outline2"

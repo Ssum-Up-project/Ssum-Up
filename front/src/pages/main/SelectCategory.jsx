@@ -20,7 +20,17 @@ import FolderIcon from '@mui/icons-material/Folder';
 import AddIcon from '@mui/icons-material/Add';
 import UserService from "../../service/user.service";
 import { useLocation } from "react-router-dom";
+import Rating from '@mui/material/Rating';
+import { styled } from "@mui/material/styles";
 
+const StyledRating = styled(Rating)({
+  "& .MuiRating-iconFilled": {
+    color: "black"
+  },
+  "& .MuiRating-iconHover": {
+    color: "gray"
+  }
+});
 
 function Category(props) {
   //플레이리스트 데이터 호출
@@ -109,6 +119,7 @@ function Category(props) {
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(undefined);
     const [saveError,setSaverError] = useState(false);
+    const [rating, setRating] = useState(5)
     
     const { state } = useLocation()
   
@@ -132,9 +143,30 @@ function Category(props) {
         console.log(err);
       });
     };
+
+    const handleRating = async(value) => {
+      setRating(value);
+      UserService.postRating(state.video.id, value)//앞이 비디오 데이터id 뒤가 평가rating
+      .then(() => {
+        setOpen(false);
+        // window.location.reload();
+      })
+      .catch(function (err) {
+        setSaverError(true)
+        console.log(err);
+      });
+    };
   
     return (
       <div>
+        {/* <p>{rating}</p> */}
+        <StyledRating
+          name="simple-controlled"
+          value={rating}
+          onChange={(event, newRating) => {
+            handleRating(newRating)
+          }}
+        />
         <Button       
           sx={{      
                 height: 40 ,    

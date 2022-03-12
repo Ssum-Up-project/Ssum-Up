@@ -1,6 +1,8 @@
 import axios from 'axios';
 import authHeader from './auth-header';
-const API_URL = 'http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/';
+const API_URL = 'http://127.0.0.1:8000/api/';
+// 'http://elice-kdt-3rd-team04.koreacentral.cloudapp.azure.com:5000/api/';
+
 
 
 const getPlayList = () => {
@@ -16,10 +18,15 @@ const getSearchLog = () => {
 const postVideoData = async (url) => {
     return axios.post(API_URL + "videodata/", {url}, { headers: authHeader()});
 };
+const postRating = async (video_data_id, rating) => {
+  return axios.post(API_URL + "rating/", {video_data_id, rating}, 
+  { headers: authHeader()});
+};
 
 export default {
     getSearchLog,
     postPlayList,
     getPlayList,
     postVideoData,
+    postRating,
 };
