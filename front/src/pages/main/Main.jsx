@@ -1,134 +1,119 @@
 import "./Main.css";
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Youtube from "./Youtube";
 import Summary from "./Summary";
 import Subtitle from "./Subtitle";
 import Translation from "./Translation";
-import LoginModal from "../login/LogInModal"
 import AuthService from "../../service/auth.service"
 import Category from "./SelectCategory"
-import { ToggleButton, ToggleButtonGroup,Modal } from "@mui/material";
+import "./Main.css";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Button } from "../../components/Button";
 import Layout from "../Layout";
-import { VideoStateContext } from "../../context/AppWrapper";
 
+const CONTENT = {
+  SUMMARY: 'SUMMARY',
+  SUBTITLE: 'SUBTITLE',
+  TRANSLATION : 'TRANSLATION'
+}
 
 const Main = () => {
-  const state = useContext(VideoStateContext);
+  const navigate = useNavigate();
+  const { state } = useLocation()
+  
+  const [currentUser, setCurrentUser] = useState(undefined);
   const [alignment, setAlignment] = useState("left");
-  const [showingSummary, setShowingSummary] = useState(true);
-  const [showingSubtitle, setShowingSubtitle] = useState(false);
-  const [showingTranslation, setShowingTranslation] = useState(false);
+  const [showingContent, setShowingContent] = useState(CONTENT.SUMMARY)
+  
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
+
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
     }
   };
 
-  const showText = () => {
-    if (showingSummary) {
-      return <Summary />;
-    } else if (!showingSummary && showingSubtitle) {
-      return <Translation />;
-    } else if (showingTranslation && !showingSubtitle) {
-      return <Subtitle />;
-    }
-  };
-    //로그인한 유저인지 아닌지 확인
-    const [currentUser, setCurrentUser] = useState(undefined);
-    useEffect(() => {
-      const user = AuthService.getCurrentUser();
-      if (user) {
-        setCurrentUser(user);
-      }
-    }, []);
-
-    const [open, setOpen] = useState(false);
-  
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
   return (
     <Layout>
       <div className="Main">
         <div className="line">
-          <div className="container">
-            <section className="section">
-              <div className="youtube_container">
-                <Youtube></Youtube>
-              </div>
-            </section>
-          </div>
-
-          <div className="container">
-            <section className="section_text">
-              <div className="text_container_main">
-                <ToggleButtonGroup
-                  value={alignment}
-                  exclusive
-                  onChange={handleAlignment}
-                  aria-label="text alignment"
-                  fullWidth
-                >
-                  <ToggleButton
-                    value="left"
-                    aria-label="left aligned"
-                    onClick={(e) => {
-                      setShowingSummary(true);
-                    }}
+          {state ? (<>
+            <div className="container">
+              <section className="section">
+                <div className="youtube_container">
+                  <Youtube videoInfo={state.video}/>
+                </div>
+              </section>
+            </div>
+          
+            <div className="container">
+              <section className="section_text">
+                <div className="text_container_main">
+                  <ToggleButtonGroup
+                    value={alignment}
+                    exclusive
+                    onChange={handleAlignment}
+                    aria-label="text alignment"
+                    fullWidth
                   >
-                    요약
-                  </ToggleButton>
-                  <ToggleButton
-                    value="center"
-                    aria-label="centered"
-                    onClick={(e) => {
-                      setShowingSubtitle(true);
-                      setShowingSummary(false);
-                      setShowingTranslation(false);
-                    }}
-                  >
-                    번역
-                  </ToggleButton>
-                  <ToggleButton
-                    value="right"
-                    aria-label="right aligned"
-                    onClick={(e) => {
-                      setShowingTranslation(true);
-                      setShowingSummary(false);
-                      setShowingSubtitle(false);
-                    }}
-                  >
-                    전체 영상
-                  </ToggleButton>
-                </ToggleButtonGroup>
-
-                <div>{showText()}</div>
-
-                {currentUser?
-                (<Category/>):
-                (
-                  <div className="save_btn_main">
-                  <Button
-                    className="start_btn"
-                    buttonStyle="btn--outline2"
-                    buttonSize="btn--large"
-                    onClick={handleOpen}
-                  >
-                    저장
-                  </Button>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="child-modal-title"
-                    aria-describedby="child-modal-description"
-                  >
-                  <LoginModal />
-                </Modal>
-                </div>)}
-              </div>
-            </section>
-          </div>
+                    <ToggleButton
+                      value="left"
+                      aria-label="left aligned"
+                      onClick={() => setShowingContent(CONTENT.SUMMARY)}
+                    >
+                      요약
+                    </ToggleButton>
+                    <ToggleButton
+                      value="center"
+                      aria-label="centered"
+                      onClick={() => setShowingContent(CONTENT.TRANSLATION)}
+                    >
+                      번역
+                    </ToggleButton>
+                    <ToggleButton
+                      value="right"
+                      aria-label="right aligned"
+                      onClick={() => setShowingContent(CONTENT.SUBTITLE)}
+                    >
+                      전체 영상
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  {showingContent === CONTENT.SUMMARY && (
+                    <Summary videoInfo={state.video}/>
+                  )}
+                  {showingContent === CONTENT.TRANSLATION && (
+                    <Translation videoInfo={state.video}/>
+                  )}
+                  {showingContent === CONTENT.SUBTITLE && (
+                    <Subtitle videoInfo={state.video}/>
+                  )}
+                  
+                  {currentUser
+                    ?  <Category />
+                    : (
+                    <div className="save_btn_main">
+                      <Button
+                        className="start_btn"
+                        buttonStyle="btn--outline2"
+                        buttonSize="btn--large"
+                        onClick={() => navigate("/log-in")}
+                      >
+                        저장
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </section>
+            </div>
+            </>): (
+              <p>요청된 URL이 없습니다.</p>
+            )}
         </div>
       </div>
     </Layout>

@@ -1,36 +1,32 @@
 import "../../App.css";
 import "./Home.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
-import { VideoDispatchContext } from "../../context/AppWrapper";
 import LoadingModal from "../../components/LoadingModal";
 import { Typography } from "@mui/material";
 import Layout from "../../Layout";
-import axios from "axios";
+// import axios from "axios";
 import WOW from "wowjs";
 import UserService from "../../service/user.service";
 
-const fetchedVideoInfo = {
-  id: 1,
-  url: "https://www.youtube.com/watch?v=dKmHLAKQ5PI&ab_channel=TED",
-  title: "title value",
-  subtitles: "subtitles value",
-  summarized_subtitles: "summarized subtitle sample value33333",
-};
+// const fetchedVideoInfo = {
+//   id: 1,
+//   url: "https://www.youtube.com/watch?v=dKmHLAKQ5PI&ab_channel=TED",
+//   title: "title value",
+//   subtitles: "subtitles value",
+//   summarized_subtitles: "summarized subtitle sample value33333",
+//   translation: 'translated'
+// };
 
 const Home = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [inputURL, setinputURL] = useState();
-  const videoDispatch = useContext(VideoDispatchContext);
 
   useEffect(() => {
     new WOW.WOW().init();
   }, []);
-  useEffect(() => {
-    console.log("Loading", isLoading);
-  }, [isLoading]);
 
   const changeLoadingState = () => {
     setIsLoading((current) => !current);
@@ -54,20 +50,14 @@ return fetchedVideoInfo;
 
     if (regeX.test(inputURL)) {
       changeLoadingState();
-
-      // 위 requestURL 함수 사용할 경우 아래 주석 풀기
-      // const fetchedVideoInfo = await requestURL();
+      const fetchedVideoInfo = await requestURL();
       localStorage.setItem("storedURL", JSON.stringify(inputURL));
-      videoDispatch(fetchedVideoInfo);
 
-      setTimeout(() => {
-        changeLoadingState();
-        navigate("/main");
-      }, [2000]);
-      console.log(localStorage);
-      // 위 setTiemout 안 쓸 경우 여기 주석 풀기
-      // changeLoadingState();
-      // navigate("/main");
+      navigate("/main", {
+        state: {
+          video: fetchedVideoInfo
+        }
+      });
     } else {
       alert("URL을 확인해주세요.");
     }
@@ -120,6 +110,7 @@ return fetchedVideoInfo;
           </Button>
         </div>
         {isLoading && <LoadingModal />}
+        {/* <LoadingModal /> */}
       </div>
     </Layout>
   );

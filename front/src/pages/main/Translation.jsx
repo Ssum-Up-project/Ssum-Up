@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
-import { VideoStateContext } from "../../context/AppWrapper";
 
-const Translation = () => {
-  const state = useContext(VideoStateContext);
-
+const Translation = ({ videoInfo }) => {
   return (
     <Box
       sx={{
@@ -21,7 +18,11 @@ const Translation = () => {
         height: "22.4rem",
       }}
     >
-      {state.translation}
+      <p style={{
+        color: 'black'
+      }}>
+        {videoInfo.translated_subtitles}
+      </p>
     </Box>
   );
 };

@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import { VideoStateContext } from "../../context/AppWrapper";
+import React from "react";
 import Box from "@mui/material/Box";
 
-const Subtitle = () => {
-  const videoState = useContext(VideoStateContext);
+const Subtitle = ({ videoInfo }) => {
   return (
     <Box
       sx={{
@@ -19,7 +17,11 @@ const Subtitle = () => {
         maxWidth: "95vh",
         height: "22.4rem", // backgroundColor: "#F2F2F2",
       }}>
-      {videoState.subtitles}
+      <p style={{
+        color: 'black'
+      }}>
+        {videoInfo.subtitles}
+      </p>
     </Box>
   );
 };

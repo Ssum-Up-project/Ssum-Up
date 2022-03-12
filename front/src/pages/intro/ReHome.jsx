@@ -3,7 +3,7 @@ import "./Home.css";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/Button";
-import { VideoDispatchContext } from "../../context/AppWrapper";
+// import { VideoDispatchContext } from "../../context/AppWrapper";
 import LoadingModal from "../../components/LoadingModal";
 import { Typography } from "@mui/material";
 import Layout from "../../Layout";
@@ -14,7 +14,7 @@ const ReHome = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [inputURL, setinputURL] = useState();
-  const videoDispatch = useContext(VideoDispatchContext);
+  // const videoDispatch = useContext(VideoDispatchContext);
 
   useEffect(() => {
     new WOW.WOW().init();
@@ -40,7 +40,7 @@ const ReHome = () => {
         return response.data;
       })
       .catch((err) => {
-        console.ERR("ERRRORRR");
+        console.error(err);
       });
     return fetchedVideoInfo;
   };
@@ -54,7 +54,7 @@ const ReHome = () => {
 
       const fetchedVideoInfo = await requestURL();
       localStorage.setItem("storedURL", JSON.stringify(inputURL));
-      videoDispatch(fetchedVideoInfo);
+      // videoDispatch(fetchedVideoInfo);
 
       setTimeout(() => {
         changeLoadingState();

@@ -1,20 +1,9 @@
 // [#28]
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
-import { VideoStateContext } from "../../context/AppWrapper";
 
-const Youtube = () => {
-  // const [storedURL, setStoredURL] = useState();
-
-  // useEffect(() => {
-  //   const inputURL = localStorage.getItem("storedURL");
-  //   if (storedURL !== null) {
-  //     setStoredURL(inputURL);
-  //   }
-  // }, [storedURL]);
-
-  const state = useContext(VideoStateContext);
-  const [playerURL, setPlayerURL] = useState();
+const Youtube = ({ videoInfo }) => {
+  const [playerURL, setPlayerURL] = useState(videoInfo);
 
   useEffect(() => {
     const storedUrlStringified = localStorage.getItem("storedURL");
