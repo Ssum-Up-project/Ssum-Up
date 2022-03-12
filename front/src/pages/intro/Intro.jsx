@@ -52,7 +52,9 @@ const Intro = () => {
       </div>
 
       <div className="img__container">
-        <video src="/videos/intro_mov.mp4" autoPlay loop muted></video>
+        <div className="img__wrapper">
+          <video src="/videos/intro_mov.mp4" autoPlay loop muted></video>
+        </div>
       </div>
     </div>
   );

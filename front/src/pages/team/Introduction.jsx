@@ -4,7 +4,9 @@ import "./Team.css";
 const Introduction = () => {
   return (
     <div className="Introduction">
-      <div className="Introduction__title">What</div>
+      <div className="Introduction__title">
+        <h1>What</h1>
+      </div>
 
       <div className="Introduction__text">
         <p>
