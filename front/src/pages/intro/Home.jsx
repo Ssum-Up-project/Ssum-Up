@@ -32,17 +32,17 @@ const Home = () => {
     setIsLoading((current) => !current);
   };
 
-const requestURL = async () => {
-  const fetchedVideoInfo =  await 
-  UserService.postSearchLog(inputURL)
-  .then((response) => {
-    console.log(response.data);
-    return response.data;
-  }).catch((err) => {
-    console.error(err);
-  });
-return fetchedVideoInfo;
-};
+  const requestURL = async () => {
+    const fetchedVideoInfo = await UserService.postSearchLog(inputURL)
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    return fetchedVideoInfo;
+  };
 
   const onClickButton = async () => {
     const regeX =
@@ -55,8 +55,8 @@ return fetchedVideoInfo;
 
       navigate("/main", {
         state: {
-          video: fetchedVideoInfo
-        }
+          video: fetchedVideoInfo,
+        },
       });
     } else {
       alert("URL을 확인해주세요.");
@@ -66,30 +66,22 @@ return fetchedVideoInfo;
   return (
     <Layout>
       <div className="Home">
-        <div className="typography">
-          <Typography
-            className="wow fadeInUp"
-            variant="h3"
-            gutterBottom
-            component="h3"
-            color="#f7f7f9"
-          >
-            {/* 영어 영상, 요약해서 핵심만 빠르게 파악해 */}
-          </Typography>
-          <Typography
-            className="wow fadeInUp"
-            variant="h3"
-            gutterBottom
-            component="h3"
-            color="#f7f7f9"
-          >
-            {/* 당신의 소중한 시간을 아껴보세요. */}
-          </Typography>
-        </div>
-        <div>
+        <section className="banner major">
+          <div className="inner">
+            <header className="major">
+              <h1>Youtube,</h1>
+            </header>
+            <div className="content">
+              <p>
+                요약해서 핵심만 빠르게 파악해
+                <br />
+                당신의 소중한 시간을 아껴보세요.
+              </p>
+            </div>
+          </div>
           <form>
             <input
-              className="input_url wow fadeInUp"
+              className="wow fadeInUp"
               value={inputURL}
               onChange={(e) => setinputURL(e.target.value)}
               type="text"
@@ -97,20 +89,53 @@ return fetchedVideoInfo;
               placeholder="url"
             />
           </form>
+          <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
+            <Button
+              className="start_btn"
+              buttonStyle="btn--outline2"
+              buttonSize="btn--large"
+              onClick={onClickButton}
+            >
+              요약 하기
+            </Button>
+          </div>
+        </section>
+
+        {/* <div className="home_text">
+          <div className="home_h1">
+            <h1>영어 영상,</h1>
+          </div>
+          <div className="home_p1">
+            <p>요약해서 핵심만 빠르게 파악해</p>
+          </div>
+          <div className="home_p2">
+            <p>당신의 소중한 시간을 아껴보세요.</p>
+          </div>
         </div>
 
-        <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
-          <Button
-            className="start_btn"
-            buttonStyle="btn--outline2"
-            buttonSize="btn--large"
-            onClick={onClickButton}
-          >
-            요약 하기
-          </Button>
-        </div>
-        {isLoading && <LoadingModal />}
-        {/* <LoadingModal /> */}
+        <div className="input_url">
+          <form>
+            <input
+              className="wow fadeInUp"
+              value={inputURL}
+              onChange={(e) => setinputURL(e.target.value)}
+              type="text"
+              name="inputURL"
+              placeholder="url"
+            />
+          </form>
+          <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
+            <Button
+              className="start_btn"
+              buttonStyle="btn--outline2"
+              buttonSize="btn--large"
+              onClick={onClickButton}
+            >
+              요약 하기
+            </Button>
+          </div>
+          {isLoading && <LoadingModal />}
+        </div>*/}
       </div>
     </Layout>
   );
