@@ -11,6 +11,11 @@
   position: relative;
   top: -3.25em;
   margin-left: 90px;
+  align-items: center;
+}
+
+.inner {
+  margin-left: 90px;
 }
 
 .banner h1 {
@@ -92,6 +97,7 @@ input {
   }
 }
 
+/* mobile */
 @media screen and (max-width: 480px) {
   .banner {
     padding: 6em 0 2em 0;

@@ -5,7 +5,7 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 const override = {
   display: "block",
   // margin: "auto",
-  marginRight: "50px",
+  marginRight: "200px",
   borderColor: "red",
 };
 
@@ -15,7 +15,7 @@ const LoadingModal = () => {
   return (
     <div className="modalBg">
       <h1 className="modalTxt">요약 중</h1>
-      <div>
+      <div style={{ marginRight: "200px" }}>
         <PropagateLoader
           color={"#E05448"}
           // loading={true}

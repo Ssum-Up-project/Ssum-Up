@@ -79,42 +79,32 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <form>
-            <input
-              className="wow fadeInUp"
-              value={inputURL}
-              onChange={(e) => setinputURL(e.target.value)}
-              type="text"
-              name="inputURL"
-              placeholder="url"
-            />
-          </form>
-          <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
-            <Button
-              className="start_btn"
-              buttonStyle="btn--outline2"
-              buttonSize="btn--large"
-              onClick={onClickButton}
-            >
-              요약 하기
-            </Button>
+          <div>
+            <form>
+              <input
+                className="wow fadeInUp"
+                value={inputURL}
+                onChange={(e) => setinputURL(e.target.value)}
+                type="text"
+                name="inputURL"
+                placeholder="url"
+              />
+            </form>
+            <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
+              <Button
+                className="start_btn"
+                buttonStyle="btn--outline2"
+                buttonSize="btn--large"
+                onClick={onClickButton}
+              >
+                요약 하기
+              </Button>
+            </div>
           </div>
         </section>
 
-        {/* <div className="home_text">
-          <div className="home_h1">
-            <h1>영어 영상,</h1>
-          </div>
-          <div className="home_p1">
-            <p>요약해서 핵심만 빠르게 파악해</p>
-          </div>
-          <div className="home_p2">
-            <p>당신의 소중한 시간을 아껴보세요.</p>
-          </div>
-        </div>
-
         <div className="input_url">
-          <form>
+          {/* <form>
             <input
               className="wow fadeInUp"
               value={inputURL}
@@ -123,8 +113,8 @@ const Home = () => {
               name="inputURL"
               placeholder="url"
             />
-          </form>
-          <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
+          </form> */}
+          {/* <div className="sumup_btn wow fadeIn" style={{ margin: "3rem" }}>
             <Button
               className="start_btn"
               buttonStyle="btn--outline2"
@@ -133,9 +123,10 @@ const Home = () => {
             >
               요약 하기
             </Button>
-          </div>
-          {isLoading && <LoadingModal />}
-        </div>*/}
+          </div> */}
+          {/* {isLoading && <LoadingModal />} */}
+          <LoadingModal />
+        </div>
       </div>
     </Layout>
   );

@@ -16,6 +16,10 @@ video {
   color: #f7f7f9;
   font-weight: bold;
 }
+.intro_logo {
+  width: 900px;
+  height: auto;
+}
 
 .text_container {
   text-align: left;

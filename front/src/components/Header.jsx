@@ -66,7 +66,12 @@ function Header() {
       <nav className="Header">
         <div className="Header-container">
           <Link to="/" className="Header-logo" onClick={closeMobileMenu}>
-            (LOGO)
+            <img
+              src="image/logo_white.png"
+              alt="logo"
+              className="intro_logo"
+              style={{ width: "200px", height: "auto" }}
+            />
             {/* <i class="fab fa-typo3" /> */}
           </Link>
 
@@ -76,12 +81,12 @@ function Header() {
 
           {/* Nav menu */}
           <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li className="nav-item">
+            <li className="nav-item" style={{ marginTop: "10px" }}>
               <Link to="/" className="nav-links" onClick={closeMobileMenu}>
                 Home
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" style={{ marginTop: "10px" }}>
               <Link to="/team" className="nav-links" onClick={closeMobileMenu}>
                 About Team
               </Link>
@@ -102,18 +107,11 @@ function Header() {
                   <Link to="/" className="nav-links" onClick={logOut}>
                     LogOut
                   </Link>
-                  {/* <Button
-                    onClick={logOut}
-                    buttonStyle="btn--outline"
-                    buttonSize="btn--large"
-                  >
-                    LogOut
-                  </Button> */}
                 </li>
               </>
             ) : (
               <>
-                <li className="nav-item">
+                <li className="nav-item" style={{ marginTop: "33px" }}>
                   <Button
                     buttonStyle="btn--outline"
                     className="nav-links"
@@ -130,7 +128,7 @@ function Header() {
                     <LogInModal />
                   </Modal>
                 </li>
-                <li>
+                <li style={{ marginTop: "33px" }}>
                   <Button
                     buttonStyle="btn--outline"
                     className="nav-links-mobile"

@@ -3,6 +3,10 @@ import React from "react";
 import { createGlobalStyle, GlobalStyles } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+*{
+  font-family: 'Roboto', sans-serif;
+
+}
 body {
   background-color: #D2302C;
   border-radius: 3px;}
