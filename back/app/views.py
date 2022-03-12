@@ -14,7 +14,6 @@ from rest_framework import permissions
 
 from .serializers import PlayListSerializer
 from .serializers import PlayListDetailSerializer
-from .serializers import VideoDataListSerializer
 from .serializers import VideoDataPostSerializer
 from .serializers import VideoDataResponseSerializer
 from .serializers import SearchLogSerializer
@@ -92,26 +91,6 @@ class PlayListDetail(APIView):
             return PlayList.objects.get(pk=pk)
         except PlayList.DoesNotExist:
             return Http404
-
-    @swagger_auto_schema(
-        request_body=PlayListSerializer,
-        responses={
-            status.HTTP_200_OK: PlayListSerializer,
-            status.HTTP_400_BAD_REQUEST: "잘못된 요청",
-        }
-    )
-    def put(self, request, pk, format=None):
-        '''
-        플레이리스트 수정
-
-        playlist의 이름을 수정
-        '''
-        playlist = self.get_object(pk)
-        serializer = PlayListSerializer(playlist, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema(
         responses={

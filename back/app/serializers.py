@@ -27,6 +27,7 @@ class PlayListSerializer(serializers.ModelSerializer):
         user_id = serializers.ReadOnlyField(source="user.id")
         fields = '__all__'
 
+
 class PlayListPostSerializer(serializers.ModelSerializer):
     """
     플레이리스트(카테고리) 생성, 삭제
@@ -48,15 +49,6 @@ class PlayListPostSerializer(serializers.ModelSerializer):
         playlist.save()
 
         return playlist
-
-
-
-class VideoDataListSerializer(serializers.ModelSerializer):
-    """동영상 목록 조회"""
-
-    class Meta:
-        model = VideoData
-        fields = ["id", "url", "title", "summarized_subtitles"]
 
 
 class VideoDataResponseSerializer(serializers.ModelSerializer):
