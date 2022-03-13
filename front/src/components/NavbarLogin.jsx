@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
-import "../css/Navbar.css";
+import "./Navbar.css";
 
-function Navbar() {
+function NavbarLogin() {
   // const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
@@ -33,18 +33,26 @@ function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-container">
+        <div className="navbar-container-login">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             (LOGO)
             {/* <i class="fab fa-typo3" /> */}
           </Link>
+          <form>
+            <input
+              type="text"
+              name="link"
+              placeholder="링크 입력"
+              className="input_afterLogin"
+            />
+          </form>
 
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
           </div>
 
           {/* Nav menu */}
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <ul className={click ? "nav-menu active" : "nav-menu-login"}>
             <li className="nav-item">
               <Link to="/" className="nav-links" onClick={closeMobileMenu}>
                 Home
@@ -55,8 +63,6 @@ function Navbar() {
                 About Team
               </Link>
             </li>
-
-            {/* 로그인, 회원가입 - 링크아니고 모달 띄울 것 */}
             <li className="nav-item">
               <Link
                 to="/log-in"
@@ -77,6 +83,7 @@ function Navbar() {
               </Link>
             </li>
           </ul>
+
           {button && <Button buttonStyle="btn--outline">LOG IN</Button>}
           {button && <Button buttonStyle="btn--outline">SIGN UP</Button>}
         </div>
@@ -84,4 +91,4 @@ function Navbar() {
     </>
   );
 }
-export default Navbar;
+export default NavbarLogin;
