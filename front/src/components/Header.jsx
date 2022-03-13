@@ -141,7 +141,9 @@ function Header() {
                     aria-labelledby="child-modal-title"
                     aria-describedby="child-modal-description"
                   >
-                    <SignUpModal />
+                    <div>
+                      <SignUpModal closeModal={() => setSignUpOpen(false)} />
+                    </div>
                   </Modal>
                 </li>
               </>

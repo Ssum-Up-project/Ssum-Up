@@ -41,7 +41,7 @@ const Boxs = styled(Box)`
   padding-bottom: 40px;
 `;
 
-const Register = () => {
+const Register = ({ closeModal }) => {
   const [open, setOpen] = useState("");
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -72,7 +72,7 @@ const Register = () => {
       .then(function (response) {
         alert("가입되었습니다.");
         setOpen(true);
-        handleClose();
+        closeModal();
       })
       .catch(function (err) {
         console.error(err);
