@@ -5,6 +5,7 @@ import Translation from "./Translation";
 import Button from "../../components/Button";
 import "./Main.css";
 import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const TextContainer = () => {
   const [alignment, setAlignment] = React.useState("left");
@@ -88,7 +89,10 @@ const TextContainer = () => {
           minWidth: "30vh",
         }}
       >
-        저장하기
+        내 목록에 저장
+        <AddCircleOutlineIcon
+          style={{ marginLeft: "10px", marginBottom: "-6px" }}
+        />
       </Button>
     </div>
   );

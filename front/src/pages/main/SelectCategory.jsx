@@ -21,6 +21,7 @@ import { useLocation } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
 import { Button } from "../../components/Button";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -196,7 +197,10 @@ export default function SelectCategory() {
         variant="contained"
         onClick={handleClickOpen}
       >
-        저장하기
+        내 목록에 저장
+        <AddCircleOutlineIcon
+          style={{ marginLeft: "10px", marginBottom: "-6px" }}
+        />
       </Button>
       <Category
         selectedValue={selectedValue}

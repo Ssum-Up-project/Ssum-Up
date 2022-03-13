@@ -17,7 +17,7 @@
   display: flex;
   flex-flow: column;
   max-width: 1120px;
-  width: 90%;
+  width: 1100px;
   height: 60rem;
   margin: 0 auto;
 
@@ -45,8 +45,8 @@
 }
 
 .Introduction__text {
-  width: 465px;
-  height: 465px;
+  width: 660px;
+  height: auto;
   background: #f7f7f9;
   border: 2px solid #d2302c;
   color: #d2302c;
@@ -82,6 +82,8 @@
   flex: 1;
   margin: 0 1rem;
   border: 1.5px solid #d2302c;
+  width: 20rem;
+  height: 23rem;
 }
 
 .cards__item__link {
@@ -127,7 +129,7 @@
   bottom: 0;
   left: 0;
   display: block;
-  width: 100%;
+  width: 20rem;
   max-width: 100%;
   height: 100%;
   max-height: 100%;
@@ -144,7 +146,7 @@
 }
 
 .cards__item__text {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 24px;
 }
 
@@ -161,7 +163,11 @@
 }
 
 /* mobile */
+
 @media only screen and (max-width: 1090px) {
+  .cards__container {
+    width: 80px;
+  }
   .cards__item {
     margin-bottom: 2rem;
   }

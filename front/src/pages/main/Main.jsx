@@ -82,7 +82,7 @@ const Main = () => {
                         aria-label="right aligned"
                         onClick={() => setShowingContent(CONTENT.SUBTITLE)}
                       >
-                        전체 영상
+                        전체 자막
                       </ToggleButton>
                     </ToggleButtonGroup>
                     {showingContent === CONTENT.SUMMARY && (
@@ -105,7 +105,7 @@ const Main = () => {
                           buttonSize="btn--large"
                           onClick={() => navigate("/log-in")}
                         >
-                          저장
+                          내 목록에 저장
                         </Button>
                       </div>
                     )}
