@@ -9,7 +9,7 @@
   <a href="#서비스 소개">서비스 소개</a> • 
   <a href="#팀원">팀원</a> • 
   <a href="#기술 스택">기술 스택</a> •
-  <a href="#프로젝트 구성도">기능</a> •
+  <a href="#프로젝트 구성도">프로젝트 구성도</a> 
 </p>
 </br>
 
@@ -80,7 +80,6 @@
 
 ## ⚒️기술 스택
 
-
 ### Front-end   
  `React`  `MUI (Material-UI)` , `React-Slick`, `React-Player` , `JavaScript` , `HTML5` , `CSS`
 
@@ -98,7 +97,7 @@
 </br>
 
 
-## 📂 프로젝트 구성도
+## 📂프로젝트 구성도
 
 ### 유저 플로우차트(User Flowchart)
 <img width="700" src="doc/Untitled 1.png">
